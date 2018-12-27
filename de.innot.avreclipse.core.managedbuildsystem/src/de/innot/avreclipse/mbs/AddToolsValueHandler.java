@@ -21,6 +21,8 @@ import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.managedbuilder.core.ManagedOptionValueHandler;
 import org.eclipse.cdt.managedbuilder.internal.core.Tool;
 import org.eclipse.cdt.managedbuilder.internal.core.ToolChain;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 /**
  * Handle changes of additional build target options.
@@ -68,18 +70,18 @@ public class AddToolsValueHandler extends ManagedOptionValueHandler {
 	 */
 	@Override
 	public boolean handleValue(IBuildObject configuration,
-			IHoldsOptions holder, IOption option, String extraArgument,
-			int event) {
+								IHoldsOptions holder,
+								IOption option,
+								String extraArgument,
+								int event) {
 
 		Boolean value = null;
 		try {
 			value = option.getBooleanValue();
 		} catch (BuildException e1) {
 			// something wrong with the plugin.xml
-			e1.printStackTrace();
-			return false;
-		}
-		if (value == null) {
+			// Log the exception for debug
+			AVRMBSPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, AVRMBSPlugin.PLUGIN_ID, "Additional tools option value", e1));
 			return false;
 		}
 
@@ -147,7 +149,8 @@ public class AddToolsValueHandler extends ManagedOptionValueHandler {
 					fi.modifyToolChain(new ITool[0], add);
 				} catch (BuildException e) {
 					// What can cause this exception ?
-					e.printStackTrace();
+					// Log the exception for debug
+					AVRMBSPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, AVRMBSPlugin.PLUGIN_ID, "Additional tools modify tool chain error", e));
 					return false;
 				}
 //				System.out.println(add[0].getId() + " added");
@@ -190,7 +193,8 @@ public class AddToolsValueHandler extends ManagedOptionValueHandler {
 					fi.modifyToolChain(remove, new ITool[0]);
 				} catch (BuildException e) {
 					// What can cause this exception ?
-					e.printStackTrace();
+					// Log the exception for debug
+					AVRMBSPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, AVRMBSPlugin.PLUGIN_ID, "Additional tools modify tool chain error", e));
 					return false;
 				}
 //				System.out.println(remove[0].getId() + " removed");

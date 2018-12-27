@@ -12,41 +12,35 @@
  *******************************************************************************/
 package de.innot.avreclipse.ui.wizards;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
+import org.eclipse.cdt.core.model.CoreModel;
+import org.eclipse.cdt.core.settings.model.ICProjectDescription;
+import org.eclipse.cdt.internal.ui.wizards.ICDTCommonProjectWizard;
 import org.eclipse.cdt.managedbuilder.ui.wizards.MBSCustomPage;
 import org.eclipse.cdt.managedbuilder.ui.wizards.MBSCustomPageData;
 import org.eclipse.cdt.managedbuilder.ui.wizards.MBSCustomPageManager;
-import org.eclipse.cdt.ui.wizards.CDTCommonProjectWizard;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 
 import de.innot.avreclipse.AVRPlugin;
+import de.innot.avreclipse.core.arduino.ProjectConfigurator;
 import de.innot.avreclipse.core.natures.AVRProjectNature;
 import de.innot.avreclipse.core.properties.AVRProjectProperties;
 import de.innot.avreclipse.core.properties.ProjectPropertyManager;
-import de.innot.avreclipse.core.toolinfo.GCC;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
+import de.innot.avreclipse.ui.controls.MCUSelectControl;
+import de.innot.avreclipse.ui.controls.MCUSelectControl.DataEvent;
+import de.innot.avreclipse.ui.controls.MCUSelectControl.DataListener;
+import de.innot.avreclipse.ui.controls.MCUSelectControl.EventType;
 
 /**
  * New Project Wizard Page to set the default target MCU and its frequency.
@@ -64,23 +58,12 @@ import de.innot.avreclipse.core.util.AVRMCUidConverter;
  * @author Thomas Holland (thomas@innot.de)
  * @since 1.0
  */
-public class MCUselectPage extends MBSCustomPage implements Runnable {
+@SuppressWarnings("restriction")
+public class MCUSelectPage extends MBSCustomPage implements Runnable {
 
 	private final static String			PAGE_ID				= "de.innot.avreclipse.mcuselectpage";
-	private final static String			PROPERTY_MCU_NAME	= "mcuname";
-	private final static String			PROPERTY_MCU_FREQ	= "mcufreq";
-
-	private Composite					top;
-
-	private Set<String>					fMCUids				= null;
-	private String[]					fMCUNames			= null;
-
-	private String						fDefaultMCUName		= null;
-	private String						fDefaultFCPU		= null;
-
-	// GUI Widgets
-	private Combo						comboMCUtype;
-	private Text						textMCUfreq;
+	
+	private MCUSelectControl			fMCUControl;
 
 	private final AVRProjectProperties	fProperties;
 
@@ -92,7 +75,7 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 	 * </p>
 	 * 
 	 */
-	public MCUselectPage() {
+	public MCUSelectPage() {
 		// If the user does not click on "next", this constructor is
 		// the only thing called before the "run" method.
 		// Therefore we'll set the defaults here. They are set as
@@ -103,32 +86,10 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 
 		fProperties = ProjectPropertyManager.getDefaultProperties();
 
-		// Get the list of supported MCU id's from the compiler
-		// The list is then converted into an array of MCU names
-		try {
-			fMCUids = GCC.getDefault().getMCUList();
-		} catch (IOException e) {
-			// Could not start avr-gcc. Pop an Error Dialog and continue with an empty list
-			IStatus status = new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID,
-					"Could not execute avr-gcc. Please check the AVR paths in the preferences.", e);
-			ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					"AVR-GCC Execution fault", null, status);
-			fMCUids = new HashSet<String>();
-		}
-		String[] allmcuids = fMCUids.toArray(new String[fMCUids.size()]);
-		fMCUNames = new String[fMCUids.size()];
-		for (int i = 0; i < allmcuids.length; i++) {
-			fMCUNames[i] = AVRMCUidConverter.id2name(allmcuids[i]);
-		}
-		Arrays.sort(fMCUNames);
-
-		// get the defaults
-		fDefaultMCUName = fProperties.getMCUId();
-		fDefaultFCPU = fProperties.getFCPU();
-
 		// Set the default values as page properties
-		MBSCustomPageManager.addPageProperty(PAGE_ID, PROPERTY_MCU_NAME, fDefaultMCUName);
-		MBSCustomPageManager.addPageProperty(PAGE_ID, PROPERTY_MCU_FREQ, fDefaultFCPU);
+		MBSCustomPageManager.addPageProperty(PAGE_ID, EventType.MCU_ID.name(), fProperties.getMCUId());
+		MBSCustomPageManager.addPageProperty(PAGE_ID, EventType.F_CPU.name(), fProperties.getFCPU());
+		MBSCustomPageManager.addPageProperty(PAGE_ID, EventType.BOARD.name(), fProperties.getBoardId());
 	}
 
 	/*
@@ -147,57 +108,17 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 	 */
 	public void createControl(Composite parent) {
 		// some general layout work
-		GridData gridData = new GridData(GridData.FILL_BOTH);
-		gridData.horizontalAlignment = GridData.END;
-		top = new Composite(parent, SWT.NONE);
-		top.setLayout(new GridLayout(2, false));
-		top.setLayoutData(gridData);
 
-		// The MCU Selection Combo Widget
-		Label labelMCUtype = new Label(top, SWT.NONE);
-		labelMCUtype.setText("MCU Type:");
-
-		comboMCUtype = new Combo(top, SWT.READ_ONLY | SWT.DROP_DOWN);
-		comboMCUtype.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		comboMCUtype
-				.setToolTipText("Target MCU Type. Can be changed later via the project properties");
-		comboMCUtype.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event e) {
-				String value = comboMCUtype.getText();
-				MBSCustomPageManager.addPageProperty(PAGE_ID, PROPERTY_MCU_NAME, value);
+		fMCUControl = new MCUSelectControl(parent);
+		fMCUControl.setLayoutData(new GridData(GridData.FILL_BOTH));
+		fMCUControl.updateData(fProperties);
+		fMCUControl.addDataListener(new DataListener() {
+			
+			@Override
+			public void onModify(DataEvent event) {
+				MBSCustomPageManager.addPageProperty(PAGE_ID, event.type.name(), event.data);
 			}
 		});
-		comboMCUtype.setItems(fMCUNames);
-		comboMCUtype.select(comboMCUtype.indexOf(AVRMCUidConverter.id2name(fDefaultMCUName)));
-
-		// The CPU Frequency Selection Text Widget
-		Label labelMCUfreq = new Label(top, SWT.NONE);
-		labelMCUfreq.setText("MCU Frequency (Hz):");
-
-		textMCUfreq = new Text(top, SWT.BORDER | SWT.SINGLE);
-		textMCUfreq.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		textMCUfreq
-				.setToolTipText("Target MCU Clock Frequency. Can be changed later via the project properties");
-		textMCUfreq.addListener(SWT.FocusOut, new Listener() {
-			public void handleEvent(Event e) {
-				String value = textMCUfreq.getText();
-				MBSCustomPageManager.addPageProperty(PAGE_ID, PROPERTY_MCU_FREQ, value);
-			}
-		});
-		// filter non-digits from the input
-		textMCUfreq.addListener(SWT.Verify, new Listener() {
-			public void handleEvent(Event event) {
-				String text = event.text;
-				for (int i = 0; i < text.length(); i++) {
-					char ch = text.charAt(i);
-					if (!('0' <= ch && ch <= '9')) {
-						event.doit = false;
-						return;
-					}
-				}
-			}
-		});
-		textMCUfreq.setText(fDefaultFCPU);
 
 	}
 
@@ -207,7 +128,7 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 	 * @see org.eclipse.jface.dialogs.IDialogPage#dispose()
 	 */
 	public void dispose() {
-		top.dispose();
+		fMCUControl.dispose();
 	}
 
 	/*
@@ -216,7 +137,7 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 	 * @see org.eclipse.jface.dialogs.IDialogPage#getControl()
 	 */
 	public Control getControl() {
-		return top;
+		return fMCUControl;
 	}
 
 	/*
@@ -302,7 +223,7 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 	 * @see org.eclipse.jface.dialogs.IDialogPage#setVisible(boolean)
 	 */
 	public void setVisible(boolean visible) {
-		top.setVisible(visible);
+		fMCUControl.setVisible(visible);
 	}
 
 	/*
@@ -330,30 +251,40 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 		// configuration(s) with their toolchains have been set up.
 
 		// Is there a more elegant way to get to the Project?
+		// May be 'NO'.
+		// The problems in implementation of method 'org.eclipse.cdt.managedbuilder.ui.wizards.MBSWizardHandler.doCustom(IProject)'.
+		// That method ignores parameter 'IProject' (handler of newly created project) when invokes additional operations like this runnable. 
 		MBSCustomPageData pagedata = MBSCustomPageManager.getPageData(this.pageID);
-		CDTCommonProjectWizard wizz = (CDTCommonProjectWizard) pagedata.getWizardPage().getWizard();
+		
+		// In some case 'pagedata.getWizardPage().getWizard()' returns 'CCProjectWizard2' (which implements 'ICDTCommonProjectWizard')
+		ICDTCommonProjectWizard wizz = (ICDTCommonProjectWizard) pagedata.getWizardPage().getWizard();
 		IProject project = wizz.getLastProject();
 
-		ProjectPropertyManager projpropsmanager = ProjectPropertyManager
-				.getPropertyManager(project);
+		ProjectPropertyManager projpropsmanager = ProjectPropertyManager.getPropertyManager(project);
 		AVRProjectProperties props = projpropsmanager.getProjectProperties();
 
 		// Set the Project properties according to the selected values
 
 		// Get the id of the selected MCU and store it
-		String mcuname = (String) MBSCustomPageManager.getPageProperty(PAGE_ID, PROPERTY_MCU_NAME);
+		String mcuname = (String) MBSCustomPageManager.getPageProperty(PAGE_ID, EventType.MCU_ID.name());
 		String mcuid = AVRMCUidConverter.name2id(mcuname);
 		props.setMCUId(mcuid);
 
 		// Set the F_CPU and store it
-		String fcpu = (String) MBSCustomPageManager.getPageProperty(PAGE_ID, PROPERTY_MCU_FREQ);
+		String fcpu = (String) MBSCustomPageManager.getPageProperty(PAGE_ID, EventType.F_CPU.name());
 		props.setFCPU(fcpu);
+		
+		// Set the BOARD and store it
+		String boardId = (String) MBSCustomPageManager.getPageProperty(PAGE_ID, EventType.BOARD.name());
+		props.setBoardId(boardId);
 
 		try {
+			
 			props.save();
-		} catch (BackingStoreException e) {
+			
+		} catch (BackingStoreException ex) {
 			IStatus status = new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID,
-					"Could not write project properties to the preferences.", e);
+					"Could not write project properties to the preferences.", ex);
 
 			ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 					"AVR Project Wizard Error", null, status);
@@ -367,6 +298,21 @@ public class MCUselectPage extends MBSCustomPage implements Runnable {
 			IStatus status = new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID,
 					"Could not add AVR nature to project [" + project.toString() + "]", ce);
 			AVRPlugin.getDefault().log(status);
+		}
+		
+		if ((boardId != null)
+				&& !boardId.isEmpty()) {
+			try {
+				
+				ICProjectDescription pDesc = CoreModel.getDefault().getProjectDescription(project, true);
+				ProjectConfigurator.configureForArduino(pDesc, boardId);
+				CoreModel.getDefault().setProjectDescription(project, pDesc);
+				
+			} catch (CoreException ex) {
+	
+				ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						"Linking Arduino sources failed", null, ex.getStatus());
+			}
 		}
 
 	}

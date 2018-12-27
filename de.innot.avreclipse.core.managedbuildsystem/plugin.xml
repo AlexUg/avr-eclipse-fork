@@ -543,10 +543,12 @@
 	 			languageId="org.eclipse.cdt.core.gcc" 
 				scannerConfigDiscoveryProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC|org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile" />
 
-			<outputType id="de.innot.avreclipse.compiler.winavr.output"
-				name="Object Files"
-				outputs="o" 
-				buildVariable="OBJS" />
+			<outputType
+         buildVariable="OBJS"
+         id="de.innot.avreclipse.compiler.winavr.output"
+         name="Object Files"
+         nameProvider="de.innot.avreclipse.mbs.ObjectFileNameProvider"
+         outputs="o"/>
 		</tool>
 
 <!-- 
@@ -868,10 +870,12 @@
 				languageId="org.eclipse.cdt.core.g++"
 				scannerConfigDiscoveryProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP||org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile" />
           
-			<outputType id="de.innot.avreclipse.cppcompiler.output"
-				name="Object Files"
-				outputs="o"
-				buildVariable="OBJS" />
+			<outputType
+         buildVariable="OBJS"
+         id="de.innot.avreclipse.cppcompiler.output"
+         name="Object Files"
+         nameProvider="de.innot.avreclipse.mbs.ObjectFileNameProvider"
+         outputs="o"/>
 		</tool>
 
 <!-- 

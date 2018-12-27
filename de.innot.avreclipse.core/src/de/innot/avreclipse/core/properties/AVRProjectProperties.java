@@ -40,6 +40,10 @@ public class AVRProjectProperties {
 	private static final String KEY_FCPU = "ClockFrequency";
 	private static final int DEFAULT_FCPU = 1000000;
 	private int fFCPU;
+	
+	private static final String KEY_BOARD = "ArduinoBoard";
+	private static final String DEFAULT_BOARD = "";
+	private String fBoardId;
 
 	private static final String KEY_USE_EXT_RAM = "ExtendedRAM";
 	private static final boolean DEFAULT_USE_EXT_RAM = false;
@@ -122,6 +126,18 @@ public class AVRProjectProperties {
 		}
 	}
 
+	public String getBoardId() {
+		return fBoardId;
+	}
+
+	public void setBoardId(String boardId) {
+		if ((fBoardId == null)
+				|| !fBoardId.equals(boardId)) {
+			fBoardId = boardId;
+			fDirty = true;
+		}
+	}
+
 	public AVRDudeProperties getAVRDudeProperties() {
 		return fAVRDudeProperties;
 	}
@@ -132,6 +148,7 @@ public class AVRProjectProperties {
 	protected void loadData() {
 		fMCUid = fPrefs.get(KEY_MCUTYPE, DEFAULT_MCUTYPE);
 		fFCPU = fPrefs.getInt(KEY_FCPU, DEFAULT_FCPU);
+		fBoardId = fPrefs.get(KEY_BOARD, DEFAULT_BOARD);
 
 		fUseExtRAM = fPrefs.getBoolean(KEY_USE_EXT_RAM, DEFAULT_USE_EXT_RAM);
 		fExtRAMSize = fPrefs.getInt(KEY_EXT_RAM_SIZE, 0);
@@ -156,6 +173,7 @@ public class AVRProjectProperties {
 				fDirty = false;
 				fPrefs.put(KEY_MCUTYPE, fMCUid);
 				fPrefs.putInt(KEY_FCPU, fFCPU);
+				fPrefs.put(KEY_BOARD, fBoardId);
 
 				fPrefs.putBoolean(KEY_USE_EXT_RAM, fUseExtRAM);
 				fPrefs.putInt(KEY_EXT_RAM_SIZE, fExtRAMSize);

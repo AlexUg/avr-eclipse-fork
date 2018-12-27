@@ -19,3 +19,4 @@ Require-Bundle: de.innot.avreclipse.core;bundle-version="0.0.0",
  org.eclipse.cdt.managedbuilder.core,
  org.eclipse.cdt.core,
  org.eclipse.core.runtime
+Bundle-Activator: de.innot.avreclipse.mbs.AVRMBSPlugin

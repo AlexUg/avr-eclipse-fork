@@ -17,6 +17,7 @@ Require-Bundle:
  org.eclipse.core.expressions
 Export-Package: de.innot.avreclipse;uses:="org.eclipse.core.runtime,org.eclipse.ui.console,org.osgi.framework",
  de.innot.avreclipse.core,
+ de.innot.avreclipse.core.arduino,
  de.innot.avreclipse.core.avrdude;
   uses:="org.eclipse.core.runtime.jobs,
    org.eclipse.cdt.managedbuilder.core,

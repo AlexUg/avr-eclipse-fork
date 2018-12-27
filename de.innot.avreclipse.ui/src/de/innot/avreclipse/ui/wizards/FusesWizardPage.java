@@ -11,10 +11,6 @@
 package de.innot.avreclipse.ui.wizards;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
@@ -31,7 +27,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ISelection;
@@ -46,7 +42,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -65,6 +60,7 @@ import de.innot.avreclipse.core.toolinfo.fuses.ByteValues;
 import de.innot.avreclipse.core.toolinfo.fuses.FuseType;
 import de.innot.avreclipse.core.toolinfo.fuses.Fuses;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
+import de.innot.avreclipse.ui.controls.ComboControl;
 import de.innot.avreclipse.ui.dialogs.AVRDudeErrorDialogJob;
 import de.innot.avreclipse.ui.dialogs.SelectProgrammerDialog;
 
@@ -112,7 +108,7 @@ public class FusesWizardPage extends WizardPage {
 
 	private Text				fFileText;
 
-	private Combo				fMCUCombo;
+	private ComboControl		fMCUCombo;
 	private Button				fLoadButton;
 
 	private Button				fDefaultsButton;
@@ -211,8 +207,9 @@ public class FusesWizardPage extends WizardPage {
 		Label label = new Label(parent, SWT.NULL);
 		label.setText("Target &MCU");
 
-		fMCUCombo = new Combo(parent, SWT.READ_ONLY | SWT.DROP_DOWN);
+		fMCUCombo = new ComboControl(parent, Fuses.getDefault().getMCUList().toArray(new String[0]));
 		fMCUCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		fMCUCombo.setValue(AVRMCUidConverter.id2name("atmega16"));
 		fMCUCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -262,8 +259,7 @@ public class FusesWizardPage extends WizardPage {
 	 * to the active target MCU.
 	 */
 	private void initialize() {
-
-		String mcuid = "atmega16"; // The default mcu
+		
 		String filename = "new"; // The default filename
 
 		Object item = getSelectedItem(fSelection);
@@ -308,17 +304,6 @@ public class FusesWizardPage extends WizardPage {
 		}
 		// Set the filename
 		fFileText.setText(fullname);
-
-		// Build the list of MCUs with fuses for the MCU selection combo
-		// and select the active mcu
-		Set<String> allmcus = Fuses.getDefault().getMCUList();
-		List<String> mculist = new ArrayList<String>(allmcus);
-		Collections.sort(mculist);
-		for (String mcu : mculist) {
-			fMCUCombo.add(AVRMCUidConverter.id2name(mcu));
-		}
-		fMCUCombo.setVisibleItemCount(Math.min(mculist.size(), 20));
-		fMCUCombo.select(fMCUCombo.indexOf(AVRMCUidConverter.id2name(mcuid)));
 
 	}
 
@@ -484,8 +469,7 @@ public class FusesWizardPage extends WizardPage {
 	 * @return String with mcu id
 	 */
 	private String getMCUId() {
-		String mcuname = fMCUCombo.getItem(fMCUCombo.getSelectionIndex());
-		String mcuid = AVRMCUidConverter.name2id(mcuname);
+		String mcuid = AVRMCUidConverter.name2id(fMCUCombo.getValue());
 
 		return mcuid;
 	}
@@ -549,11 +533,11 @@ public class FusesWizardPage extends WizardPage {
 					AVRDude avrdude = AVRDude.getDefault();
 					switch (fType) {
 						case FUSE:
-							fLoadedValues = avrdude.getFuseBytes(progcfg, new SubProgressMonitor(
+							fLoadedValues = avrdude.getFuseBytes(progcfg, SubMonitor.convert(
 									monitor, 95));
 							break;
 						case LOCKBITS:
-							fLoadedValues = avrdude.getLockbits(progcfg, new SubProgressMonitor(
+							fLoadedValues = avrdude.getLockbits(progcfg, SubMonitor.convert(
 									monitor, 95));
 							break;
 					}
@@ -568,8 +552,7 @@ public class FusesWizardPage extends WizardPage {
 						fLoadButton.getDisplay().syncExec(new Runnable() {
 							public void run() {
 								String mcuid = fLoadedValues.getMCUId();
-								fMCUCombo.select(fMCUCombo
-										.indexOf(AVRMCUidConverter.id2name(mcuid)));
+								fMCUCombo.setValue(AVRMCUidConverter.id2name(mcuid));
 								fLoadedValuesButton.setEnabled(true);
 							}
 						});

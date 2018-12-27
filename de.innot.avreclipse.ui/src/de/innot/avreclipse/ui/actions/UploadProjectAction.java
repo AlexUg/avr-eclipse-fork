@@ -14,33 +14,25 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
 
-import org.eclipse.cdt.core.model.ICElement;
-import org.eclipse.cdt.core.model.ICProject;
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionDelegate;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.progress.UIJob;
 
@@ -65,7 +57,7 @@ import de.innot.avreclipse.ui.dialogs.AVRDudeErrorDialogJob;
  * @since 2.3 Added optional delay between avrdude invocations
  * 
  */
-public class UploadProjectAction extends ActionDelegate implements IWorkbenchWindowActionDelegate {
+public class UploadProjectAction extends AVRProjectAction implements IWorkbenchWindowActionDelegate {
 
 	private final static String	TITLE_UPLOAD			= "AVRDude Upload";
 
@@ -99,61 +91,11 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 
 	private final static String MSG_NEEDS_REBUILD       = "A rebuild is required before upload.";
 	
-	private IProject			fProject;
-
 	/**
 	 * Constructor for this Action.
 	 */
 	public UploadProjectAction() {
 		super();
-	}
-
-	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-
-		// The user has selected a different Workbench object.
-		// If it is an IProject we keep it.
-
-		Object item;
-
-		if (selection instanceof IStructuredSelection) {
-			item = ((IStructuredSelection) selection).getFirstElement();
-		} else {
-			return;
-		}
-		if (item == null) {
-			return;
-		}
-		IProject project = null;
-
-		// See if the given is an IProject (directly or via IAdaptable)
-		if (item instanceof IProject) {
-			project = (IProject) item;
-		} else if (item instanceof IResource) {
-			project = ((IResource) item).getProject();
-		} else if (item instanceof IAdaptable) {
-			IAdaptable adaptable = (IAdaptable) item;
-			project = (IProject) adaptable.getAdapter(IProject.class);
-			if (project == null) {
-				// Try ICProject -> IProject
-				ICProject cproject = (ICProject) adaptable.getAdapter(ICProject.class);
-				if (cproject == null) {
-					// Try ICElement -> ICProject -> IProject
-					ICElement celement = (ICElement) adaptable.getAdapter(ICElement.class);
-					if (celement != null) {
-						cproject = celement.getCProject();
-					}
-				}
-				if (cproject != null) {
-					project = cproject.getProject();
-				}
-			}
-		}
-
-		fProject = project;
 	}
 
 	/**
@@ -164,7 +106,7 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 
 		// Check that we have a AVR Project
 		try {
-			if (fProject == null || !fProject.hasNature("de.innot.avreclipse.core.avrnature")) {
+			if (getProject() == null || !getProject().hasNature("de.innot.avreclipse.core.avrnature")) {
 				MessageDialog.openError(getShell(), TITLE_UPLOAD, MSG_NOPROJECT);
 				return;
 			}
@@ -176,7 +118,7 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 		}
 
 		// Get the active build configuration
-		IManagedBuildInfo bi = ManagedBuildManager.getBuildInfo(fProject);
+		IManagedBuildInfo bi = ManagedBuildManager.getBuildInfo(getProject());
 		IConfiguration activecfg = bi.getDefaultConfiguration();
 		
 		// Check if project needs to be rebuild (e.g. MCU type changed)
@@ -186,7 +128,7 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 		}
 
 		// Get the avr properties for the active configuration
-		AVRProjectProperties targetprops = ProjectPropertyManager.getPropertyManager(fProject)
+		AVRProjectProperties targetprops = ProjectPropertyManager.getPropertyManager(getProject())
 				.getActiveProperties();
 
 		// Check if the avrdude properties are valid.
@@ -220,7 +162,7 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 	 */
 	private boolean checkProperties(IConfiguration buildcfg, AVRProjectProperties props) {
 
-		boolean perconfig = ProjectPropertyManager.getPropertyManager(fProject).isPerConfig();
+		boolean perconfig = ProjectPropertyManager.getPropertyManager(getProject()).isPerConfig();
 		String source = perconfig ? SOURCE_BUILDCONFIG : SOURCE_PROJECT;
 
 		// Check that a Programmer has been selected
@@ -391,7 +333,7 @@ public class UploadProjectAction extends ActionDelegate implements IWorkbenchWin
 				monitor.subTask("Running AVRDude");
 
 				// Now avrdude can be started.
-				avrdude.runCommand(fOptions, new SubProgressMonitor(monitor, 1), true, fCwd,
+				avrdude.runCommand(fOptions, SubMonitor.convert(monitor, 1), true, fCwd,
 						fProgrammerConfig);
 
 			} catch (AVRDudeException ade) {

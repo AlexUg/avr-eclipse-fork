@@ -23,7 +23,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -32,6 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.innot.avreclipse.core.toolinfo.fuses.ByteValues;
 import de.innot.avreclipse.core.toolinfo.fuses.Fuses;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
+import de.innot.avreclipse.ui.controls.ComboControl;
 
 /**
  * Dialog to select a MCU.
@@ -57,7 +57,7 @@ public class ChangeMCUDialog extends TitleAreaDialog {
 	private String				fNewMCU;
 
 	// The GUI elements
-	private Combo				fMCUCombo;
+	private ComboControl		fMCUCombo;
 	private Button				fOKButton;
 
 	private final static int	OK_ID			= IDialogConstants.OK_ID;
@@ -137,15 +137,13 @@ public class ChangeMCUDialog extends TitleAreaDialog {
 			}
 		}
 
-		fMCUCombo = new Combo(body, SWT.READ_ONLY);
-		fMCUCombo.setItems(allmcunames);
-		fMCUCombo.setVisibleItemCount(Math.min(allmcunames.length, 25));
-		fMCUCombo.select(oldmcuindex);
+		fMCUCombo = new ComboControl(body, allmcunames);
+		fMCUCombo.setValue(allmcunames[oldmcuindex]);
 		fMCUCombo.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				fNewMCU = allmcuids[fMCUCombo.getSelectionIndex()];
+				fNewMCU = AVRMCUidConverter.name2id(fMCUCombo.getValue());
 				boolean isCompatible = fSourceValues.isCompatibleWith(fNewMCU);
 				fOKButton.setText(isCompatible ? TEXT_OK : TEXT_CONVERT);
 				if (!isCompatible) {

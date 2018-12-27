@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
@@ -147,7 +147,7 @@ public class NewFusesWizard extends Wizard implements INewWizard {
 			provider.connect(file);
 			provider.aboutToChange(file);
 			provider.setByteValues(file, newvalues);
-			provider.saveDocument(new SubProgressMonitor(monitor, 1), file, provider
+			provider.saveDocument(SubMonitor.convert(monitor, 1), file, provider
 					.getDocument(file), true);
 			provider.changed(file);
 			provider.disconnect(file);

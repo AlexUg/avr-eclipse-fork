@@ -133,6 +133,18 @@
 				label="Upload Project to Target Device"
 				menubarPath="de.innot.avreclipse.menu.popup.avr/upload">
 			</action>
+   <action
+         class="de.innot.avreclipse.ui.actions.LinkSourceFolderAction"
+         id="de.innot.avreclipse.actions.linksrcfolder"
+         label="Link Source Folder"
+         menubarPath="de.innot.avreclipse.menu.popup.avr/upload">
+   </action>
+   <action
+         class="de.innot.avreclipse.ui.actions.FixIncludesAction"
+         id="de.innot.avreclipse.actions.fixincludes"
+         label="Fix includes"
+         menubarPath="de.innot.avreclipse.menu.popup.avr/upload">
+   </action>
 			<visibility>
 				<objectState name="projectNature"
 					value="de.innot.avreclipse.core.avrnature">
@@ -362,8 +374,8 @@
 		id="de.innot.avreclipse.wizardpage" 
 		name="AVR Wizard Pages" >
 		<wizardPage ID="de.innot.avreclipse.mcuselectpage"
-	        operationClass="de.innot.avreclipse.ui.wizards.MCUselectPage"
-	        pageClass="de.innot.avreclipse.ui.wizards.MCUselectPage">
+	        operationClass="de.innot.avreclipse.ui.wizards.MCUSelectPage"
+	        pageClass="de.innot.avreclipse.ui.wizards.MCUSelectPage">
 				<toolchain toolchainID="de.innot.avreclipse.toolchain.winavr.base" />
 				<toolchain toolchainID="de.innot.avreclipse.toolchain.winavr.app.debug" />
 				<toolchain toolchainID="de.innot.avreclipse.toolchain.winavr.app.release" />

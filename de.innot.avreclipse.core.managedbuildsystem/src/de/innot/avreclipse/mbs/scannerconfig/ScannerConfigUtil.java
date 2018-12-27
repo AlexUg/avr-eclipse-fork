@@ -36,7 +36,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 
 import de.innot.avreclipse.AVRPlugin;
@@ -179,7 +179,7 @@ public class ScannerConfigUtil {
 					Map<String, String> args = new HashMap<String, String>();
 
 					project.build(kind, "org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder",
-							args, new SubProgressMonitor(monitor, 30));
+							args, SubMonitor.convert(monitor, 30));
 
 					monitor.worked(20);
 
