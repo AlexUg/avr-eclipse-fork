@@ -25,7 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import de.innot.avreclipse.PluginIDs;
 import de.innot.avreclipse.core.IMCUProvider;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
 
@@ -48,7 +48,7 @@ public class GCC extends BaseToolInfo implements IMCUProvider {
 
 	private IPath				fCurrentPath	= null;
 
-	private final IPathProvider	fPathProvider	= new AVRPathProvider(AVRPath.AVRGCC);
+	private final IPathProvider	fPathProvider	= AVRPath.AVRGCC.getPathManager();
 
 	/**
 	 * Get an instance of this Tool.

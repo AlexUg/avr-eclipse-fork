@@ -15,6 +15,9 @@ import java.io.File;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
 import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
 
@@ -28,6 +31,8 @@ public class AVRPathManager implements IPathProvider {
 	private final AVRPath		fAvrPath;
 
 	private String				fPrefsValue	= null;
+	private IPath				fSystemPath	= null;
+	private IPath				fBundledPath= null;
 
 	/**
 	 * Creates a PathProvider for the instance Preference Store and AVRPath.
@@ -93,13 +98,19 @@ public class AVRPathManager implements IPathProvider {
 
 		if (fPrefsValue.equals(AVRPathManager.SourceType.System.name())) {
 			// System path
-			return getSystemPath(false);
+			if (fSystemPath == null) {
+				fSystemPath = getSystemPath(false);
+			}
+			return fSystemPath;
 		}
 
 		if (fPrefsValue.startsWith(AVRPathManager.SourceType.Bundled.name())) {
 			// Bundle path
-			String bundleid = fPrefsValue.substring(fPrefsValue.indexOf(':') + 1);
-			return getBundlePath(bundleid);
+			if (fBundledPath == null) {
+				String bundleid = fPrefsValue.substring(fPrefsValue.indexOf(':') + 1);
+				fBundledPath = getBundlePath(bundleid);
+			}
+			return fBundledPath;
 		}
 		// else: a custom path
 		IPath path = new Path(fPrefsValue);

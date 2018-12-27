@@ -42,17 +42,17 @@ import de.innot.avreclipse.core.IMCUProvider;
 import de.innot.avreclipse.core.avrdude.AVRDudeAction;
 import de.innot.avreclipse.core.avrdude.AVRDudeActionFactory;
 import de.innot.avreclipse.core.avrdude.AVRDudeException;
-import de.innot.avreclipse.core.avrdude.ProgrammerConfig;
 import de.innot.avreclipse.core.avrdude.AVRDudeException.Reason;
+import de.innot.avreclipse.core.avrdude.ProgrammerConfig;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.preferences.AVRDudePreferences;
 import de.innot.avreclipse.core.targets.ClockValuesGenerator;
+import de.innot.avreclipse.core.targets.ClockValuesGenerator.ClockValuesType;
 import de.innot.avreclipse.core.targets.HostInterface;
 import de.innot.avreclipse.core.targets.IProgrammer;
 import de.innot.avreclipse.core.targets.TargetInterface;
-import de.innot.avreclipse.core.targets.ClockValuesGenerator.ClockValuesType;
 import de.innot.avreclipse.core.toolinfo.fuses.ByteValues;
 import de.innot.avreclipse.core.toolinfo.fuses.FuseType;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
@@ -108,8 +108,7 @@ public class AVRDude implements IMCUProvider {
 	private final static String				fCommandName		= "avrdude";
 
 	/** The Path provider for the avrdude executable */
-	private final IPathProvider				fPathProvider		= new AVRPathProvider(
-																			AVRPath.AVRDUDE);
+	private final IPathProvider				fPathProvider		= AVRPath.AVRDUDE.getPathManager();
 
 	/** Bug 3023718: Remember the last MCU connected to a given programmer */
 	private final Map<ProgrammerConfig, String>	fLastMCUtypeMap		= new HashMap<ProgrammerConfig, String>();

@@ -12,14 +12,19 @@
 package de.innot.avreclipse.core.paths.posix;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import org.eclipse.cdt.utils.spawner.ProcessFactory;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 
+import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.paths.AVRPath;
 import de.innot.avreclipse.core.paths.SystemPathHelper;
 
@@ -67,13 +72,11 @@ public class SystemPathsPosix {
 		"/usr/bin",
 		"/usr/lib",
 		"/usr/avr", // Arch Linux, Fedora
-		// no "/usr",
 		"/opt/",
 		"/usr/local/bin",
 		"/usr/local/lib",
 		"/usr/local/",
-		"~/",
-		// "/home/",
+		System.getProperty("user.home"),
 		"/etc/",
 	};
 
@@ -91,9 +94,11 @@ public class SystemPathsPosix {
 
 		IPath path = fEmptyPath;
 		String test = avrpath.getTest();
-		path = which(test);
+		if (avrpath.isExecutable()) {
+			path = which(test);
+		}
 		if (path.isEmpty()) {
-			path = find("*/" + test);
+			path = find(test);
 		}
 		if (!path.isEmpty()) {
 			// remove the number of segments of the test from
@@ -113,7 +118,7 @@ public class SystemPathsPosix {
 	 */
 	private static IPath which(String file) {
 
-		IPath path = executeCommand("which " + file);
+		IPath path = executeCommand("which", file);
 		return path;
 	}
 
@@ -136,7 +141,12 @@ public class SystemPathsPosix {
 			// -ipath is a GNU extension to the Posix find, so this might not be as
 			// compatible across all platforms. For the time we leave
 			// -path until someone complains.
-			IPath testpath = executeCommand("find " + findpath + " -path " + file);
+			IPath testpath;
+			if (file.indexOf(File.separatorChar) >= 0) {
+				testpath = executeCommand("find", findpath, "-path", "*/" + file);
+			} else {
+				testpath = executeCommand("find", findpath, "-name", file);
+			}
 			if (!testpath.isEmpty()) {
 				return testpath;
 			}
@@ -155,7 +165,7 @@ public class SystemPathsPosix {
 	 * @return A valid <code>IPath</code> or an empty path if the command did not return a valid
 	 *         path.
 	 */
-	public static IPath executeCommand(String command) {
+	public static IPath executeCommand(String... command) {
 
 		IPath path = fEmptyPath;
 
@@ -166,10 +176,11 @@ public class SystemPathsPosix {
 
 		try {
 			cmdproc = ProcessFactory.getFactory().exec(command);
+			
 			is = cmdproc.getInputStream();
 			isr = new InputStreamReader(is);
 			br = new BufferedReader(isr);
-
+			
 			String line;
 
 			while ((line = br.readLine()) != null) {
@@ -181,8 +192,9 @@ public class SystemPathsPosix {
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			
+		} catch (IOException ex) {
+			AVRPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID, "Error while executing command: " + command, ex));
 		} finally {
 			try {
 				if (br != null)

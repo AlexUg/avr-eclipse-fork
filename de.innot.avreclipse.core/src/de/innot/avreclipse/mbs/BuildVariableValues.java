@@ -18,7 +18,7 @@ import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
 import org.eclipse.core.resources.IProject;
 
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.properties.AVRProjectProperties;
 import de.innot.avreclipse.core.properties.ProjectPropertyManager;
@@ -136,14 +136,14 @@ public enum BuildVariableValues {
 
 			StringBuilder paths = new StringBuilder();
 
-			IPathProvider gccpathprovider = new AVRPathProvider(AVRPath.AVRGCC);
+			IPathProvider gccpathprovider = AVRPath.AVRGCC.getPathManager();
 			String gccpath = gccpathprovider.getPath().toOSString();
 			if (gccpath != null && !("".equals(gccpath))) {
 				paths.append(gccpath);
 				paths.append(PATH_SEPARATOR);
 			}
 
-			IPathProvider makepathprovider = new AVRPathProvider(AVRPath.MAKE);
+			IPathProvider makepathprovider = AVRPath.MAKE.getPathManager();
 			String makepath = makepathprovider.getPath().toOSString();
 			if (makepath != null && !("".equals(makepath))) {
 				paths.append(makepath);
@@ -170,7 +170,7 @@ public enum BuildVariableValues {
 	AVRDUDEPATH() {
 		@Override
 		public String getValue(IConfiguration buildcfg) {
-			IPathProvider avrdudepathprovider = new AVRPathProvider(AVRPath.AVRDUDE);
+			IPathProvider avrdudepathprovider = AVRPath.AVRDUDE.getPathManager();
 			String avrdudepath = avrdudepathprovider.getPath().toOSString();
 			if (avrdudepath != null && !("".equals(avrdudepath))) {
 

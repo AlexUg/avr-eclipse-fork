@@ -32,7 +32,7 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
@@ -70,8 +70,7 @@ public class AVRiohDeviceDescriptionProvider implements IDeviceDescriptionProvid
 	private final List<IProviderChangeListener>		fChangeListeners	= new ArrayList<IProviderChangeListener>(
 																				0);
 
-	private final IPathProvider						fPathProvider		= new AVRPathProvider(
-																				AVRPath.AVRINCLUDE);
+	private final IPathProvider						fPathProvider		= AVRPath.AVRINCLUDE.getPathManager();
 
 	/**
 	 * Get an instance of this DeviceModelProvider.

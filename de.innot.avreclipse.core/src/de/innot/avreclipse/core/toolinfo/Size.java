@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.Status;
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.PluginIDs;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 
 /**
@@ -43,7 +43,7 @@ public class Size extends BaseToolInfo {
 
 	private static Size			instance		= null;
 
-	private final IPathProvider	fPathProvider	= new AVRPathProvider(AVRPath.AVRGCC);
+	private final IPathProvider	fPathProvider	= AVRPath.AVRGCC.getPathManager();
 
 	/**
 	 * Get an instance of this Tool.

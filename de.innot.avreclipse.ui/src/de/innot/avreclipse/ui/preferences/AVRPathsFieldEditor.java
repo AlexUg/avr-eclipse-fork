@@ -11,6 +11,14 @@
 
 package de.innot.avreclipse.ui.preferences;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.window.Window;
@@ -24,6 +32,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -90,11 +99,18 @@ public class AVRPathsFieldEditor extends FieldEditor {
 				// force a search for the current system path.
 				// This may take a while so we display a Wait cursor
 				final AVRPathManager finalpath = path;
-				BusyIndicator.showWhile(fTable.getDisplay(), new Runnable() {
-					public void run() {
-						finalpath.getSystemPath(true);
-					}
-				});
+				try {
+					new ProgressMonitorDialog(getPage().getShell())
+						.run(true, false, new IRunnableWithProgress() {
+							
+							@Override
+							public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+								finalpath.getSystemPath(true);
+							}
+						});
+				} catch (InvocationTargetException e1) {
+				} catch (InterruptedException e1) {
+				}
 			}
 			selected.setData(path);
 			updateTableItem(selected);
@@ -224,20 +240,49 @@ public class AVRPathsFieldEditor extends FieldEditor {
 	 */
 	@Override
 	protected void doLoad() {
+		
+		final Display display = getPage().getShell().getDisplay();
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(getPage().getShell());
+		try {
+			dialog.run(true, false, new IRunnableWithProgress() {
+				
+				@Override
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-		// Get the list of all supported paths
-		AVRPath[] allpaths = AVRPath.values();
+					// Get the list of all supported paths
+					AVRPath[] allpaths = AVRPath.values();
 
-		for (AVRPath current : allpaths) {
-			// Create a IPathManager for each path and store it
-			// within a new TableItem
-			AVRPathManager item = new AVRPathManager(current);
+					monitor.beginTask("Load preferences", allpaths.length);
+					
+					for (AVRPath current : allpaths) {
+						
+						monitor.subTask("Load preferences for: " + current.getName());
+						
+						// Create a IPathManager for each path and store it
+						// within a new TableItem
+						final AVRPathManager item = current.getPathManager();
 
-			TableItem ti = new TableItem(fTable, 0);
-			ti.setData(item);
-			updateTableItem(ti);
+						display.syncExec(new Runnable() {
+							
+							@Override
+							public void run() {
+								TableItem ti = new TableItem(fTable, 0);
+								ti.setData(item);
+								updateTableItem(ti);
+							}
+						});
+						
+						monitor.worked(1);
 
+					}
+					
+					monitor.done();
+				}
+			});
+		} catch (InvocationTargetException ex) {
+		} catch (InterruptedException ex) {
 		}
+
 	}
 
 	/*
@@ -324,6 +369,9 @@ public class AVRPathsFieldEditor extends FieldEditor {
 	@Override
 	protected void refreshValidState() {
 		super.refreshValidState();
+		
+		final boolean oldValid = fValid;
+		final List<String> invalidPathList = new ArrayList<String>();
 
 		// Get all TableItems, extract their IPathManager and check
 		// if it is valid and not optional.
@@ -332,29 +380,32 @@ public class AVRPathsFieldEditor extends FieldEditor {
 		// the culprit is shown.
 
 		TableItem[] allitems = fTable.getItems();
-		boolean oldValid = fValid;
 		boolean newValid = true;
-		String invalidPath = null;
 
 		for (TableItem ti : allitems) {
 			AVRPathManager pathitem = (AVRPathManager) ti.getData();
 			if (!pathitem.isValid() && !pathitem.isOptional()) {
 				newValid = false;
-				invalidPath = pathitem.getName();
+				invalidPathList.add(pathitem.getName());
 			}
 		}
 
 		// Updates validity and error message.
 		fValid = newValid;
+		
 		if (fValid == false) {
-			showErrorMessage("Path for '" + invalidPath + "' is not valid");
+			if (invalidPathList.size() == 1) {
+				showErrorMessage("Path for '" + invalidPathList.get(0) + "' is not valid");
+			} else {
+				showErrorMessage("Pathes for " + Arrays.toString(invalidPathList.toArray()) + " is not valid");
+			}
 		} else {
 			clearErrorMessage();
 		}
 
 		// Send some notifications.
-		if (newValid != oldValid) {
-			fireStateChanged(IS_VALID, oldValid, newValid);
+		if (fValid != oldValid) {
+			fireStateChanged(IS_VALID, oldValid, fValid);
 		}
 
 	}

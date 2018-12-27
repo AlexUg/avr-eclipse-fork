@@ -144,7 +144,7 @@ public class AVRGCCSpecsRunSIProvider extends DefaultRunSIProvider {
 
 		// TODO: Add some code to get the path from the project once we have
 		// project/configuration specific paths
-		IPathProvider pp = new AVRPathManager(AVRPath.AVRGCC);
+		IPathProvider pp = AVRPath.AVRGCC.getPathManager();
 		
 		IPath gccparentdir = pp.getPath();
 		

@@ -12,41 +12,48 @@ package de.innot.avreclipse.core.paths;
 
 public enum AVRPath {
 	// The compiler
-	AVRGCC(true, "AVR-GCC",
+	AVRGCC(true, true, "AVR-GCC",
 			"Directory containing 'avr-gcc' and the other tools of the AVR-GCC toolchain",
 			"avr-gcc"),
 
 	// Make
-	MAKE(true, "GNU make", "Directory containing 'make' executable", "make"),
+	MAKE(true, true, "GNU make", "Directory containing 'make' executable", "make"),
 
 	// The avr header files
-	AVRINCLUDE(true, "AVR Header Files", "Directory containing 'avr/io.h' include file", "avr/io.h"),
+	AVRINCLUDE(true, false, "AVR Header Files", "Directory containing 'avr/io.h' include file", "avr/io.h"),
 
 	// AVRDude executable
-	AVRDUDE(false, "AVRDude", "Directory containing 'avrdude' executable", "avrdude"),
+	AVRDUDE(false, true, "AVRDude", "Directory containing 'avrdude' executable", "avrdude"),
+	
+	ARDUINO(false, false, "Arduino", "Directory containing 'boards.txt' configuration file", "boards.txt"),
 
 	// AVRDude config is not used - We get the path from AVRDude itself
 	// AVRDUDECONFIG(false, "AVRDude.conf", "Directory containing 'avrdude.conf' configuration
 	// file", "avrdude.conf"),
 
 	// Atmel part description files
-	PDFPATH(false, "Atmel Part Description Files",
+	PDFPATH(false, false, "Atmel Part Description Files",
 			"(currently unused) Directory containing the Atmel Part Description Files",
 			"ATmega16.xml");
 
 	private boolean	fRequired;
+	private boolean	fExecutable;
 	private String	fName;
 	private String	fDescription;
 	private String	fTest;
+	
+	private AVRPathManager fPathManager;
 
 	/**
 	 * Default Enum constructor. Sets the internal fields according to the selected enum value.
 	 */
-	AVRPath(boolean required, String name, String description, String test) {
+	AVRPath(boolean required, boolean executable, String name, String description, String test) {
 		fRequired = required;
+		fExecutable = executable;
 		fName = name;
 		fDescription = description;
 		fTest = test;
+		fPathManager = new AVRPathManager(this);
 	}
 
 	public String getDescription() {
@@ -61,6 +68,10 @@ public enum AVRPath {
 		return !fRequired;
 	}
 
+	public boolean isExecutable() {
+		return fExecutable;
+	}
+
 	public String getTest() {
 		return fTest;
 	}
@@ -68,5 +79,9 @@ public enum AVRPath {
 	@Override
 	public String toString() {
 		return fName;
+	}
+
+	public AVRPathManager getPathManager() {
+		return fPathManager;
 	}
 }

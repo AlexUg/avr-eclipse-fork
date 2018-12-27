@@ -48,7 +48,7 @@ public class AVRPathManagerTest {
 	}
 
 	/**
-	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathProvider}.
+	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathManager}.
 	 */
 	@Test
 	public void testAVRPathProvider() {
@@ -57,7 +57,7 @@ public class AVRPathManagerTest {
 		AVRPath[] allpaths = AVRPath.values();
 
 		for (AVRPath current : allpaths) {
-			IPathProvider provider = new AVRPathProvider(current);
+			IPathProvider provider = current.getPathManager();
 			assertNotNull(provider.getPath());
 			File file = provider.getPath().toFile();
 			if (!current.isOptional()) {
@@ -68,12 +68,12 @@ public class AVRPathManagerTest {
 	}
 
 	/**
-	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathProvider}.
+	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathManager}.
 	 */
 	@Test
 	public void testAVRPathManager() {
 
-		AVRPathManager manager = new AVRPathManager(AVRPath.AVRGCC);
+		AVRPathManager manager = AVRPath.AVRGCC.getPathManager();
 		assertTrue(manager.getName() + " invalid", manager.isValid());
 
 		// Test Default and System Paths
@@ -84,19 +84,19 @@ public class AVRPathManagerTest {
 	}
 
 	/**
-	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathProvider.isValid}.
+	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathManager.isValid}.
 	 */
 	@Test
 	public void testIsValid() {
 		// Test a required Path
-		AVRPathManager manager = new AVRPathManager(AVRPath.AVRGCC);
+		AVRPathManager manager = AVRPath.AVRGCC.getPathManager();
 		assertTrue(manager.isValid());
 		// empty paths not allowed
 		manager.setPath("", SourceType.Custom);
 		assertFalse(manager.isValid());
 
 		// Test an optional path
-		manager = new AVRPathManager(AVRPath.PDFPATH);
+		manager = AVRPath.PDFPATH.getPathManager();
 		assertTrue(manager.isValid());
 		// empty paths allowed
 		manager.setPath("", SourceType.Custom);
@@ -104,11 +104,11 @@ public class AVRPathManagerTest {
 	}
 
 	/**
-	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathProvider.setPath}.
+	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathManager.setPath}.
 	 */
 	@Test
 	public void testSetPath() {
-		AVRPathManager manager = new AVRPathManager(AVRPath.MAKE);
+		AVRPathManager manager = AVRPath.MAKE.getPathManager();
 
 		manager.setPath("foo/bar", SourceType.Custom);
 		assertFalse(manager.isValid());
@@ -122,7 +122,7 @@ public class AVRPathManagerTest {
 		assertTrue(manager.getPath().equals(manager.getDefaultPath()));
 
 		// Test value propagation
-		IPathProvider provider = new AVRPathProvider(AVRPath.MAKE);
+		IPathProvider provider = AVRPath.MAKE.getPathManager();
 		manager.setPath("bar-baz", SourceType.Custom);
 		assertFalse("bar-baz".equals(provider.getPath().toString()));
 		manager.store();
@@ -135,11 +135,11 @@ public class AVRPathManagerTest {
 	}
 
 	/**
-	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathProvider.clone}.
+	 * Test method for {@link de.innot.avreclipse.core.paths.AVRPathManager.clone}.
 	 */
 	@Test
 	public void testClone() {
-		AVRPathManager manager = new AVRPathManager(AVRPath.AVRINCLUDE);
+		AVRPathManager manager = AVRPath.AVRINCLUDE.getPathManager();
 		AVRPathManager clone = new AVRPathManager(manager);
 
 		assertTrue(manager.getPath().equals(clone.getPath()));

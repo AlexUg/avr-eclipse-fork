@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathProvider;
+import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.toolinfo.partdescriptionfiles.IPDFreader;
 import de.innot.avreclipse.core.toolinfo.partdescriptionfiles.SignatureReader;
@@ -74,7 +74,7 @@ public class PartDescriptionFilesReader {
 
 		// Get the path to the PartDescriptionFiles
 		if (fDevicesFolder == null) {
-			IPathProvider provider = new AVRPathProvider(AVRPath.PDFPATH);
+			IPathProvider provider = AVRPath.PDFPATH.getPathManager();
 			fDevicesFolder = provider.getPath();
 		}
 
