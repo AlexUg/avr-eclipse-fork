@@ -130,53 +130,55 @@ public class ProjectConfigurator {
 	}
 	
 	public static void configureForArduino(ICProjectDescription pDesc, String boardId) throws CoreException {
-//		BoardsPreferences boardPreferences = BoardsPreferences.INSTANCE;
-//		IProject project = pDesc.getProject();
-//		IPath ardPath = boardPreferences.getArduinoPath();
-//		if (ardPath != null) {
-//			IPath corePath = ardPath.append("cores/arduino");
-//			if (corePath.toFile().isDirectory()) {
-//				if (!checkCoreFolder(project.getFolder(corePath.lastSegment()))) {
-//					// Link Arduino core sources
-//					ProjectConfigurator.linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
-//				}
-//			} else {
-//				throw new CoreException(new Status(IStatus.ERROR,
-//													AVRPlugin.PLUGIN_ID,
-//													String.format("Path '%1$s' isn't directory with Arduino core sources. Check path 'Arduino' in AVR preferences",
-//																	corePath.toOSString())
-//													)
-//										);
-//			}
-//			IPath variantPath = ardPath.append("variants");
-//			variantPath = variantPath.append(boardPreferences.getVariant(boardId));
-//			if (variantPath.toFile().isDirectory()) {
-//				IFolder variantFolder = getvariantFolder(project);
-//				if ((variantFolder == null)
-//						|| !variantPath.lastSegment().equals(variantFolder.getName())) {
-//					if (variantFolder != null) {
-//						variantFolder.delete(true, null);
-//					}
-//					ProjectConfigurator.linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
-//					fixIncludes(pDesc);
-//				}
-//			} else {
-//				throw new CoreException(new Status(IStatus.ERROR,
-//													AVRPlugin.PLUGIN_ID,
-//													String.format("Path '%1$s' isn't directory with Arduino variant sources. Check path 'Arduino' in AVR preferences",
-//																	variantPath.toOSString())
-//													)
-//										);
-//			}
-//			ProjectConfigurator.addScetch(project);
-//			project.refreshLocal(IResource.DEPTH_INFINITE, null);
-//		} else {
-//			throw new CoreException(new Status(IStatus.ERROR,
-//												AVRPlugin.PLUGIN_ID,
-//												"Arduino sources aren't defined. Check path 'Arduino' in AVR preferences"
-//												)
-//									);
-//		}
+		ArduinoBoards boardPreferences = ArduinoBoards.getInstance();
+		if (boardPreferences != null) {
+			IProject project = pDesc.getProject();
+			IPath ardPath = boardPreferences.getArduinoPath();
+			if (ardPath != null) {
+				IPath corePath = ardPath.append("cores/arduino");
+				if (corePath.toFile().isDirectory()) {
+					if (!checkCoreFolder(project.getFolder(corePath.lastSegment()))) {
+						// Link Arduino core sources
+						ProjectConfigurator.linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
+					}
+				} else {
+					throw new CoreException(new Status(IStatus.ERROR,
+														AVRPlugin.PLUGIN_ID,
+														String.format("Path '%1$s' isn't directory with Arduino core sources. Check path 'Arduino' in AVR preferences",
+																		corePath.toOSString())
+														)
+											);
+				}
+				IPath variantPath = ardPath.append("variants");
+				variantPath = variantPath.append(boardPreferences.getVariant(boardId));
+				if (variantPath.toFile().isDirectory()) {
+					IFolder variantFolder = getvariantFolder(project);
+					if ((variantFolder == null)
+							|| !variantPath.lastSegment().equals(variantFolder.getName())) {
+						if (variantFolder != null) {
+							variantFolder.delete(true, null);
+						}
+						ProjectConfigurator.linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
+						fixIncludes(pDesc);
+					}
+				} else {
+					throw new CoreException(new Status(IStatus.ERROR,
+														AVRPlugin.PLUGIN_ID,
+														String.format("Path '%1$s' isn't directory with Arduino variant sources. Check path 'Arduino' in AVR preferences",
+																		variantPath.toOSString())
+														)
+											);
+				}
+				ProjectConfigurator.addScetch(project);
+				project.refreshLocal(IResource.DEPTH_INFINITE, null);
+			} else {
+				throw new CoreException(new Status(IStatus.ERROR,
+													AVRPlugin.PLUGIN_ID,
+													"Arduino sources aren't defined. Check path 'Arduino' in AVR preferences"
+													)
+										);
+			}
+		}
 	}
 	
 	public static void fixIncludes(ICProjectDescription pDesc) {

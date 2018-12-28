@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.cdt.core.settings.model.ICResourceDescription;
@@ -46,7 +47,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.UIJob;
 
 import de.innot.avreclipse.AVRPlugin;
-import de.innot.avreclipse.core.arduino.BoardsPreferences;
+import de.innot.avreclipse.core.arduino.ArduinoBoards;
+import de.innot.avreclipse.core.arduino.MCUBoardPreferences;
 import de.innot.avreclipse.core.avrdude.AVRDudeException;
 import de.innot.avreclipse.core.avrdude.AVRDudeSchedulingRule;
 import de.innot.avreclipse.core.properties.AVRDudeProperties;
@@ -116,7 +118,7 @@ public class MCUSelectControl extends Composite {
 	/** The Properties that this page works with */
 	private ICResourceDescription 	fResdesc;
 	private AVRProjectProperties	fTargetProps;
-	private BoardsPreferences		fBoardPreferences = BoardsPreferences.INSTANCE;
+	private ArduinoBoards			fBoardPreferences = ArduinoBoards.getInstance();
 	
 	private Button 					fMCUButton;
 	private ComboControl			fMCUcombo;
@@ -130,7 +132,6 @@ public class MCUSelectControl extends Composite {
 	private Set<String>				fMCUids;
 	private String[]				fMCUNames;
 	
-	private boolean 				fIsArduinoAvailable = false;
 	private boolean 				fIsLoadSupported = false;
 	
 	private List<DataListener>	fListeners;
@@ -230,32 +231,28 @@ public class MCUSelectControl extends Composite {
 		addFCPUSection(this);
 		addSeparator(this);
 		
-		try {
-			fBoardPreferences.load();
-			fIsArduinoAvailable = !fBoardPreferences.getAvailiableBoardIds().isEmpty();
-		} catch (Exception e) {
-		}
-		
-		fArdButton = new Button(this, SWT.RADIO);
-		setupControl(fArdButton, ((GridLayout) getLayout()).numColumns, GridData.FILL_HORIZONTAL);
-		fArdButton.setText("Define Arduino board type");
-		fArdButton.setSelection(false);
-		fArdButton.setEnabled(fIsArduinoAvailable);
-		fArdButton.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (fArdButton.getSelection()) {
-					enableBoardSection(true);
+		if ((fBoardPreferences != null)
+				&& !fBoardPreferences.getMCUMap().isEmpty()) {
+			fArdButton = new Button(this, SWT.RADIO);
+			setupControl(fArdButton, ((GridLayout) getLayout()).numColumns, GridData.FILL_HORIZONTAL);
+			fArdButton.setText("Define Arduino board type");
+			fArdButton.setSelection(false);
+			fArdButton.addSelectionListener(new SelectionListener() {
+				
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					if (fArdButton.getSelection()) {
+						enableBoardSection(true);
+					}
 				}
-			}
+				
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+				}
+			});
 			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
-		
-		addBoardsSection(this);
+			addBoardsSection(this);
+		}
 
 	}
 	
@@ -275,7 +272,8 @@ public class MCUSelectControl extends Composite {
 			}
 	
 			if (!boardId.isEmpty()
-					&& fIsArduinoAvailable) {
+					&& (fBoardPreferences != null)
+					&& !fBoardPreferences.getMCUMap().isEmpty()) {
 				fMCUButton.setSelection(false);
 				fArdButton.setSelection(true);
 				enableBoardSection(true);
@@ -419,9 +417,9 @@ public class MCUSelectControl extends Composite {
 		setupLabel(parent, LABEL_BOARD, 1, SWT.NONE);
 		
 		fBoardNameToIdMap = new HashMap<>();
-		fBoardPreferences.getAvailiableBoardIds().forEach(id -> {
-			fBoardNameToIdMap.put(fBoardPreferences.getBoardName(id), id);
-		});
+		for (Entry<String, MCUBoardPreferences> entry : fBoardPreferences.getMCUMap().entrySet()) {
+			fBoardNameToIdMap.put(entry.getValue().getName(), entry.getKey());
+		}
 
 		fBoardCombo = new ComboControl(parent, fBoardNameToIdMap.keySet().toArray(new String[fBoardNameToIdMap.size()]));
 		setupControl(fBoardCombo, 1, GridData.FILL_HORIZONTAL);
