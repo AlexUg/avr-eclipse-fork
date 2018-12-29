@@ -27,6 +27,8 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
@@ -34,9 +36,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.dialogs.ListDialog;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.progress.UIJob;
 
 import de.innot.avreclipse.AVRPlugin;
+import de.innot.avreclipse.core.arduino.ProjectConfigurator;
 import de.innot.avreclipse.core.avrdude.AVRDudeAction;
 import de.innot.avreclipse.core.avrdude.AVRDudeException;
 import de.innot.avreclipse.core.avrdude.AVRDudeSchedulingRule;
@@ -69,6 +74,10 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 	private final static String	MSG_NOPROGRAMMER		= "No Programmer has been set for the {0}.\n\n"
 																+ "Please select a Programmer in the project properties\n"
 																+ "(Properties -> AVRDude -> Programmer)";
+	
+	private final static String	MSG_NOARDUINO			= "No Arduino Board has been found for the {0}.\n\n"
+																+ "Please select attach a Board to PC or define a Programmer in the project properties\n"
+																+ "(Properties -> AVRDude -> Programmer)";
 
 	private final static String	MSG_WRONGMCU			= "AVRDude does not support the project target MCU [{0}]\n\n"
 																+ "Please select a different target MCU if you want to use AVRDude.\n"
@@ -90,6 +99,13 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 																+ "(Properties -> AVRDude -> {0})";
 
 	private final static String MSG_NEEDS_REBUILD       = "A rebuild is required before upload.";
+	
+	private final static String	MSG_ARDUINO_PORT		= "Found a Arduino Board connected to port {0}. Use it?";
+	
+	private final static String	MSG_ARDUINO_PORTS		= "Found Arduino Boards connected to ports.\n\n"
+																+ "Please select one.";
+	
+	private final static String	MSG_NOARDUINO_PORT		= "Wrong selection of Arduino Port";
 	
 	/**
 	 * Constructor for this Action.
@@ -170,6 +186,42 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 			String message = MessageFormat.format(MSG_NOPROGRAMMER, source);
 			MessageDialog.openError(getShell(), TITLE_UPLOAD, message);
 			return false;
+		}
+		if ((props.getBoardId() != null)
+				&& !props.getBoardId().isEmpty()) {
+			ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
+			String port = config.getPort();
+			if ((port == null)
+					|| port.isEmpty()) {
+				List<String> ports = ProjectConfigurator.findArduinoPorts(props.getBoardId());
+				if (ports.size() == 1) {
+					String message = MessageFormat.format(MSG_ARDUINO_PORT, ports.get(0));
+					if (MessageDialog.openQuestion(getShell(), TITLE_UPLOAD, message)) {
+						config.setPort(ports.get(0));
+					} else {
+						return false;
+					}
+				} else if (ports.size() > 1) {
+					ListDialog dialog = new ListDialog(getShell());
+					dialog.setMessage(MSG_ARDUINO_PORTS);
+					dialog.setContentProvider(new ArrayContentProvider());
+					dialog.setLabelProvider(new WorkbenchLabelProvider());
+					dialog.setInput(ports.toArray());
+					if (dialog.open() == Window.OK) {
+						Object[] result = dialog.getResult();
+						if (result.length == 1) {
+							config.setPort(result[0].toString());
+						} else {
+							MessageDialog.openError(getShell(), TITLE_UPLOAD, MSG_NOARDUINO_PORT);
+							return false;
+						}
+					}
+				} else {
+					String message = MessageFormat.format(MSG_NOARDUINO, source);
+					MessageDialog.openError(getShell(), TITLE_UPLOAD, message);
+					return false;
+				}
+			}
 		}
 
 		// Check that the MCU is valid for avrdude

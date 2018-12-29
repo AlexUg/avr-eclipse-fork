@@ -143,6 +143,14 @@ public class AVRDudeProperties {
 	private String						fOtherOptions;
 	private static final String			KEY_OTHEROPTIONS			= "OtherOptions";
 	private static final String			DEFAULT_OTHEROPTIONS		= "";
+	
+	private String						fUse1200bpsTouch;
+//	private static final String			KEY_USE1200BPSTOUCH			= "Use1200bpsTouch";
+//	private static final String			DEFAULT_USE1200BPSTOUCH		= "";
+	
+	private String						fWaitForUploadPort;
+//	private static final String			KEY_WAITFORUPLOADPORT			= "WaitForUploadPort";
+//	private static final String			DEFAULT_WAITFORUPLOADPORT		= "";
 
 	// Unused for now
 	// private static final String NODE_CALIBRATION = "CalibrationBytes";
@@ -248,6 +256,12 @@ public class AVRDudeProperties {
 			fProgrammer = progcfg;
 			fProgrammerId = progcfg.getId();
 			fDirty = false;
+		}
+	}
+	
+	public void initProgrammerForArduino(ProgrammerConfig arduinoConfig) {
+		if (arduinoConfig != null) {
+			fProgrammer = arduinoConfig;
 		}
 	}
 
@@ -465,6 +479,28 @@ public class AVRDudeProperties {
 		if (!fOtherOptions.equals(otheroptions)) {
 			fOtherOptions = otheroptions;
 			fDirty = true;
+		}
+	}
+
+	public String getUse1200bpsTouch() {
+		return fUse1200bpsTouch;
+	}
+
+	public void setUse1200bpsTouch(String use1200bpsTouch) {
+		if (!fUse1200bpsTouch.equals(use1200bpsTouch)) {
+			this.fUse1200bpsTouch = use1200bpsTouch;
+//			fDirty = true;
+		}
+	}
+
+	public String getWaitForUploadPort() {
+		return fWaitForUploadPort;
+	}
+
+	public void setWaitForUploadPort(String waitForUploadPort) {
+		if (!fOtherOptions.equals(waitForUploadPort)) {
+			this.fWaitForUploadPort = waitForUploadPort;
+//			fDirty = true;
 		}
 	}
 

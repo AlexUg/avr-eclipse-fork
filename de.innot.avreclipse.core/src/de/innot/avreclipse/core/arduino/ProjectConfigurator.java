@@ -3,6 +3,8 @@ package de.innot.avreclipse.core.arduino;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,9 +23,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 
 import de.innot.avreclipse.AVRPlugin;
+import de.innot.avreclipse.core.avrdude.ProgrammerConfig;
 
 
 /**
@@ -181,6 +185,33 @@ public class ProjectConfigurator {
 		}
 	}
 	
+	public static ProgrammerConfig createArduinoProgrammer(String boardId) {
+		ArduinoBoards boardPreferences = ArduinoBoards.getInstance();
+		if (boardPreferences != null) {
+			ProgrammerConfig result = new ProgrammerConfig(boardId);
+			result.setProgrammer(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_PROTOCOL));
+			result.setBaudrate(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_SPEED));
+			result.setUse1200bpsTouch(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_USE_1200BPS_TOUCH));
+			result.setWaitForUploadPort(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_WAIT_FOR_UPLOAD_PORT));
+			return result;
+		}
+		return null;
+	}
+	
+	/*
+	 * This implementation must to be replaced with Plugin Fragment for specific OS.
+	 */
+	public static List<String> findArduinoPorts(String boardId) {
+		if (Platform.getOS().equals(Platform.OS_LINUX)) {
+			return findArduinoPortsOnLinux(boardId);
+		} else if (Platform.getOS().equals(Platform.OS_WIN32)) {
+			return findArduinoPortsOnWindows(boardId);
+		} else if (Platform.getOS().equals(Platform.OS_MACOSX)) {
+			return findArduinoPortsOnMacOSX(boardId);
+		}
+		return Collections.emptyList();
+	}
+	
 	public static void fixIncludes(ICProjectDescription pDesc) {
 		for (ICConfigurationDescription confDesc : pDesc.getConfigurations()) {
 			IConfiguration cfg = ManagedBuildManager.getConfigurationForDescription(confDesc);
@@ -280,5 +311,25 @@ public class ProjectConfigurator {
 			} while ((opt = opt.getSuperClass()) != null);
 		}
 		return result;
+	}
+	
+	public static List<String> findArduinoPortsOnLinux(String boardId) {
+		List<String> result = new ArrayList<String>();
+		
+		return result;
+	}
+	
+	public static List<String> findArduinoPortsOnWindows(String boardId) {
+		List<String> result = new ArrayList<String>();
+		
+		return result;
+		
+	}
+
+	public static List<String> findArduinoPortsOnMacOSX(String boardId) {
+		List<String> result = new ArrayList<String>();
+		
+		return result;
+		
 	}
 }

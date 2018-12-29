@@ -107,6 +107,12 @@ public class ProgrammerConfig {
 	 */
 	private String				fOtherOptions;
 	public final static String	KEY_OTHER_OPTIONS			= "otherOptions";
+	
+	private String				fUse1200bpsTouch;
+	public final static String	KEY_USE1200BPSTOUCH		= "Use1200bpsTouch";
+	
+	private String				fWaitForUploadPort;
+	public final static String	KEY_WAITFORUPLOADPORT		= "WaitForUploadPort";
 
 	/** Flag to mark modifications of this config */
 	private boolean				fDirty;
@@ -117,7 +123,7 @@ public class ProgrammerConfig {
 	 * @param id
 	 *            Unique id of the configuration.
 	 */
-	protected ProgrammerConfig(String id) {
+	public ProgrammerConfig(String id) {
 		fId = id;
 		fDirty = false;
 		defaults();
@@ -132,7 +138,7 @@ public class ProgrammerConfig {
 	 * @param prefs
 	 *            <code>Preferences</code> node from which to load.
 	 */
-	protected ProgrammerConfig(String id, Preferences prefs) {
+	public ProgrammerConfig(String id, Preferences prefs) {
 		fId = id;
 		fDirty = false;
 		loadFromPrefs(prefs);
@@ -148,7 +154,7 @@ public class ProgrammerConfig {
 	 * 
 	 * @param config
 	 */
-	protected ProgrammerConfig(ProgrammerConfig config) {
+	public ProgrammerConfig(ProgrammerConfig config) {
 		fId = config.fId;
 		loadFromConfig(config);
 	}
@@ -175,6 +181,8 @@ public class ProgrammerConfig {
 			prefs.put(KEY_EXITSPEC_VCC, fExitVcc);
 			prefs.put(KEY_POSTAVRDUDE_DELAY_MS, fPostAVRDudeDelay);
 			prefs.put(KEY_OTHER_OPTIONS, fOtherOptions);
+			prefs.put(KEY_USE1200BPSTOUCH, fUse1200bpsTouch);
+			prefs.put(KEY_WAITFORUPLOADPORT, fWaitForUploadPort);
 
 			// flush the Preferences to the persistent storage
 			prefs.flush();
@@ -428,6 +436,24 @@ public class ProgrammerConfig {
 		this.fOtherOptions = fOtherOptions;
 	}
 
+	public String getUse1200bpsTouch() {
+		return fUse1200bpsTouch;
+	}
+
+	public void setUse1200bpsTouch(String use1200bpsTouch) {
+		this.fUse1200bpsTouch = use1200bpsTouch;
+		fDirty = true;
+	}
+
+	public String getWaitForUploadPort() {
+		return fWaitForUploadPort;
+	}
+
+	public void setWaitForUploadPort(String waitForUploadPort) {
+		this.fWaitForUploadPort = waitForUploadPort;
+		fDirty = true;
+	}
+
 	/**
 	 * Load the values of this Configuration from the preference storage area.
 	 * 
@@ -444,6 +470,8 @@ public class ProgrammerConfig {
 		fExitVcc = prefs.get(KEY_EXITSPEC_VCC, "");
 		fPostAVRDudeDelay = prefs.get(KEY_POSTAVRDUDE_DELAY_MS, "");
 		fOtherOptions = prefs.get(KEY_OTHER_OPTIONS, "");
+		fUse1200bpsTouch = prefs.get(KEY_USE1200BPSTOUCH, "");
+		fWaitForUploadPort = prefs.get(KEY_WAITFORUPLOADPORT, "");
 	}
 
 	/**
@@ -463,6 +491,8 @@ public class ProgrammerConfig {
 		fDirty = config.fDirty;
 		fPostAVRDudeDelay = config.fPostAVRDudeDelay;
 		fOtherOptions = config.getOtherOptions();
+		fUse1200bpsTouch = config.fUse1200bpsTouch;
+		fWaitForUploadPort = config.fWaitForUploadPort;
 	}
 
 	/**
@@ -481,6 +511,8 @@ public class ProgrammerConfig {
 		fExitVcc = "";
 		fPostAVRDudeDelay = "";
 		fOtherOptions = "";
+		fUse1200bpsTouch = "";
+		fWaitForUploadPort = "";
 	}
 
 	/*
