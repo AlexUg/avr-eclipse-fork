@@ -16,6 +16,8 @@ import static org.junit.Assert.assertNotNull;
 import org.eclipse.core.runtime.IPath;
 import org.junit.Test;
 
+import de.innot.avreclipse.AVRPlugin;
+
 public class SystemPathHelperTest {
 
 	@Test
@@ -23,7 +25,7 @@ public class SystemPathHelperTest {
 		AVRPath[] allpaths = AVRPath.values();
 
 		for (AVRPath avrpath : allpaths) {
-			IPath path = SystemPathHelper.getPath(avrpath, false);
+			IPath path = AVRPlugin.getDefault().getSystemPathHelper().getPath(avrpath, false);
 			assertNotNull(avrpath.getName() + "returned null path", path);
 			if (!avrpath.isOptional()) {
 				assertFalse(avrpath.getName() + " has empty path", path.isEmpty());

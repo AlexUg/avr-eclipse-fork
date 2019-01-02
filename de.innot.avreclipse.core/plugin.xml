@@ -2,6 +2,8 @@
 <?eclipse version="3.3"?>
 <plugin>
    <extension-point id="targetToolFactories" name="targetToolFactories" schema="schema/targetToolFactories.exsd"/>
+   <extension-point id="systemPathHelper" name="systemPathHelper" schema="schema/systemPathHelper.exsd"/>
+   <extension-point id="arduinoHelper" name="arduinoHelper" schema="schema/arduinoHelper.exsd"/>
 
 <!-- 
 ####################################################################################### 

@@ -16,11 +16,8 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import de.innot.avreclipse.core.paths.posix.SystemPathsPosix;
-import de.innot.avreclipse.core.paths.win32.SystemPathsWin32;
 import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
 
 /**
@@ -31,7 +28,9 @@ import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
  * @author Thomas Holland
  * @since 2.1
  */
-public final class SystemPathHelper {
+public abstract class AbstractSystemPathHelper {
+	
+	public final static IPath					fEmptyPath		= new Path("");
 
 	private final static String					CACHE_TAG	= "systempath/";
 
@@ -49,7 +48,7 @@ public final class SystemPathHelper {
 	 * 
 	 * @return IPath with the current system path.
 	 */
-	public synchronized static IPath getPath(AVRPath avrpath, boolean force) {
+	public synchronized IPath getPath(AVRPath avrpath, boolean force) {
 
 		// if force flag not set check the caches first
 		if (!force) {
@@ -92,13 +91,7 @@ public final class SystemPathHelper {
 		// search
 		// for the path.
 
-		IPath path = null;
-		if (isWindows()) {
-			path = SystemPathsWin32.getSystemPath(avrpath);
-		} else {
-			// posix path provider
-			path = SystemPathsPosix.getSystemPath(avrpath);
-		}
+		IPath path = findSystemPath(avrpath);
 
 		// if a path was found then store it in both caches
 		if (path != null) {
@@ -120,7 +113,7 @@ public final class SystemPathHelper {
 	 * This method is currently not used in the plugin.
 	 * </p>
 	 */
-	public synchronized static void clearCache() {
+	public synchronized void clearCache() {
 
 		// Clear the instance cache
 		fPathCache.clear();
@@ -133,12 +126,7 @@ public final class SystemPathHelper {
 			}
 		}
 	}
-
-	/**
-	 * @return true if running on windows
-	 */
-	private static boolean isWindows() {
-		return (Platform.getOS().equals(Platform.OS_WIN32));
-	}
+	
+	protected abstract IPath findSystemPath(AVRPath avrpath);
 
 }

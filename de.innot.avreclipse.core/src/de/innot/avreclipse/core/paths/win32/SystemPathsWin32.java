@@ -22,14 +22,14 @@ import org.eclipse.core.runtime.Status;
 
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.SystemPathHelper;
+import de.innot.avreclipse.core.paths.AbstractSystemPathHelper;
 
 /**
  * Gets the actual system paths to the winAVR and AVR Tools applications.
  * <p>
  * Unlike the Posix variant of this class, which actually looks through the (almost) complete
  * filesystem, this class will retrieve the paths from the Windows registry. But even this has a bit
- * of overhead, so the {@link SystemPathHelper}, which uses this class, should cache the results.
+ * of overhead, so the {@link AbstractSystemPathHelper}, which uses this class, should cache the results.
  * </p>
  * 
  * @author Thomas Holland

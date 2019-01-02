@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.Status;
 
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.SystemPathHelper;
+import de.innot.avreclipse.core.paths.AbstractSystemPathHelper;
 
 /**
  * Gets the actual system paths to the AVR-GCC Toolchain and some config files.
@@ -52,7 +52,7 @@ import de.innot.avreclipse.core.paths.SystemPathHelper;
  * </li>
  * </ol>
  * <p>
- * Finding a path can be quite expensive on large systems. Therefore the caller ({@link SystemPathHelper})
+ * Finding a path can be quite expensive on large systems. Therefore the caller ({@link AbstractSystemPathHelper})
  * should cache any paths found.
  * </p>
  * 

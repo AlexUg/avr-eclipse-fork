@@ -91,15 +91,17 @@ public class AVRProjectProperties {
 	 */
 	public AVRProjectProperties(IEclipsePreferences prefs, AVRProjectProperties source) {
 		fPrefs = prefs;
-		fMCUid = source.fMCUid;
-		fFCPU = source.fFCPU;
+		setMCUId(source.fMCUid);
+		setFCPU(source.fFCPU);
+
+		fAVRDudeProperties = new AVRDudeProperties(fPrefs.node(NODE_AVRDUDE), this, source.fAVRDudeProperties);
+		
+		setBoardId(source.fBoardId);
 
 		fUseExtRAM = source.fUseExtRAM;
 		fExtRAMSize = source.fExtRAMSize;
 		fUseExtRAMforHeap = source.fUseExtRAMforHeap;
 		fUseEEPROM = source.fUseEEPROM;
-
-		fAVRDudeProperties = new AVRDudeProperties(prefs.node(NODE_AVRDUDE), this, source.fAVRDudeProperties);
 
 		fDirty = source.fDirty;
 	}
@@ -109,7 +111,8 @@ public class AVRProjectProperties {
 	}
 
 	public void setMCUId(String mcuid) {
-		if (!fMCUid.equals(mcuid)) {
+		if ((fMCUid == null)
+				|| !fMCUid.equals(mcuid)) {
 			fMCUid = mcuid;
 			fDirty = true;
 		}
@@ -126,6 +129,13 @@ public class AVRProjectProperties {
 			fDirty = true;
 		}
 	}
+	
+	public void setFCPU(int fcpu) {
+		if (fFCPU != fcpu) {
+			fFCPU = fcpu;
+			fDirty = true;
+		}
+	}
 
 	public String getBoardId() {
 		return fBoardId;
@@ -136,9 +146,9 @@ public class AVRProjectProperties {
 				|| !fBoardId.equals(boardId)) {
 			fBoardId = boardId;
 			fDirty = true;
-			if (fBoardId != null) {
-				fAVRDudeProperties.initProgrammerForArduino(ProjectConfigurator.createArduinoProgrammer(fBoardId));
-			}
+		}
+		if (fBoardId != null) {
+			fAVRDudeProperties.initProgrammerForArduino(ProjectConfigurator.createArduinoProgrammer(fBoardId));
 		}
 	}
 
@@ -150,16 +160,18 @@ public class AVRProjectProperties {
 	 * Load all options from the preferences.
 	 */
 	protected void loadData() {
-		fMCUid = fPrefs.get(KEY_MCUTYPE, DEFAULT_MCUTYPE);
-		fFCPU = fPrefs.getInt(KEY_FCPU, DEFAULT_FCPU);
-		fBoardId = fPrefs.get(KEY_BOARD, DEFAULT_BOARD);
+
+		setMCUId(fPrefs.get(KEY_MCUTYPE, DEFAULT_MCUTYPE));
+		setFCPU(fPrefs.getInt(KEY_FCPU, DEFAULT_FCPU));
+		
+		fAVRDudeProperties = new AVRDudeProperties(fPrefs.node(NODE_AVRDUDE), this);
+		
+		setBoardId(fPrefs.get(KEY_BOARD, DEFAULT_BOARD));
 
 		fUseExtRAM = fPrefs.getBoolean(KEY_USE_EXT_RAM, DEFAULT_USE_EXT_RAM);
 		fExtRAMSize = fPrefs.getInt(KEY_EXT_RAM_SIZE, 0);
 		fUseExtRAMforHeap = fPrefs.getBoolean(KEY_USE_EXT_RAM_HEAP, true);
 		fUseEEPROM = fPrefs.getBoolean(KEY_USE_EEPROM, DEFAULT_USE_EEPROM);
-
-		fAVRDudeProperties = new AVRDudeProperties(fPrefs.node(NODE_AVRDUDE), this);
 
 		fDirty = false;
 	}

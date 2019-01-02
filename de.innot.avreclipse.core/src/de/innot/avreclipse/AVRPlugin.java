@@ -20,6 +20,10 @@
 
 package de.innot.avreclipse;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -33,6 +37,8 @@ import org.eclipse.ui.console.MessageConsole;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+import de.innot.avreclipse.core.arduino.AbstractArduinoHelper;
+import de.innot.avreclipse.core.paths.AbstractSystemPathHelper;
 import de.innot.avreclipse.core.targets.ToolManager;
 
 /**
@@ -43,9 +49,21 @@ public class AVRPlugin extends Plugin {
 	// The plug-in ID
 	public static final String	PLUGIN_ID		= "de.innot.avreclipse.core";
 	public static final String	DEFAULT_CONSOLE	= "AVR Eclipse Plugin Log";
+	
+	public static final String	SYSTEMPATHHELPER_ID		= "systemPathHelper";
+	public static final String	SYSTEMPATHELEMENT_ID	= "pathHelper";
+	public static final String	SYSTEMPATHHELPER_TYPE	= "SystemPathHelper";
+
+	public static final String	ARDUINOHELPER_ID		= "arduinoHelper";
+	public static final String	ARDUINOELEMENT_ID		= "arduinoHelper";
+	public static final String	ARDUINOHELPER_TYPE		= "ArduinoHelper";
 
 	// The shared instance
 	private static AVRPlugin	plugin;
+	
+	private AbstractSystemPathHelper systemPathHelper;
+	
+	private AbstractArduinoHelper arduinoHelper;
 
 	/**
 	 * The constructor
@@ -169,5 +187,37 @@ public class AVRPlugin extends Plugin {
 		MessageConsole newconsole = new MessageConsole(name, null);
 		conman.addConsoles(new IConsole[] { newconsole });
 		return newconsole;
+	}
+	
+	public AbstractSystemPathHelper getSystemPathHelper() {
+		if (systemPathHelper == null) {
+			systemPathHelper = createHelper(SYSTEMPATHHELPER_ID, SYSTEMPATHELEMENT_ID, SYSTEMPATHHELPER_TYPE);
+		}
+		return systemPathHelper;
+	}
+	
+	public AbstractArduinoHelper getArduinoHelper() {
+		if (arduinoHelper == null) {
+			arduinoHelper = createHelper(ARDUINOHELPER_ID, ARDUINOELEMENT_ID, ARDUINOHELPER_TYPE);
+		}
+		return arduinoHelper;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T createHelper(String extensionPointId, String elementId, String type) {
+		IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(PLUGIN_ID, extensionPointId);
+		for (IConfigurationElement elm : extensionPoint.getConfigurationElements()) {
+			if (elementId.equals(elm.getName())) {
+				try {
+					return (T) elm.createExecutableExtension("class");
+				} catch (Exception ex) {
+					getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, "Error while creating " + type, ex));
+				}
+			}
+		}
+		IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, "Error while creating " + type
+																+ ". No extensions are registered.");
+		getLog().log(status);
+		throw new RuntimeException(status.getMessage());
 	}
 }

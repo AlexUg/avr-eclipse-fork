@@ -66,4 +66,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-Activator: de.innot.avreclipse.AVRPlugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
  JavaSE-1.6
-Import-Package: org.eclipse.ui.preferences
+Import-Package: de.innot.avreclipse.core.paths,
+ org.eclipse.ui.preferences

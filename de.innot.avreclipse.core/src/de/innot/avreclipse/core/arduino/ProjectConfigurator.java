@@ -202,14 +202,7 @@ public class ProjectConfigurator {
 	 * This implementation must to be replaced with Plugin Fragment for specific OS.
 	 */
 	public static List<String> findArduinoPorts(String boardId) {
-		if (Platform.getOS().equals(Platform.OS_LINUX)) {
-			return findArduinoPortsOnLinux(boardId);
-		} else if (Platform.getOS().equals(Platform.OS_WIN32)) {
-			return findArduinoPortsOnWindows(boardId);
-		} else if (Platform.getOS().equals(Platform.OS_MACOSX)) {
-			return findArduinoPortsOnMacOSX(boardId);
-		}
-		return Collections.emptyList();
+		return AVRPlugin.getDefault().getArduinoHelper().findArduinoPorts(ArduinoBoards.getInstance(), boardId);
 	}
 	
 	public static void fixIncludes(ICProjectDescription pDesc) {
@@ -311,25 +304,5 @@ public class ProjectConfigurator {
 			} while ((opt = opt.getSuperClass()) != null);
 		}
 		return result;
-	}
-	
-	public static List<String> findArduinoPortsOnLinux(String boardId) {
-		List<String> result = new ArrayList<String>();
-		
-		return result;
-	}
-	
-	public static List<String> findArduinoPortsOnWindows(String boardId) {
-		List<String> result = new ArrayList<String>();
-		
-		return result;
-		
-	}
-
-	public static List<String> findArduinoPortsOnMacOSX(String boardId) {
-		List<String> result = new ArrayList<String>();
-		
-		return result;
-		
 	}
 }

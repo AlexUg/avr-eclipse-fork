@@ -265,7 +265,8 @@ public class MCUSelectControl extends Composite {
 		fFCPUcombo.setText(fcpu);
 		
 		String boardId = fTargetProps.getBoardId();
-		if (boardId != null) {
+		if ((boardId != null)
+				&& (fBoardCombo != null)) {
 			String boardName = fBoardPreferences.getBoardName(boardId);
 			if (boardName != null) {
 				fBoardCombo.setValue(boardName);
@@ -300,13 +301,15 @@ public class MCUSelectControl extends Composite {
 			fLoadButton.setEnabled(!enable);
 		}
 		fFCPUcombo.setEnabled(!enable);
-		fBoardCombo.setEnabled(enable);
-		if (enable) {
-			String boardId = fBoardNameToIdMap.get(fBoardCombo.getValue());
-			fTargetProps.setBoardId(boardId);
-			updateMCUData(boardId);
-		} else {
-			fTargetProps.setBoardId("");
+		if (fBoardCombo != null) {
+			fBoardCombo.setEnabled(enable);
+			if (enable) {
+				String boardId = fBoardNameToIdMap.get(fBoardCombo.getValue());
+				fTargetProps.setBoardId(boardId);
+				updateMCUData(boardId);
+			} else {
+				fTargetProps.setBoardId("");
+			}
 		}
 	}
 	

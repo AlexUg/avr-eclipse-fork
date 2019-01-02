@@ -32,7 +32,6 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.paths.AVRPath;
 import de.innot.avreclipse.core.paths.AVRPathManager;
-import de.innot.avreclipse.core.paths.SystemPathHelper;
 
 /**
  * This class handles access to the path properties.
@@ -158,7 +157,7 @@ public class AVRPathsPreferences {
 					AVRPath[] allpaths = AVRPath.values();
 					monitor.beginTask("Searching for System Paths", allpaths.length);
 					for (AVRPath path : allpaths) {
-						SystemPathHelper.getPath(path, true);
+						AVRPlugin.getDefault().getSystemPathHelper().getPath(path, true);
 						monitor.worked(1);
 					}
 				} finally {

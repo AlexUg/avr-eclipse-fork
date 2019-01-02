@@ -12,8 +12,34 @@ public class BoardPreferences extends MCUBoardPreferences {
 	public static final String PREF_PID = "pid";
 	
 	public static class VidPid {
+		
+		public static class Comparator implements java.util.Comparator<VidPid> {
+
+			@Override
+			public int compare(VidPid o1, VidPid o2) {
+				int result = o1.vid.compareTo(o2.vid);
+				if (result == 0) {
+					return o1.pid.compareTo(o2.pid);
+				}
+				return result;
+			}
+
+		}
+		
+		public static final Comparator COMPARATOR = new Comparator();
+		
 		public Integer vid;
 		public Integer pid;
+
+		public VidPid() {
+			super();
+		}
+
+		public VidPid(Integer vid, Integer pid) {
+			super();
+			this.vid = vid;
+			this.pid = pid;
+		}
 
 		@Override
 		public String toString() {
@@ -32,6 +58,10 @@ public class BoardPreferences extends MCUBoardPreferences {
 			result.append(super.getName());
 			result.append(')');
 			return result.toString();
+		}
+		
+		public List<VidPid> getVidPidList() {
+			return BoardPreferences.this.getVidPidList();
 		}
 
 		@Override

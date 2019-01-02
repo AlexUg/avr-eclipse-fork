@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
+import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
 
 public class AVRPathManager implements IPathProvider {
@@ -146,7 +147,7 @@ public class AVRPathManager implements IPathProvider {
 	 * @return <code>IPath</code> to the system dependent source directory
 	 */
 	public IPath getSystemPath(boolean force) {
-		return SystemPathHelper.getPath(fAvrPath, force);
+		return AVRPlugin.getDefault().getSystemPathHelper().getPath(fAvrPath, force);
 	}
 
 	/**

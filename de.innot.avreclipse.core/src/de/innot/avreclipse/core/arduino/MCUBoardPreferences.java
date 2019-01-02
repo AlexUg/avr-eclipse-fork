@@ -1,7 +1,11 @@
 package de.innot.avreclipse.core.arduino;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import de.innot.avreclipse.core.arduino.BoardPreferences.VidPid;
 
 public class MCUBoardPreferences {
 	
@@ -88,6 +92,10 @@ public class MCUBoardPreferences {
 			unqualified = new HashMap<String, String>();
 		}
 		return unqualified;
+	}
+	
+	public List<VidPid> getVidPidList() {
+		return Collections.emptyList();
 	}
 
 	public String getPreference(String name) {
