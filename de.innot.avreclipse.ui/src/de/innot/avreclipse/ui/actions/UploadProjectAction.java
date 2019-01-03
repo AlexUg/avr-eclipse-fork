@@ -191,6 +191,13 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 				&& !props.getBoardId().isEmpty()) {
 			ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
 			String port = config.getPort();
+			if ((port != null)
+					&& !port.isEmpty()) {
+				List<String> ports = ProjectConfigurator.findArduinoPorts(props.getBoardId());
+				if (!ports.contains(port)) {
+					port = null;
+				}
+			}
 			if ((port == null)
 					|| port.isEmpty()) {
 				List<String> ports = ProjectConfigurator.findArduinoPorts(props.getBoardId());

@@ -91,10 +91,14 @@ public class ProjectPropertyManager {
 	 * build configuration.
 	 * 
 	 */
-	private boolean			fPerConfig;
+	private boolean					fPerConfig;
 
 	/** The project this description is for */
-	private final IProject	fProject;
+	private final IProject			fProject;
+	
+	private AVRProjectProperties	fProjectProperties;
+	
+	private Map<String, AVRProjectProperties>	fBuildConfigProperties;
 
 	/**
 	 * Instantiate Properties Description Object for the given Project.
@@ -127,6 +131,13 @@ public class ProjectPropertyManager {
 	 */
 	public boolean isPerConfig() {
 		return fPerConfig;
+	}
+
+	public Map<String, AVRProjectProperties> getBuildConfigProperties() {
+		if (fBuildConfigProperties == null) {
+			fBuildConfigProperties = new HashMap<String, AVRProjectProperties>();
+		}
+		return fBuildConfigProperties;
 	}
 
 	/**
@@ -207,11 +218,14 @@ public class ProjectPropertyManager {
 			boolean copyproject = !scope.configExists(QUALIFIER, buildcfg);
 
 			IEclipsePreferences cfgprefs = getConfigurationPreferences(buildcfg);
-			AVRProjectProperties newconfigprops;
-			if (copyproject) {
-				newconfigprops = new AVRProjectProperties(cfgprefs, getProjectProperties());
-			} else {
-				newconfigprops = new AVRProjectProperties(cfgprefs);
+			AVRProjectProperties newconfigprops = getBuildConfigProperties().get(cfgprefs.absolutePath());
+			if (newconfigprops == null) {
+				if (copyproject) {
+					newconfigprops = new AVRProjectProperties(cfgprefs, getProjectProperties());
+				} else {
+					newconfigprops = new AVRProjectProperties(cfgprefs);
+				}
+				getBuildConfigProperties().put(cfgprefs.absolutePath(), newconfigprops);
 			}
 
 			return newconfigprops;
@@ -227,8 +241,10 @@ public class ProjectPropertyManager {
 	 * @return <code>AVRProjectProperies</code> with the requested properties.
 	 */
 	public AVRProjectProperties getProjectProperties() {
-
-		return new AVRProjectProperties(getProjectPreferences(fProject));
+		if (fProjectProperties == null) {
+			fProjectProperties = new AVRProjectProperties(getProjectPreferences(fProject));
+		}
+		return fProjectProperties;
 	}
 
 	/**
