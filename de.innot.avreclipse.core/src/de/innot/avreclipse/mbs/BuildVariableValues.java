@@ -17,6 +17,9 @@ import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
 import org.eclipse.core.resources.IProject;
 
+import de.innot.avreclipse.AVRPlugin;
+import de.innot.avreclipse.core.arduino.ArduinoBoards;
+import de.innot.avreclipse.core.arduino.MCUBoardPreferences;
 import de.innot.avreclipse.core.paths.AVRPath;
 import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
@@ -71,6 +74,78 @@ public enum BuildVariableValues {
 				return "";
 			String fcpu = props.getFCPU();
 			return fcpu;
+		}
+	},
+
+	USB_VID() {
+		@Override
+		public String getValue(IConfiguration buildcfg) {
+			AVRProjectProperties props = getPropsFromConfig(buildcfg);
+			if ((props == null)
+					|| (props.getBoardId() == null)
+					|| props.getBoardId().isEmpty()) {
+				return "";
+			}
+			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			if (prefs != null) {
+				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_VID);
+			}
+			return "";
+		}
+	},
+
+	USB_PID() {
+		@Override
+		public String getValue(IConfiguration buildcfg) {
+			AVRProjectProperties props = getPropsFromConfig(buildcfg);
+			if ((props == null)
+					|| (props.getBoardId() == null)
+					|| props.getBoardId().isEmpty()) {
+				return "";
+			}
+			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			if (prefs != null) {
+				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_PID);
+			}
+			return "";
+		}
+	},
+
+	USB_MANUFACTURER() {
+		@Override
+		public String getValue(IConfiguration buildcfg) {
+			AVRProjectProperties props = getPropsFromConfig(buildcfg);
+			if ((props == null)
+					|| (props.getBoardId() == null)
+					|| props.getBoardId().isEmpty()) {
+				return "";
+			}
+			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			if (prefs != null) {
+				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_VID);
+				if ((value != null)
+						&& !value.isEmpty()) {
+					return "\"Arduino\"";
+				}
+			}
+			return "";
+		}
+	},
+
+	USB_PRODUCT() {
+		@Override
+		public String getValue(IConfiguration buildcfg) {
+			AVRProjectProperties props = getPropsFromConfig(buildcfg);
+			if ((props == null)
+					|| (props.getBoardId() == null)
+					|| props.getBoardId().isEmpty()) {
+				return "";
+			}
+			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			if (prefs != null) {
+				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
+			}
+			return "";
 		}
 	},
 

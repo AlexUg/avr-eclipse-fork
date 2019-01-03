@@ -55,6 +55,7 @@ public class ArduinoBoards {
 					}
 				} else if (!v.getVidPidMap().isEmpty()) {
 					for (Entry<VidPid, MCUBoardPreferences> centry : v.getVidPidMap().entrySet()) {
+						centry.getValue().setName(centry.getKey().toString());
 						mcuMap.put(k + "." + centry.getKey().toString(), centry.getValue());
 					}
 				} else if ((v.getName() != null)

@@ -549,6 +549,46 @@
          name="Object Files"
          nameProvider="de.innot.avreclipse.mbs.ObjectFileNameProvider"
          outputs="o"/>
+   <optionCategory
+         id="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         name="USB Support">
+   </optionCategory>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_VID=${value}"
+         defaultValue="${USB_VID}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.vid"
+         isAbstract="false"
+         name="USB Vendor Id"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_PID=${value}"
+         defaultValue="${USB_PID}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.pid"
+         isAbstract="false"
+         name="USB Product Id"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_MANUFACTURER=${value}"
+         defaultValue="${USB_MANUFACTURER}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.usb_manufacturer"
+         isAbstract="false"
+         name="USB Manafacturer"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_PRODUCT=${value}"
+         defaultValue="${USB_PRODUCT}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.usb_product"
+         isAbstract="false"
+         name="USB Product"
+         valueType="string">
+   </option>
 		</tool>
 
 <!-- 
@@ -876,6 +916,46 @@
          name="Object Files"
          nameProvider="de.innot.avreclipse.mbs.ObjectFileNameProvider"
          outputs="o"/>
+   <optionCategory
+         id="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         name="USB Support">
+   </optionCategory>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_VID=${value}"
+         defaultValue="${USB_VID}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.vid"
+         isAbstract="false"
+         name="USB Vendor Id"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_PID=${value}"
+         defaultValue="${USB_PID}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.pid"
+         isAbstract="false"
+         name="USB Product Id"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_MANUFACTURER=${value}"
+         defaultValue="${USB_MANUFACTURER}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.usb_manufacturer"
+         isAbstract="false"
+         name="USB Manafacturer"
+         valueType="string">
+   </option>
+   <option
+         category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
+         command="-DUSB_PRODUCT=${value}"
+         defaultValue="${USB_PRODUCT}"
+         id="de.innot.avreclipse.core.managedbuildsystem.build.usb_product"
+         isAbstract="false"
+         name="USB Product"
+         valueType="string">
+   </option>
 		</tool>
 
 <!-- 

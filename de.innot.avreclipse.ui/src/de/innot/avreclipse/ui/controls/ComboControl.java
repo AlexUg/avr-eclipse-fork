@@ -242,7 +242,6 @@ public class ComboControl extends Composite {
 		super.dispose();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void finalize() throws Throwable {
 		if (popup.isDisposed()) {
