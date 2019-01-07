@@ -501,12 +501,21 @@
 
 			<optionCategory id="de.innot.avreclipse.compiler.category.misc"
 				name="Miscellaneous" />
-			<option id="de.innot.avreclipse.compiler.option.verbose"
-				name="Verbose (-v)" 
-				category="de.innot.avreclipse.compiler.category.misc"
-				valueType="boolean" 
-				defaultValue="false"
-				command="-v" />
+   <option
+         category="de.innot.avreclipse.compiler.category.misc"
+         command="-fno-threadsafe-statics"
+         defaultValue="true"
+         id="de.innot.avreclipse.core.managedbuildsystem.no-threadsafe-statics"
+         name="No threadsafe statics (-fno-threadsafe-statics)"
+         valueType="boolean">
+   </option>
+			<option
+         category="de.innot.avreclipse.compiler.category.misc"
+         command="-v"
+         defaultValue="false"
+         id="de.innot.avreclipse.compiler.option.verbose"
+         name="Verbose (-v)"
+         valueType="boolean"/>
 			<option id="de.innot.avreclipse.compiler.option.otherflags"
 				name="Other flags"
 				category="de.innot.avreclipse.compiler.category.misc" 
@@ -869,6 +878,14 @@
 
 			<optionCategory id="de.innot.avreclipse.cppcompiler.category.misc"
 				name="Miscellaneous" />
+   <option
+         category="de.innot.avreclipse.cppcompiler.category.misc"
+         command="-fno-threadsafe-statics"
+         defaultValue="true"
+         id="de.innot.avreclipse.core.managedbuildsystem.no-threadsafe-statics"
+         name="No threadsafe statics (-fno-threadsafe-statics)"
+         valueType="boolean">
+   </option>
 			<option id="de.innot.avreclipse.cppcompiler.option.verbose"
 				name="Verbose (-v)" 
 				category="de.innot.avreclipse.cppcompiler.category.misc"
@@ -1792,104 +1809,6 @@
 		<projectType id="de.innot.avreclipse.project.winavr.elf_2.1.0"
 			buildArtefactType="de.innot.avreclipse.buildArtefactType.app">
 
-			<configuration id="de.innot.avreclipse.configuration.app.debug"
-				name="Debug"
-				parent="de.innot.avreclipse.config.winavr.base"
-				buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" >
-				<toolChain id="de.innot.avreclipse.toolchain.winavr.app.debug"
-					superClass="de.innot.avreclipse.toolchain.winavr.base" 
-					secondaryOutputs="de.innot.avreclipse.tool.objdump.output;de.innot.avreclipse.tool.objcopy.flash.output;de.innot.avreclipse.tool.objcopy.eeprom.output;de.innot.avreclipse.tool.size.output;de.innot.avreclipse.tool.avrdude.output" > 
-
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.objcopy.flash.app.debug"
-						defaultValue="false"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.objcopy.flash" /> 
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.objcopy.eeprom.app.debug"
-						defaultValue="false"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.objcopy.eeprom" /> 
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.objdump.app.debug"
-						defaultValue="true"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.objdump" /> 
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.size.app.debug"
-						defaultValue="true"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.size" /> 
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.debug"
-						defaultValue="false"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.avrdude" /> 
-
-					<targetPlatform
-						id="de.innot.avreclipse.targetplatform.winavr.app.debug"
-						superClass="de.innot.avreclipse.targetplatform.avr" />
-					<builder
-						id="de.innot.avreclipse.target.builder.winavr.app.debug"
-						superClass="de.innot.avreclipse.target.builder.winavr.base" />
-
-					<tool
-						id="de.innot.avreclipse.tool.assembler.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.assembler.winavr.base" />
-					<tool
-						id="de.innot.avreclipse.tool.compiler.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.compiler.winavr.base" />
-					<tool
-						id="de.innot.avreclipse.tool.cppcompiler.app.debug"
-						superClass="de.innot.avreclipse.tool.cppcompiler.base" />
-					<tool 
-						id="de.innot.avreclipse.tool.linker.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.linker.winavr.base" />
-					<tool 
-						id="de.innot.avreclipse.tool.cpplinker.app.debug"
-						superClass="de.innot.avreclipse.tool.cpplinker.base" />
-					<tool 
-						id="de.innot.avreclipse.tool.objdump.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.objdump.winavr" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.objdump.app.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.app.debug"
-								value="true" />
-						</enablement>
-					</tool>
-					<tool
-						id="de.innot.avreclipse.tool.objcopy.flash.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.objcopy.flash.winavr" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.objcopy.flash.app.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.app.debug"
-								value="true" />
-						</enablement>
-					</tool>
-					<tool
-						id="de.innot.avreclipse.tool.objcopy.eeprom.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.objcopy.eeprom.winavr" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.objcopy.eeprom.app.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.app.debug"
-								value="true" />
-						</enablement>
-					</tool>
-					<tool 
-						id="de.innot.avreclipse.tool.size.winavr.app.debug"
-						superClass="de.innot.avreclipse.tool.size.winavr" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.size.app.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.app.debug"
-								value="true" />
-						</enablement>
-					</tool>
-					<tool 
-						id="de.innot.avreclipse.tool.avrdude.app.debug"
-						superClass="de.innot.avreclipse.tool.avrdude" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.app.debug"
-								value="true" />
-						</enablement>
-					</tool>
-				</toolChain>
-			</configuration>
 
 			<configuration id="de.innot.avreclipse.configuration.app.release" 
 				name="Release"
@@ -1999,69 +1918,6 @@
 		<projectType id="de.innot.avreclipse.project.winavr.staticlib"
 			buildArtefactType="de.innot.avreclipse.buildArtefactType.staticLib">
 			
-			<configuration id="de.innot.avreclipse.configuration.lib.debug"
-				name="Debug"
-				parent="de.innot.avreclipse.config.winavr.base"
-				artifactExtension="a" 
-				cleanCommand="rm -f"
-				buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug">
-				<toolChain id="de.innot.avreclipse.toolchain.winavr.lib.debug"
-					superClass="de.innot.avreclipse.toolchain.winavr.base" 
-					secondaryOutputs="de.innot.avreclipse.tool.objdump.output;de.innot.avreclipse.tool.size.output" > 
-
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.objdump.lib.debug"
-						defaultValue="true"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.objdump" /> 
-					<option id="de.innot.avreclipse.toolchain.options.toolchain.size.lib.debug"
-						defaultValue="true"
-						superClass="de.innot.avreclipse.toolchain.options.toolchain.size" /> 
-
-					<targetPlatform
-						id="de.innot.avreclipse.targetplatform.winavr.lib.debug"
-						superClass="de.innot.avreclipse.targetplatform.avr" />
-					<builder
-						id="de.innot.avreclipse.target.builder.winavr.lib.debug"
-						superClass="de.innot.avreclipse.target.builder.winavr.base" />
-
-					<tool
-						id="de.innot.avreclipse.tool.assembler.winavr.lib.debug"
-						superClass="de.innot.avreclipse.tool.assembler.winavr.base" />
-					<tool
-						id="de.innot.avreclipse.tool.compiler.winavr.lib.debug"
-						superClass="de.innot.avreclipse.tool.compiler.winavr.base" />
-					<tool
-						id="de.innot.avreclipse.tool.cppcompiler.lib.debug"
-						superClass="de.innot.avreclipse.tool.cppcompiler.base" />
-					<tool
-						id="de.innot.avreclipse.tool.archiver.winavr.lib.debug"
-						superClass="de.innot.avreclipse.tool.archiver.winavr.base" />
-					<tool 
-						id="de.innot.avreclipse.tool.objdump.winavr.lib.debug"
-						superClass="de.innot.avreclipse.tool.objdump.winavr" >
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.objdump.lib.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.lib.debug"
-								value="true" />
-						</enablement>
-					</tool>
-					<tool 
-						id="de.innot.avreclipse.tool.size.winavr.lib.debug"
-						superClass="de.innot.avreclipse.tool.size.winavr" >
-						<option id="de.innot.avreclipse.size.option.format.lib.debug"
-							superClass="de.innot.avreclipse.size.option.format"
-							value="de.innot.avreclipse.size.option.format.berkeley" />
-						<enablement type="ALL">
-							<checkOption
-								optionId="de.innot.avreclipse.toolchain.options.toolchain.size.lib.debug"
-								holderId="de.innot.avreclipse.toolchain.winavr.lib.debug"
-								value="true" />
-						</enablement>
-
-					</tool>
-						
-				</toolChain>
-			</configuration>
 
 			<configuration id="de.innot.avreclipse.configuration.lib.release" 
 				name="Release"

@@ -142,11 +142,13 @@ public enum BuildVariableValues {
 			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
 			if (prefs != null) {
 				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
-				if (value.charAt(0) == '"') {
-					value = value.substring(1);
-				}
-				if (value.charAt(value.length() - 1) == '"') {
-					value = value.substring(0, value.length() - 1);
+				if (value != null) {
+					if (value.charAt(0) == '"') {
+						value = value.substring(1);
+					}
+					if (value.charAt(value.length() - 1) == '"') {
+						value = value.substring(0, value.length() - 1);
+					}
 				}
 				return value;
 			}
