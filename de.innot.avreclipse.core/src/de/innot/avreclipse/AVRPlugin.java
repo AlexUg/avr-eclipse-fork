@@ -20,12 +20,15 @@
 
 package de.innot.avreclipse;
 
-import org.eclipse.core.runtime.CoreException;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
@@ -38,6 +41,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import de.innot.avreclipse.core.arduino.AbstractArduinoHelper;
+import de.innot.avreclipse.core.arduino.ArduinoBoards;
+import de.innot.avreclipse.core.paths.AVRPath;
 import de.innot.avreclipse.core.paths.AbstractSystemPathHelper;
 import de.innot.avreclipse.core.targets.ToolManager;
 
@@ -193,12 +198,30 @@ public class AVRPlugin extends Plugin {
 		if (systemPathHelper == null) {
 			systemPathHelper = createHelper(SYSTEMPATHHELPER_ID, SYSTEMPATHELEMENT_ID, SYSTEMPATHHELPER_TYPE);
 		}
+		if (systemPathHelper == null) {
+			systemPathHelper = new AbstractSystemPathHelper() {
+				
+				@Override
+				protected IPath findSystemPath(AVRPath avrpath) {
+					return new Path("");
+				}
+			};
+		}
 		return systemPathHelper;
 	}
 	
 	public AbstractArduinoHelper getArduinoHelper() {
 		if (arduinoHelper == null) {
 			arduinoHelper = createHelper(ARDUINOHELPER_ID, ARDUINOELEMENT_ID, ARDUINOHELPER_TYPE);
+		}
+		if (arduinoHelper == null) {
+			arduinoHelper = new AbstractArduinoHelper() {
+				
+				@Override
+				public List<String> findArduinoPorts(ArduinoBoards boards, String boardId) {
+					return Collections.emptyList();
+				}
+			};
 		}
 		return arduinoHelper;
 	}
@@ -218,6 +241,6 @@ public class AVRPlugin extends Plugin {
 		IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, "Error while creating " + type
 																+ ". No extensions are registered.");
 		getLog().log(status);
-		throw new RuntimeException(status.getMessage());
+		return null;
 	}
 }

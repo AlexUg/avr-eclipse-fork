@@ -16,6 +16,7 @@
 	<modules>
 		<module>../de.innot.avreclipse</module>
 		<module>../de.innot.avreclipse.core</module>
+		<module>../de.innot.avreclipse.core.linux</module>
 		<module>../de.innot.avreclipse.core.managedbuildsystem</module>
 		<module>../de.innot.avreclipse.ui</module>
 		<module>../de.innot.avreclipse.doc</module>

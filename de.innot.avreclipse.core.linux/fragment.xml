@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<fragment>
+   <extension
+         point="de.innot.avreclipse.core.systemPathHelper">
+      <pathHelper
+            class="de.innot.avreclipse.core.paths.SystemPathHelper">
+      </pathHelper>
+   </extension>
+   <extension
+         point="de.innot.avreclipse.core.arduinoHelper">
+      <arduinoHelper
+            class="de.innot.avreclipse.core.arduino.ArduinoHelper">
+      </arduinoHelper>
+   </extension>
+
+</fragment>
