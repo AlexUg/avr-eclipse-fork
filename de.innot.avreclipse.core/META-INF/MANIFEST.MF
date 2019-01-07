@@ -26,7 +26,6 @@ Export-Package: de.innot.avreclipse;uses:="org.eclipse.core.runtime,org.eclipse.
    de.innot.avreclipse.core.toolinfo.fuses",
  de.innot.avreclipse.core.natures;uses:="org.eclipse.core.resources",
  de.innot.avreclipse.core.paths;uses:="org.eclipse.jface.preference,org.eclipse.core.runtime",
- de.innot.avreclipse.core.paths.posix;uses:="org.eclipse.core.runtime,de.innot.avreclipse.core.paths",
  de.innot.avreclipse.core.paths.win32;uses:="org.eclipse.core.runtime,de.innot.avreclipse.core.paths",
  de.innot.avreclipse.core.preferences;
   uses:="org.eclipse.jface.preference,
@@ -68,3 +67,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
  JavaSE-1.6
 Import-Package: de.innot.avreclipse.core.paths,
  org.eclipse.ui.preferences
+Bundle-ClassPath: .,
+ libs/jssc.jar

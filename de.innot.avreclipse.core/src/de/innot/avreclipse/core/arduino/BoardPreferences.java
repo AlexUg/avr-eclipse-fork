@@ -17,6 +17,11 @@ public class BoardPreferences extends MCUBoardPreferences {
 
 			@Override
 			public int compare(VidPid o1, VidPid o2) {
+				if (o1 == null) {
+					return -1;
+				} else if (o2 == null) {
+					return 1;
+				}
 				int result = o1.vid.compareTo(o2.vid);
 				if (result == 0) {
 					return o1.pid.compareTo(o2.pid);

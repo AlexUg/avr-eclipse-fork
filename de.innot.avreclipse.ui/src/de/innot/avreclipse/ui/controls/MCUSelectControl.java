@@ -118,7 +118,7 @@ public class MCUSelectControl extends Composite {
 	/** The Properties that this page works with */
 	private ICResourceDescription 	fResdesc;
 	private AVRProjectProperties	fTargetProps;
-	private ArduinoBoards			fBoardPreferences = ArduinoBoards.getInstance();
+	private ArduinoBoards			fBoardPreferences;
 	
 	private Button 					fMCUButton;
 	private ComboControl			fMCUcombo;
@@ -145,6 +145,7 @@ public class MCUSelectControl extends Composite {
 	public MCUSelectControl(Composite parent, boolean isLoadSupported) {
 		super(parent, SWT.NONE);
 		fIsLoadSupported = isLoadSupported;
+		fBoardPreferences = ArduinoBoards.getInstance();
 		setFont(parent.getFont());
 		setBackground(parent.getBackground());
 		setLayout(new GridLayout(3, false));
@@ -252,6 +253,8 @@ public class MCUSelectControl extends Composite {
 			});
 			
 			addBoardsSection(this);
+		} else {
+			addBoardsErrorSection(this);
 		}
 
 	}
@@ -443,6 +446,17 @@ public class MCUSelectControl extends Composite {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
+	}
+	
+	protected void addBoardsErrorSection(Composite parent) {
+		Label l = setupLabel(parent, "ERROR", 1, SWT.NONE);
+		l.setImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+		setupLabel(parent,
+					(ArduinoBoards.LAST_ERROR != null ?
+						ArduinoBoards.LAST_ERROR.getMessage() :
+							"Wrong Arduino preferences. See '" + ArduinoBoards.PREFERENCE_UI_PATH + "'"),
+					1,
+					SWT.NONE);
 	}
 
 	/**

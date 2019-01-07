@@ -15,9 +15,6 @@ import java.io.File;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.preferences.AVRPathsPreferences;
@@ -78,6 +75,10 @@ public class AVRPathManager implements IPathProvider {
 	 */
 	public String getDescription() {
 		return fAvrPath.getDescription();
+	}
+	
+	public String getValue() {
+		return fPrefsValue;
 	}
 
 	/**
@@ -289,5 +290,10 @@ public class AVRPathManager implements IPathProvider {
 		if (fPrefsValue != null) {
 			fPrefs.setValue(fAvrPath.name(), fPrefsValue);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "AVRPathManager [fAvrPath=" + fAvrPath + ", fPrefsValue=" + fPrefsValue + "]";
 	}
 }

@@ -147,7 +147,8 @@ public class AVRProjectProperties {
 			fBoardId = boardId;
 			fDirty = true;
 		}
-		if (fBoardId != null) {
+		if ((fBoardId != null)
+				&& !boardId.isEmpty()) {
 			fAVRDudeProperties.initProgrammerForArduino(ProjectConfigurator.createArduinoProgrammer(fBoardId));
 		}
 	}

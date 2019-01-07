@@ -9,13 +9,20 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
+import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.arduino.BoardPreferences.VidPid;
 import de.innot.avreclipse.core.paths.AVRPath;
 
 public class ArduinoBoards {
 	
+	public static final String PREFERENCE_UI_PATH = "Window -> Preferences -> AVR -> Paths";
+	
 	private static ArduinoBoards INSTANCE;
+	
+	public static IStatus LAST_ERROR = null;
 	
 	private Map<String, BoardPreferences> boardsMap;
 	
@@ -24,15 +31,29 @@ public class ArduinoBoards {
 	public static ArduinoBoards getInstance() {
 		if (INSTANCE == null) {
 			IPath path = AVRPath.ARDUINO.getPathManager().getPath();
-			if (path != null) {
+			if ((path != null)
+					&& !path.isEmpty()) {
 				File boardsTxt = path.append(AVRPath.ARDUINO.getTest()).toFile();
-				INSTANCE = new ArduinoBoards(boardsTxt);
+				if (boardsTxt.canRead()) {
+					INSTANCE = new ArduinoBoards(boardsTxt);
+					LAST_ERROR = null;
+				} else {
+					LAST_ERROR = new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID, "Arduino 'boards.txt' can't be read. "
+							+ "See '" + PREFERENCE_UI_PATH + "'");
+				}
+			} else {
+				LAST_ERROR = new Status(IStatus.ERROR, AVRPlugin.PLUGIN_ID, "Arduino preferences aren't defined. "
+						+ "See '" + PREFERENCE_UI_PATH + "'");
 			}
 		}
 		return INSTANCE;
 	}
+	
+	public static void reset() {
+		INSTANCE = null;
+	}
 
-	public ArduinoBoards(File boardsTxt) {
+	private ArduinoBoards(File boardsTxt) {
 		load(boardsTxt);
 	}
 	

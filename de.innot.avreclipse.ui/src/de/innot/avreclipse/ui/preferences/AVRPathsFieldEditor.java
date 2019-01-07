@@ -23,7 +23,6 @@ import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -39,6 +38,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+import de.innot.avreclipse.core.arduino.ArduinoBoards;
 import de.innot.avreclipse.core.paths.AVRPath;
 import de.innot.avreclipse.core.paths.AVRPathManager;
 
@@ -93,7 +93,7 @@ public class AVRPathsFieldEditor extends FieldEditor {
 				if (dialog.open() == Window.OK) {
 					// OK Button selected:
 					// get the modified Path, keep it and update this Editor
-					path = dialog.getResult();
+					path.setPath(dialog.getResult().getValue(), dialog.getResult().getSourceType());
 				}
 			} else if (e.getSource() == fRescanButton) {
 				// force a search for the current system path.
@@ -321,6 +321,8 @@ public class AVRPathsFieldEditor extends FieldEditor {
 			AVRPathManager path = (AVRPathManager) tableitem.getData();
 			path.store();
 		}
+		// TODO reset ArduinoBoards preferences only when Arduino path changed
+		ArduinoBoards.reset();
 	}
 
 	/*

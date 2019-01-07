@@ -573,7 +573,7 @@
    </option>
    <option
          category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
-         command="-DUSB_MANUFACTURER=${value}"
+         command="&quot;-DUSB_MANUFACTURER=\&quot;${value}\&quot;&quot;"
          defaultValue="${USB_MANUFACTURER}"
          id="de.innot.avreclipse.core.managedbuildsystem.build.usb_manufacturer"
          isAbstract="false"
@@ -582,7 +582,7 @@
    </option>
    <option
          category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
-         command="-DUSB_PRODUCT=${value}"
+         command="&quot;-DUSB_PRODUCT=\&quot;${value}\&quot;&quot;"
          defaultValue="${USB_PRODUCT}"
          id="de.innot.avreclipse.core.managedbuildsystem.build.usb_product"
          isAbstract="false"
@@ -940,7 +940,7 @@
    </option>
    <option
          category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
-         command="-DUSB_MANUFACTURER=${value}"
+         command="&quot;-DUSB_MANUFACTURER=\&quot;${value}\&quot;&quot;"
          defaultValue="${USB_MANUFACTURER}"
          id="de.innot.avreclipse.core.managedbuildsystem.build.usb_manufacturer"
          isAbstract="false"
@@ -949,7 +949,7 @@
    </option>
    <option
          category="de.innot.avreclipse.core.managedbuildsystem.usbsupport"
-         command="-DUSB_PRODUCT=${value}"
+         command="&quot;-DUSB_PRODUCT=\&quot;${value}\&quot;&quot;"
          defaultValue="${USB_PRODUCT}"
          id="de.innot.avreclipse.core.managedbuildsystem.build.usb_product"
          isAbstract="false"

@@ -39,13 +39,14 @@ import org.eclipse.ui.console.MessageConsole;
 
 import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.IMCUProvider;
+import de.innot.avreclipse.core.arduino.AbstractArduinoHelper;
+import de.innot.avreclipse.core.arduino.ArduinoBoards;
 import de.innot.avreclipse.core.avrdude.AVRDudeAction;
 import de.innot.avreclipse.core.avrdude.AVRDudeActionFactory;
 import de.innot.avreclipse.core.avrdude.AVRDudeException;
 import de.innot.avreclipse.core.avrdude.AVRDudeException.Reason;
 import de.innot.avreclipse.core.avrdude.ProgrammerConfig;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.preferences.AVRDudePreferences;
 import de.innot.avreclipse.core.targets.ClockValuesGenerator;
@@ -56,6 +57,8 @@ import de.innot.avreclipse.core.targets.TargetInterface;
 import de.innot.avreclipse.core.toolinfo.fuses.ByteValues;
 import de.innot.avreclipse.core.toolinfo.fuses.FuseType;
 import de.innot.avreclipse.core.util.AVRMCUidConverter;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
 /**
  * This class handles all interactions with the avrdude program.
@@ -349,7 +352,7 @@ public class AVRDude implements IMCUProvider {
 
 				try {
 					List<String> stdout = runCommand(configoptions, new SubProgressMonitor(monitor,
-							30), false, null, config);
+							30), false, null, config, null);
 					if (stdout == null) {
 						continue;
 					}
@@ -448,7 +451,7 @@ public class AVRDude implements IMCUProvider {
 			}
 
 			List<String> stdout = runCommand(args, new SubProgressMonitor(monitor, 80), false,
-					null, config);
+					null, config, null);
 			if (stdout == null) {
 				return null;
 			}
@@ -535,7 +538,7 @@ public class AVRDude implements IMCUProvider {
 				args.add(action.getArgument());
 			}
 
-			List<String> stdout = runCommand(args, monitor, false, null, config);
+			List<String> stdout = runCommand(args, monitor, false, null, config, null);
 			if (stdout == null) {
 				return null;
 			}
@@ -602,7 +605,7 @@ public class AVRDude implements IMCUProvider {
 			args.add("-p" + getMCUInfo(mcuid));
 
 			List<String> stdout = runCommand(args, new SubProgressMonitor(monitor, 80), false,
-					null, config);
+					null, config, null);
 			if (stdout == null) {
 				return -1;
 			}
@@ -651,7 +654,7 @@ public class AVRDude implements IMCUProvider {
 			args.add("-p" + getMCUInfo(mcuid));
 			args.add("-Y" + (newcounter & 0xffff));
 
-			runCommand(args, new SubProgressMonitor(monitor, 60), false, null, config);
+			runCommand(args, new SubProgressMonitor(monitor, 60), false, null, config, null);
 
 			// return the current value of the device as a crosscheck.
 			return getEraseCycleCounter(config, new SubProgressMonitor(monitor, 20));
@@ -1101,7 +1104,7 @@ public class AVRDude implements IMCUProvider {
 			arglist.add(arg);
 		}
 
-		return runCommand(arglist, new NullProgressMonitor(), false, null, null);
+		return runCommand(arglist, new NullProgressMonitor(), false, null, null, null);
 	}
 
 	/**
@@ -1136,7 +1139,7 @@ public class AVRDude implements IMCUProvider {
 	 *             when avrdude cannot be started or when avrdude returned an error errors.
 	 */
 	public List<String> runCommand(List<String> arglist, IProgressMonitor monitor,
-			boolean forceconsole, IPath cwd, ProgrammerConfig programmerconfig)
+			boolean forceconsole, IPath cwd, ProgrammerConfig programmerconfig, String boardId)
 			throws AVRDudeException {
 
 		try {
@@ -1157,6 +1160,26 @@ public class AVRDude implements IMCUProvider {
 			if (usecustomconfig) {
 				String newconfigfile = avrdudeprefs.getString(AVRDudePreferences.KEY_CONFIGFILE);
 				arglist.add("-C" + newconfigfile);
+			}
+			
+			if ((programmerconfig != null)
+					&& Boolean.valueOf(programmerconfig.getUse1200bpsTouch())) {
+				if (touchForCDCReset(programmerconfig.getPort())) {
+					if (Boolean.valueOf(programmerconfig.getWaitForUploadPort())) {
+						if ((boardId != null)
+								&& !boardId.isEmpty()) {
+							// TODO use new found Arduino port
+							if (!waitForArduinoPort(boardId, 10)) {
+								throw new AVRDudeException(Reason.INVALID_PORT, "Arduino board not found after reset");
+							}
+						} else {
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							}
+						}
+					}
+				}
 			}
 
 			// Set up the External Command
@@ -1179,6 +1202,7 @@ public class AVRDude implements IMCUProvider {
 
 			// Run avrdude
 			try {
+				
 				fAbortReason = null;
 				int result = avrdude.launch(new SubProgressMonitor(monitor, 80));
 
@@ -1740,5 +1764,40 @@ public class AVRDude implements IMCUProvider {
 			}
 			return false;
 		}
+	}
+
+	public static boolean touchForCDCReset(String portFile)  {
+		SerialPort serialPort = new SerialPort(portFile);
+		try {
+			serialPort.openPort();
+			serialPort.setParams(1200, 8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+			serialPort.setDTR(false);
+			serialPort.closePort();
+			return true;
+		} catch (SerialPortException ex) {
+			throw new RuntimeException(String.format("Error touching serial port %1$s.", portFile), ex);
+		} finally {
+			if (serialPort.isOpened()) {
+				try {
+					serialPort.closePort();
+				} catch (SerialPortException e) {
+				}
+			}
+		}
+	}
+	
+	public static boolean waitForArduinoPort(String boardId, int count)  {
+		AbstractArduinoHelper helper = AVRPlugin.getDefault().getArduinoHelper();
+		List<String> list = helper.findArduinoPorts(ArduinoBoards.getInstance(), boardId);
+		while (list.isEmpty()
+				&& (count > 0)) {
+			count--;
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+			}
+			list = helper.findArduinoPorts(ArduinoBoards.getInstance(), boardId);
+		}
+		return !list.isEmpty();
 	}
 }

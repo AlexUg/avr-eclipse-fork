@@ -336,7 +336,7 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 		// relative paths are resolved correctly.
 		IPath cwdunresolved = buildcfg.getBuildData().getBuilderCWD();
 		IPath cwd = new Path(BuildMacro.resolveMacros(buildcfg, cwdunresolved.toString()));
-		Job uploadjob = new UploadJob(optionargs, actionargs, cwd, programmer);
+		Job uploadjob = new UploadJob(optionargs, actionargs, cwd, programmer, props.getBoardId());
 
 		uploadjob.setRule(new AVRDudeSchedulingRule(programmer));
 		uploadjob.setPriority(Job.LONG);
@@ -356,14 +356,16 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 		private final List<String>		fActions;
 		private final IPath				fCwd;
 		private final ProgrammerConfig	fProgrammerConfig;
+		private final String			fBoardId;
 
 		public UploadJob(List<String> options, List<String> actions, IPath cwd,
-				ProgrammerConfig programmer) {
+				ProgrammerConfig programmer, String boardId) {
 			super("AVRDude Upload");
 			fOptions = options;
 			fActions = actions;
 			fCwd = cwd;
 			fProgrammerConfig = programmer;
+			fBoardId = boardId;
 		}
 
 		@Override
@@ -393,7 +395,7 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 
 				// Now avrdude can be started.
 				avrdude.runCommand(fOptions, SubMonitor.convert(monitor, 1), true, fCwd,
-						fProgrammerConfig);
+						fProgrammerConfig, fBoardId);
 
 			} catch (AVRDudeException ade) {
 				// Show an Error message and exit

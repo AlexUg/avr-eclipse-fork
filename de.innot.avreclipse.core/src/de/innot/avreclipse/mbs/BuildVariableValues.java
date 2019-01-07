@@ -17,11 +17,9 @@ import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
 import org.eclipse.core.resources.IProject;
 
-import de.innot.avreclipse.AVRPlugin;
 import de.innot.avreclipse.core.arduino.ArduinoBoards;
 import de.innot.avreclipse.core.arduino.MCUBoardPreferences;
 import de.innot.avreclipse.core.paths.AVRPath;
-import de.innot.avreclipse.core.paths.AVRPathManager;
 import de.innot.avreclipse.core.paths.IPathProvider;
 import de.innot.avreclipse.core.properties.AVRProjectProperties;
 import de.innot.avreclipse.core.properties.ProjectPropertyManager;
@@ -125,7 +123,7 @@ public enum BuildVariableValues {
 				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_VID);
 				if ((value != null)
 						&& !value.isEmpty()) {
-					return "\"Arduino\"";
+					return "Arduino";
 				}
 			}
 			return "";
@@ -143,7 +141,14 @@ public enum BuildVariableValues {
 			}
 			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
 			if (prefs != null) {
-				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
+				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
+				if (value.charAt(0) == '"') {
+					value = value.substring(1);
+				}
+				if (value.charAt(value.length() - 1) == '"') {
+					value = value.substring(0, value.length() - 1);
+				}
+				return value;
 			}
 			return "";
 		}
