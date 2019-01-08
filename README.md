@@ -1,5 +1,18 @@
 # avr-eclipse-fork
 A fork of avr-eclipse.
+This fork adds basic support of Arduino boards based on AVR chips (ATmega168, ATmega328, ATmega2560, ATmega32U4, etc). In this release not all features implemented.
+
+# Installation
+Requires Eclipse with preinstalled CDT (https://www.eclipse.org/cdt/) features.
+
+Update site [https://raw.githubusercontent.com/alexug/avr-eclipse-fork/updatesite/](https://raw.githubusercontent.com/alexug/avr-eclipse-fork/updatesite/).
+
+# Usage
+For enabling Arduino support there must be configured 'Arduino Path' preference in AVR preference page (Window -> Preferences -> AVR -> Paths).
+'Arduino Path' preference must point to directory with Arduino sources, which can be obtained from https://github.com/arduino/ArduinoCore-avr.
+
+# Original description
+(from https://github.com/mnlipp/avr-eclipse-fork)
 
 This fork currently merges in its master the master from avr-eclipse as you find it on SourceForge
 with branch R2.4.2 of the project on SourceForge (master hasn't been updated there). You could say 
