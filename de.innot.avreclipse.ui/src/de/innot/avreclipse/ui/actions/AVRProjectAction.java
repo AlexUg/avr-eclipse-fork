@@ -86,7 +86,7 @@ public abstract class AVRProjectAction extends ActionDelegate {
 		if (selection instanceof IStructuredSelection) {
 			Object selObj = ((IStructuredSelection) selection).getFirstElement();
 			if (selObj instanceof IAdaptable) {
-				IResource resource = ((IAdaptable) selObj).getAdapter(IResource.class);
+				IResource resource = (IResource) ((IAdaptable) selObj).getAdapter(IResource.class);
 				if (resource != null) {
 					result = resource.getProject();
 				}
@@ -97,7 +97,7 @@ public abstract class AVRProjectAction extends ActionDelegate {
 			if (part != null) {
 				IEditorInput editorInput = ((IEditorPart) part).getEditorInput();
 				if (editorInput != null) {
-					IResource resource = editorInput.getAdapter(IResource.class);
+					IResource resource = (IResource) editorInput.getAdapter(IResource.class);
 					if (resource != null) {
 						result = resource.getProject();
 					}
