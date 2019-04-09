@@ -2,12 +2,12 @@
 <?metadataRepository version='1.2.0'?>
 <repository name='AVR Eclipse Generate p2 Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1546875482008'/>
+    <property name='p2.timestamp' value='1554810546558'/>
     <property name='p2.compressed' value='true'/>
   </properties>
   <units size='13'>
-    <unit id='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta' generation='2'>
-      <update id='de.innot.avreclipse.core' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta' generation='2'>
+      <update id='de.innot.avreclipse.core' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
       <properties size='8'>
         <property name='df_LT.pluginName' value='AVR Eclipse Plugin Core'/>
         <property name='df_LT.providerName' value='avr-eclipse'/>
@@ -19,8 +19,8 @@
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='24'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
         <provided namespace='java.package' name='de.innot.avreclipse' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.core' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
@@ -40,7 +40,7 @@
         <provided namespace='java.package' name='de.innot.avreclipse.devicedescription.avrio' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.util' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta'>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'>
           <properties size='1'>
             <property name='type' value='osgi.bundle'/>
           </properties>
@@ -63,75 +63,19 @@
         <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
       </requires>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core;singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta
+            Bundle-SymbolicName: de.innot.avreclipse.core;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.feature.group' version='2.5.2.20190107-1537-beta' singleton='false'>
-      <update id='de.innot.avreclipse.feature.group' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
-      <properties size='12'>
-        <property name='org.eclipse.equinox.p2.name' value='%featureName'/>
-        <property name='org.eclipse.equinox.p2.description' value='%description'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='df_LT.license' value='Eclipse Public License - v 1.0&#xA;&#xA;THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE&#xA;PUBLIC LICENSE (&quot;AGREEMENT&quot;). ANY USE, REPRODUCTION OR&#xA;DISTRIBUTION OF THE PROGRAM CONSTITUTES RECIPIENT&apos;S ACCEPTANCE OF THIS&#xA;AGREEMENT.&#xA;&#xA;1. DEFINITIONS&#xA;&#xA;&quot;Contribution&quot; means:&#xA;&#xA;a) in the case of the initial Contributor, the initial&#xA;code and documentation distributed under this Agreement, and&#xA;&#xA;b) in the case of each subsequent Contributor:&#xA;i) changes to the Program, and&#xA;ii) additions to the Program;&#xA;where such changes and/or additions to the Program&#xA;originate from and are distributed by that particular Contributor. A&#xA;Contribution &apos;originates&apos; from a Contributor if it was added to the&#xA;Program by such Contributor itself or anyone acting on such&#xA;Contributor&apos;s behalf. Contributions do not include additions to the&#xA;Program which: (i) are separate modules of software distributed in&#xA;conjunction with the Program under their own license agreement, and (ii)&#xA;are not derivative works of the Program.&#xA;&#xA;&quot;Contributor&quot; means any person or entity that distributes the Program.&#xA;&#xA;&quot;Licensed Patents&quot; mean patent claims licensable by a&#xA;Contributor which are necessarily infringed by the use or sale of its&#xA;Contribution alone or when combined with the Program.&#xA;&#xA;&quot;Program&quot; means the Contributions distributed in accordance with this Agreement.&#xA;&#xA;&quot;Recipient&quot; means anyone who receives the Program under&#xA;this Agreement, including all Contributors.&#xA;&#xA;2. GRANT OF RIGHTS&#xA;&#xA;a) Subject to the terms of this Agreement, each&#xA;Contributor hereby grants Recipient a non-exclusive, worldwide,&#xA;royalty-free copyright license to reproduce, prepare derivative works&#xA;of, publicly display, publicly perform, distribute and sublicense the&#xA;Contribution of such Contributor, if any, and such derivative works, in&#xA;source code and object code form.&#xA;&#xA;b) Subject to the terms of this Agreement, each&#xA;Contributor hereby grants Recipient a non-exclusive, worldwide,&#xA;royalty-free patent license under Licensed Patents to make, use, sell,&#xA;offer to sell, import and otherwise transfer the Contribution of such&#xA;Contributor, if any, in source code and object code form. This patent&#xA;license shall apply to the combination of the Contribution and the&#xA;Program if, at the time the Contribution is added by the Contributor,&#xA;such addition of the Contribution causes such combination to be covered&#xA;by the Licensed Patents. The patent license shall not apply to any other&#xA;combinations which include the Contribution. No hardware per se is&#xA;licensed hereunder.&#xA;&#xA;c) Recipient understands that although each Contributor&#xA;grants the licenses to its Contributions set forth herein, no assurances&#xA;are provided by any Contributor that the Program does not infringe the&#xA;patent or other intellectual property rights of any other entity. Each&#xA;Contributor disclaims any liability to Recipient for claims brought by&#xA;any other entity based on infringement of intellectual property rights&#xA;or otherwise. As a condition to exercising the rights and licenses&#xA;granted hereunder, each Recipient hereby assumes sole responsibility to&#xA;secure any other intellectual property rights needed, if any. For&#xA;example, if a third party patent license is required to allow Recipient&#xA;to distribute the Program, it is Recipient&apos;s responsibility to acquire&#xA;that license before distributing the Program.&#xA;&#xA;d) Each Contributor represents that to its knowledge it&#xA;has sufficient copyright rights in its Contribution, if any, to grant&#xA;the copyright license set forth in this Agreement.&#xA;&#xA;3. REQUIREMENTS&#xA;&#xA;A Contributor may choose to distribute the Program in object code&#xA;form under its own license agreement, provided that:&#xA;&#xA;a) it complies with the terms and conditions of this Agreement; and&#xA;&#xA;b) its license agreement:&#xA;&#xA;i) effectively disclaims on behalf of all Contributors&#xA;all warranties and conditions, express and implied, including warranties&#xA;or conditions of title and non-infringement, and implied warranties or&#xA;conditions of merchantability and fitness for a particular purpose;&#xA;&#xA;ii) effectively excludes on behalf of all Contributors&#xA;all liability for damages, including direct, indirect, special,&#xA;incidental and consequential damages, such as lost profits;&#xA;&#xA;iii) states that any provisions which differ from this&#xA;Agreement are offered by that Contributor alone and not by any other&#xA;party; and&#xA;&#xA;iv) states that source code for the Program is available&#xA;from such Contributor, and informs licensees how to obtain it in a&#xA;reasonable manner on or through a medium customarily used for software&#xA;exchange.&#xA;&#xA;When the Program is made available in source code form:&#xA;&#xA;a) it must be made available under this Agreement; and&#xA;&#xA;b) a copy of this Agreement must be included with each&#xA;copy of the Program.&#xA;&#xA;Contributors may not remove or alter any copyright notices contained&#xA;within the Program.&#xA;&#xA;Each Contributor must identify itself as the originator of its&#xA;Contribution, if any, in a manner that reasonably allows subsequent&#xA;Recipients to identify the originator of the Contribution.&#xA;&#xA;4. COMMERCIAL DISTRIBUTION&#xA;&#xA;Commercial distributors of software may accept certain&#xA;responsibilities with respect to end users, business partners and the&#xA;like. While this license is intended to facilitate the commercial use of&#xA;the Program, the Contributor who includes the Program in a commercial&#xA;product offering should do so in a manner which does not create&#xA;potential liability for other Contributors. Therefore, if a Contributor&#xA;includes the Program in a commercial product offering, such Contributor&#xA;(&quot;Commercial Contributor&quot;) hereby agrees to defend and&#xA;indemnify every other Contributor (&quot;Indemnified Contributor&quot;)&#xA;against any losses, damages and costs (collectively &quot;Losses&quot;)&#xA;arising from claims, lawsuits and other legal actions brought by a third&#xA;party against the Indemnified Contributor to the extent caused by the&#xA;acts or omissions of such Commercial Contributor in connection with its&#xA;distribution of the Program in a commercial product offering. The&#xA;obligations in this section do not apply to any claims or Losses&#xA;relating to any actual or alleged intellectual property infringement. In&#xA;order to qualify, an Indemnified Contributor must: a) promptly notify&#xA;the Commercial Contributor in writing of such claim, and b) allow the&#xA;Commercial Contributor to control, and cooperate with the Commercial&#xA;Contributor in, the defense and any related settlement negotiations. The&#xA;Indemnified Contributor may participate in any such claim at its own&#xA;expense.&#xA;&#xA;For example, a Contributor might include the Program in a commercial&#xA;product offering, Product X. That Contributor is then a Commercial&#xA;Contributor. If that Commercial Contributor then makes performance&#xA;claims, or offers warranties related to Product X, those performance&#xA;claims and warranties are such Commercial Contributor&apos;s responsibility&#xA;alone. Under this section, the Commercial Contributor would have to&#xA;defend claims against the other Contributors related to those&#xA;performance claims and warranties, and if a court requires any other&#xA;Contributor to pay any damages as a result, the Commercial Contributor&#xA;must pay those damages.&#xA;&#xA;5. NO WARRANTY&#xA;&#xA;EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS&#xA;PROVIDED ON AN &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS&#xA;OF ANY KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION,&#xA;ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY&#xA;OR FITNESS FOR A PARTICULAR PURPOSE. Each Recipient is solely&#xA;responsible for determining the appropriateness of using and&#xA;distributing the Program and assumes all risks associated with its&#xA;exercise of rights under this Agreement , including but not limited to&#xA;the risks and costs of program errors, compliance with applicable laws,&#xA;damage to or loss of data, programs or equipment, and unavailability or&#xA;interruption of operations.&#xA;&#xA;6. DISCLAIMER OF LIABILITY&#xA;&#xA;EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT&#xA;NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT,&#xA;INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING&#xA;WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF&#xA;LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING&#xA;NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR&#xA;DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED&#xA;HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.&#xA;&#xA;7. GENERAL&#xA;&#xA;If any provision of this Agreement is invalid or unenforceable under&#xA;applicable law, it shall not affect the validity or enforceability of&#xA;the remainder of the terms of this Agreement, and without further action&#xA;by the parties hereto, such provision shall be reformed to the minimum&#xA;extent necessary to make such provision valid and enforceable.&#xA;&#xA;If Recipient institutes patent litigation against any entity&#xA;(including a cross-claim or counterclaim in a lawsuit) alleging that the&#xA;Program itself (excluding combinations of the Program with other&#xA;software or hardware) infringes such Recipient&apos;s patent(s), then such&#xA;Recipient&apos;s rights granted under Section 2(b) shall terminate as of the&#xA;date such litigation is filed.&#xA;&#xA;All Recipient&apos;s rights under this Agreement shall terminate if it&#xA;fails to comply with any of the material terms or conditions of this&#xA;Agreement and does not cure such failure in a reasonable period of time&#xA;after becoming aware of such noncompliance. If all Recipient&apos;s rights&#xA;under this Agreement terminate, Recipient agrees to cease use and&#xA;distribution of the Program as soon as reasonably practicable. However,&#xA;Recipient&apos;s obligations under this Agreement and any licenses granted by&#xA;Recipient relating to the Program shall continue and survive.&#xA;&#xA;Everyone is permitted to copy and distribute copies of this&#xA;Agreement, but in order to avoid inconsistency the Agreement is&#xA;copyrighted and may only be modified in the following manner. The&#xA;Agreement Steward reserves the right to publish new versions (including&#xA;revisions) of this Agreement from time to time. No one other than the&#xA;Agreement Steward has the right to modify this Agreement. The Eclipse&#xA;Foundation is the initial Agreement Steward. The Eclipse Foundation may&#xA;assign the responsibility to serve as the Agreement Steward to a&#xA;suitable separate entity. Each new version of the Agreement will be&#xA;given a distinguishing version number. The Program (including&#xA;Contributions) may always be distributed subject to the version of the&#xA;Agreement under which it was received. In addition, after a new version&#xA;of the Agreement is published, Contributor may elect to distribute the&#xA;Program (including its Contributions) under the new version. Except as&#xA;expressly stated in Sections 2(a) and 2(b) above, Recipient receives no&#xA;rights or licenses to the intellectual property of any Contributor under&#xA;this Agreement, whether expressly, by implication, estoppel or&#xA;otherwise. All rights in the Program not expressly granted under this&#xA;Agreement are reserved.&#xA;&#xA;This Agreement is governed by the laws of the State of New York and&#xA;the intellectual property laws of the United States of America. No party&#xA;to this Agreement will bring a legal action under this Agreement more&#xA;than one year after the cause of action arose. Each party waives its&#xA;rights to a jury trial in any resulting litigation.'/>
-        <property name='df_LT.copyright' value='Copyright (c) 2008-2011 Thomas Holland.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html.'/>
-        <property name='df_LT.featureName' value='AVR Eclipse Core Plugins'/>
-        <property name='df_LT.description' value='The AVR Plugin is an extension to the C/C++ Development Toolkit to&#xA;support development for the Atmel AVR series of embedded processors. This feature includes the core plugins for creating a project and controlling the MCU using avrdude.'/>
-        <property name='df_LT.providerName' value='avr-eclipse.sourceforge.net'/>
-      </properties>
-      <provides size='2'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
-      </provides>
-      <requires size='16'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.core' range='4.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.managedbuilder.ui' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.ui' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.ide' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.filesystem' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'>
-          <filter>
-            (&amp;(osgi.arch=x86_64)(osgi.os=linux)(osgi.ws=gtk))
-          </filter>
-        </required>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'>
-          <filter>
-            (org.eclipse.update.install.features=true)
-          </filter>
-        </required>
-      </requires>
-      <touchpoint id='null' version='0.0.0'/>
-      <licenses size='1'>
-        <license uri='http://www.eclipse.org/legal/epl-v10.html' url='http://www.eclipse.org/legal/epl-v10.html'>
-          %license
-        </license>
-      </licenses>
-      <copyright>
-        %copyright
-      </copyright>
-    </unit>
-    <unit id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190107-1537-beta' generation='2'>
-      <update id='de.innot.avreclipse.core.managedbuildsystem' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta' generation='2'>
+      <update id='de.innot.avreclipse.core.managedbuildsystem' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
         <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
@@ -140,12 +84,12 @@
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='7'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190107-1537-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
         <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.mbs.converter' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.mbs.scannerconfig' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190107-1537-beta'>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'>
           <properties size='1'>
             <property name='type' value='osgi.bundle'/>
           </properties>
@@ -161,33 +105,33 @@
         <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
       </requires>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190107-1537-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core.managedbuildsystem;singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta
+            Bundle-SymbolicName: de.innot.avreclipse.core.managedbuildsystem;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.root' version='2.5.2.20190107-1537-beta'>
-      <update id='de.innot.avreclipse.root' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'>
+      <update id='de.innot.avreclipse.doc' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
       <properties size='8'>
-        <property name='df_LT.pluginName' value='AVR Eclipse Plugin'/>
+        <property name='df_LT.pluginName' value='AVR Eclipse Plugin User Docs'/>
         <property name='df_LT.providerName' value='avr-eclipse'/>
         <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
         <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
         <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
         <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.doc'/>
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='5'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.root' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.root' version='2.5.2.20190107-1537-beta'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'>
           <properties size='1'>
             <property name='type' value='osgi.bundle'/>
           </properties>
@@ -196,32 +140,119 @@
         <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
       </provides>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190107-1537-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.root; singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta
+            Bundle-SymbolicName: de.innot.avreclipse.doc; singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='20190107-1537-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K353G15C9G2EKoB'>
-      <properties size='3'>
-        <property name='org.eclipse.equinox.p2.name' value='AVR Eclipse Plugin'/>
-        <property name='org.eclipse.equinox.p2.description' value='Plugins for developing C/C++ programs for the Atmel AVR series of embedded microprocessors.'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+    <unit id='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta' generation='2'>
+      <update id='de.innot.avreclipse.ui' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.ui'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='20190107-1537-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K353G15C9G2EKoB'/>
+      <provides size='14'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.actions' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.controls' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.dialogs' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.editors' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.editors.targets' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.preferences' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.propertypages' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.views.avrdevice' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.views.supportedmcu' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.ui.wizards' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
       </provides>
-      <requires size='1'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' range='[2.5.2.20190107-1537-beta,2.5.2.20190107-1537-beta]'/>
+      <requires size='17'>
+        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.filesystem' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.forms' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.console' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.editors' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='4.0.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.make.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' range='0.0.0'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.6))'/>
       </requires>
-      <touchpoint id='null' version='0.0.0'/>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.ui;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
+          </instruction>
+        </instructions>
+      </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.feature.jar' version='2.5.2.20190107-1537-beta'>
+    <unit id='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta' generation='2'>
+      <update id='de.innot.avreclipse.core.linux' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+      </properties>
+      <provides size='7'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.fragment'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='osgi.fragment' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
+      </provides>
+      <requires size='2'>
+        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='[2.5.2,2.5.3)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'/>
+      </requires>
+      <filter>
+        (&amp;(osgi.arch=x86_64)(osgi.os=linux))
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.core.linux;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta&#xA;Fragment-Host: de.innot.avreclipse.core;bundle-version=&quot;[2.5.2,2.5.3)&quot;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='de.innot.avreclipse.feature.jar' version='2.5.2.20190409-1148-beta'>
       <properties size='12'>
         <property name='org.eclipse.equinox.p2.name' value='%featureName'/>
         <property name='org.eclipse.equinox.p2.description' value='%description'/>
@@ -237,15 +268,15 @@
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' version='2.5.2.20190107-1537-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' version='2.5.2.20190409-1148-beta'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-        <provided namespace='org.eclipse.update.feature' name='de.innot.avreclipse' version='2.5.2.20190107-1537-beta'/>
+        <provided namespace='org.eclipse.update.feature' name='de.innot.avreclipse' version='2.5.2.20190409-1148-beta'/>
       </provides>
       <filter>
         (org.eclipse.update.install.features=true)
       </filter>
       <artifacts size='1'>
-        <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190107-1537-beta'/>
+        <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190409-1148-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
@@ -264,40 +295,75 @@
         %copyright
       </copyright>
     </unit>
-    <unit id='de.innot.avreclipse.doc' version='2.5.2.20190107-1537-beta'>
-      <update id='de.innot.avreclipse.doc' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
-      <properties size='8'>
-        <property name='df_LT.pluginName' value='AVR Eclipse Plugin User Docs'/>
-        <property name='df_LT.providerName' value='avr-eclipse'/>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.doc'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+    <unit id='20190409-1148-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A3K155AI2EKoB'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='AVR Eclipse Plugin'/>
+        <property name='org.eclipse.equinox.p2.description' value='Plugins for developing C/C++ programs for the Atmel AVR series of embedded microprocessors.'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
       </properties>
-      <provides size='5'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.doc' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.doc' version='2.5.2.20190107-1537-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='20190409-1148-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A3K155AI2EKoB'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='de.innot.avreclipse.feature.group' version='2.5.2.20190409-1148-beta' singleton='false'>
+      <update id='de.innot.avreclipse.feature.group' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+      <properties size='12'>
+        <property name='org.eclipse.equinox.p2.name' value='%featureName'/>
+        <property name='org.eclipse.equinox.p2.description' value='%description'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='df_LT.license' value='Eclipse Public License - v 1.0&#xA;&#xA;THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE&#xA;PUBLIC LICENSE (&quot;AGREEMENT&quot;). ANY USE, REPRODUCTION OR&#xA;DISTRIBUTION OF THE PROGRAM CONSTITUTES RECIPIENT&apos;S ACCEPTANCE OF THIS&#xA;AGREEMENT.&#xA;&#xA;1. DEFINITIONS&#xA;&#xA;&quot;Contribution&quot; means:&#xA;&#xA;a) in the case of the initial Contributor, the initial&#xA;code and documentation distributed under this Agreement, and&#xA;&#xA;b) in the case of each subsequent Contributor:&#xA;i) changes to the Program, and&#xA;ii) additions to the Program;&#xA;where such changes and/or additions to the Program&#xA;originate from and are distributed by that particular Contributor. A&#xA;Contribution &apos;originates&apos; from a Contributor if it was added to the&#xA;Program by such Contributor itself or anyone acting on such&#xA;Contributor&apos;s behalf. Contributions do not include additions to the&#xA;Program which: (i) are separate modules of software distributed in&#xA;conjunction with the Program under their own license agreement, and (ii)&#xA;are not derivative works of the Program.&#xA;&#xA;&quot;Contributor&quot; means any person or entity that distributes the Program.&#xA;&#xA;&quot;Licensed Patents&quot; mean patent claims licensable by a&#xA;Contributor which are necessarily infringed by the use or sale of its&#xA;Contribution alone or when combined with the Program.&#xA;&#xA;&quot;Program&quot; means the Contributions distributed in accordance with this Agreement.&#xA;&#xA;&quot;Recipient&quot; means anyone who receives the Program under&#xA;this Agreement, including all Contributors.&#xA;&#xA;2. GRANT OF RIGHTS&#xA;&#xA;a) Subject to the terms of this Agreement, each&#xA;Contributor hereby grants Recipient a non-exclusive, worldwide,&#xA;royalty-free copyright license to reproduce, prepare derivative works&#xA;of, publicly display, publicly perform, distribute and sublicense the&#xA;Contribution of such Contributor, if any, and such derivative works, in&#xA;source code and object code form.&#xA;&#xA;b) Subject to the terms of this Agreement, each&#xA;Contributor hereby grants Recipient a non-exclusive, worldwide,&#xA;royalty-free patent license under Licensed Patents to make, use, sell,&#xA;offer to sell, import and otherwise transfer the Contribution of such&#xA;Contributor, if any, in source code and object code form. This patent&#xA;license shall apply to the combination of the Contribution and the&#xA;Program if, at the time the Contribution is added by the Contributor,&#xA;such addition of the Contribution causes such combination to be covered&#xA;by the Licensed Patents. The patent license shall not apply to any other&#xA;combinations which include the Contribution. No hardware per se is&#xA;licensed hereunder.&#xA;&#xA;c) Recipient understands that although each Contributor&#xA;grants the licenses to its Contributions set forth herein, no assurances&#xA;are provided by any Contributor that the Program does not infringe the&#xA;patent or other intellectual property rights of any other entity. Each&#xA;Contributor disclaims any liability to Recipient for claims brought by&#xA;any other entity based on infringement of intellectual property rights&#xA;or otherwise. As a condition to exercising the rights and licenses&#xA;granted hereunder, each Recipient hereby assumes sole responsibility to&#xA;secure any other intellectual property rights needed, if any. For&#xA;example, if a third party patent license is required to allow Recipient&#xA;to distribute the Program, it is Recipient&apos;s responsibility to acquire&#xA;that license before distributing the Program.&#xA;&#xA;d) Each Contributor represents that to its knowledge it&#xA;has sufficient copyright rights in its Contribution, if any, to grant&#xA;the copyright license set forth in this Agreement.&#xA;&#xA;3. REQUIREMENTS&#xA;&#xA;A Contributor may choose to distribute the Program in object code&#xA;form under its own license agreement, provided that:&#xA;&#xA;a) it complies with the terms and conditions of this Agreement; and&#xA;&#xA;b) its license agreement:&#xA;&#xA;i) effectively disclaims on behalf of all Contributors&#xA;all warranties and conditions, express and implied, including warranties&#xA;or conditions of title and non-infringement, and implied warranties or&#xA;conditions of merchantability and fitness for a particular purpose;&#xA;&#xA;ii) effectively excludes on behalf of all Contributors&#xA;all liability for damages, including direct, indirect, special,&#xA;incidental and consequential damages, such as lost profits;&#xA;&#xA;iii) states that any provisions which differ from this&#xA;Agreement are offered by that Contributor alone and not by any other&#xA;party; and&#xA;&#xA;iv) states that source code for the Program is available&#xA;from such Contributor, and informs licensees how to obtain it in a&#xA;reasonable manner on or through a medium customarily used for software&#xA;exchange.&#xA;&#xA;When the Program is made available in source code form:&#xA;&#xA;a) it must be made available under this Agreement; and&#xA;&#xA;b) a copy of this Agreement must be included with each&#xA;copy of the Program.&#xA;&#xA;Contributors may not remove or alter any copyright notices contained&#xA;within the Program.&#xA;&#xA;Each Contributor must identify itself as the originator of its&#xA;Contribution, if any, in a manner that reasonably allows subsequent&#xA;Recipients to identify the originator of the Contribution.&#xA;&#xA;4. COMMERCIAL DISTRIBUTION&#xA;&#xA;Commercial distributors of software may accept certain&#xA;responsibilities with respect to end users, business partners and the&#xA;like. While this license is intended to facilitate the commercial use of&#xA;the Program, the Contributor who includes the Program in a commercial&#xA;product offering should do so in a manner which does not create&#xA;potential liability for other Contributors. Therefore, if a Contributor&#xA;includes the Program in a commercial product offering, such Contributor&#xA;(&quot;Commercial Contributor&quot;) hereby agrees to defend and&#xA;indemnify every other Contributor (&quot;Indemnified Contributor&quot;)&#xA;against any losses, damages and costs (collectively &quot;Losses&quot;)&#xA;arising from claims, lawsuits and other legal actions brought by a third&#xA;party against the Indemnified Contributor to the extent caused by the&#xA;acts or omissions of such Commercial Contributor in connection with its&#xA;distribution of the Program in a commercial product offering. The&#xA;obligations in this section do not apply to any claims or Losses&#xA;relating to any actual or alleged intellectual property infringement. In&#xA;order to qualify, an Indemnified Contributor must: a) promptly notify&#xA;the Commercial Contributor in writing of such claim, and b) allow the&#xA;Commercial Contributor to control, and cooperate with the Commercial&#xA;Contributor in, the defense and any related settlement negotiations. The&#xA;Indemnified Contributor may participate in any such claim at its own&#xA;expense.&#xA;&#xA;For example, a Contributor might include the Program in a commercial&#xA;product offering, Product X. That Contributor is then a Commercial&#xA;Contributor. If that Commercial Contributor then makes performance&#xA;claims, or offers warranties related to Product X, those performance&#xA;claims and warranties are such Commercial Contributor&apos;s responsibility&#xA;alone. Under this section, the Commercial Contributor would have to&#xA;defend claims against the other Contributors related to those&#xA;performance claims and warranties, and if a court requires any other&#xA;Contributor to pay any damages as a result, the Commercial Contributor&#xA;must pay those damages.&#xA;&#xA;5. NO WARRANTY&#xA;&#xA;EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS&#xA;PROVIDED ON AN &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS&#xA;OF ANY KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION,&#xA;ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY&#xA;OR FITNESS FOR A PARTICULAR PURPOSE. Each Recipient is solely&#xA;responsible for determining the appropriateness of using and&#xA;distributing the Program and assumes all risks associated with its&#xA;exercise of rights under this Agreement , including but not limited to&#xA;the risks and costs of program errors, compliance with applicable laws,&#xA;damage to or loss of data, programs or equipment, and unavailability or&#xA;interruption of operations.&#xA;&#xA;6. DISCLAIMER OF LIABILITY&#xA;&#xA;EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT&#xA;NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT,&#xA;INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING&#xA;WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF&#xA;LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING&#xA;NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR&#xA;DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED&#xA;HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.&#xA;&#xA;7. GENERAL&#xA;&#xA;If any provision of this Agreement is invalid or unenforceable under&#xA;applicable law, it shall not affect the validity or enforceability of&#xA;the remainder of the terms of this Agreement, and without further action&#xA;by the parties hereto, such provision shall be reformed to the minimum&#xA;extent necessary to make such provision valid and enforceable.&#xA;&#xA;If Recipient institutes patent litigation against any entity&#xA;(including a cross-claim or counterclaim in a lawsuit) alleging that the&#xA;Program itself (excluding combinations of the Program with other&#xA;software or hardware) infringes such Recipient&apos;s patent(s), then such&#xA;Recipient&apos;s rights granted under Section 2(b) shall terminate as of the&#xA;date such litigation is filed.&#xA;&#xA;All Recipient&apos;s rights under this Agreement shall terminate if it&#xA;fails to comply with any of the material terms or conditions of this&#xA;Agreement and does not cure such failure in a reasonable period of time&#xA;after becoming aware of such noncompliance. If all Recipient&apos;s rights&#xA;under this Agreement terminate, Recipient agrees to cease use and&#xA;distribution of the Program as soon as reasonably practicable. However,&#xA;Recipient&apos;s obligations under this Agreement and any licenses granted by&#xA;Recipient relating to the Program shall continue and survive.&#xA;&#xA;Everyone is permitted to copy and distribute copies of this&#xA;Agreement, but in order to avoid inconsistency the Agreement is&#xA;copyrighted and may only be modified in the following manner. The&#xA;Agreement Steward reserves the right to publish new versions (including&#xA;revisions) of this Agreement from time to time. No one other than the&#xA;Agreement Steward has the right to modify this Agreement. The Eclipse&#xA;Foundation is the initial Agreement Steward. The Eclipse Foundation may&#xA;assign the responsibility to serve as the Agreement Steward to a&#xA;suitable separate entity. Each new version of the Agreement will be&#xA;given a distinguishing version number. The Program (including&#xA;Contributions) may always be distributed subject to the version of the&#xA;Agreement under which it was received. In addition, after a new version&#xA;of the Agreement is published, Contributor may elect to distribute the&#xA;Program (including its Contributions) under the new version. Except as&#xA;expressly stated in Sections 2(a) and 2(b) above, Recipient receives no&#xA;rights or licenses to the intellectual property of any Contributor under&#xA;this Agreement, whether expressly, by implication, estoppel or&#xA;otherwise. All rights in the Program not expressly granted under this&#xA;Agreement are reserved.&#xA;&#xA;This Agreement is governed by the laws of the State of New York and&#xA;the intellectual property laws of the United States of America. No party&#xA;to this Agreement will bring a legal action under this Agreement more&#xA;than one year after the cause of action arose. Each party waives its&#xA;rights to a jury trial in any resulting litigation.'/>
+        <property name='df_LT.copyright' value='Copyright (c) 2008-2011 Thomas Holland.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html.'/>
+        <property name='df_LT.featureName' value='AVR Eclipse Core Plugins'/>
+        <property name='df_LT.description' value='The AVR Plugin is an extension to the C/C++ Development Toolkit to&#xA;support development for the Atmel AVR series of embedded processors. This feature includes the core plugins for creating a project and controlling the MCU using avrdude.'/>
+        <property name='df_LT.providerName' value='avr-eclipse.sourceforge.net'/>
+      </properties>
+      <provides size='2'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' version='2.5.2.20190409-1148-beta'/>
         <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
       </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190107-1537-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.doc; singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta
-          </instruction>
-        </instructions>
-      </touchpointData>
+      <requires size='16'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.core' range='4.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.managedbuilder.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.cdt.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.filesystem' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'>
+          <filter>
+            (&amp;(osgi.arch=x86_64)(osgi.os=linux)(osgi.ws=gtk))
+          </filter>
+        </required>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license uri='http://www.eclipse.org/legal/epl-v10.html' url='http://www.eclipse.org/legal/epl-v10.html'>
+          %license
+        </license>
+      </licenses>
+      <copyright>
+        %copyright
+      </copyright>
     </unit>
     <unit id='a.jre.javase' version='10.0.0' singleton='false'>
       <provides size='252'>
@@ -766,43 +832,37 @@
       </provides>
       <touchpoint id='org.eclipse.equinox.p2.native' version='1.0.0'/>
     </unit>
-    <unit id='de.innot.avreclipse.core.linux' version='2.5.2.20190107-1537-beta' generation='2'>
-      <update id='de.innot.avreclipse.core.linux' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
-      <properties size='5'>
+    <unit id='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'>
+      <update id='de.innot.avreclipse.root' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+      <properties size='8'>
+        <property name='df_LT.pluginName' value='AVR Eclipse Plugin'/>
+        <property name='df_LT.providerName' value='avr-eclipse'/>
         <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
         <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
         <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
-      <provides size='7'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.linux' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.linux' version='2.5.2.20190107-1537-beta'>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'>
           <properties size='1'>
-            <property name='type' value='osgi.fragment'/>
+            <property name='type' value='osgi.bundle'/>
           </properties>
         </provided>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='osgi.fragment' name='de.innot.avreclipse.core' version='2.5.2.20190107-1537-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
       </provides>
-      <requires size='2'>
-        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='[2.5.2,2.5.3)'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'/>
-      </requires>
-      <filter>
-        (&amp;(osgi.arch=x86_64)(osgi.os=linux))
-      </filter>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190107-1537-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core.linux;singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta&#xA;Fragment-Host: de.innot.avreclipse.core;bundle-version=&quot;[2.5.2,2.5.3)&quot;
+            Bundle-SymbolicName: de.innot.avreclipse.root; singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
           </instruction>
         </instructions>
       </touchpointData>
@@ -847,66 +907,6 @@
         <instructions size='1'>
           <instruction key='install'>
 
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='de.innot.avreclipse.ui' version='2.5.2.20190107-1537-beta' generation='2'>
-      <update id='de.innot.avreclipse.ui' range='[0.0.0,2.5.2.20190107-1537-beta)' severity='0'/>
-      <properties size='5'>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.ui'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-      </properties>
-      <provides size='14'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.ui' version='2.5.2.20190107-1537-beta'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.actions' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.controls' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.dialogs' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.editors' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.editors.targets' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.preferences' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.propertypages' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.views.avrdevice' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.views.supportedmcu' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.ui.wizards' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.ui' version='2.5.2.20190107-1537-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <requires size='17'>
-        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.filesystem' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.forms' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.console' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.editors' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='4.0.1'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.make.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' range='0.0.0'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.6))'/>
-      </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190107-1537-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.ui;singleton:=true&#xA;Bundle-Version: 2.5.2.20190107-1537-beta
           </instruction>
         </instructions>
       </touchpointData>
