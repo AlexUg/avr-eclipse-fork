@@ -12,6 +12,7 @@ package de.innot.avreclipse.ui.actions;
 
 import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -55,8 +56,9 @@ public class FixIncludesAction extends AVRProjectAction implements IWorkbenchWin
 	public void run(IAction action) {
 
 		// Check that we have a AVR Project
+		IProject project = getProject();
 		try {
-			if (getProject() == null || !getProject().hasNature("de.innot.avreclipse.core.avrnature")) {
+			if (project == null || !project.hasNature("de.innot.avreclipse.core.avrnature")) {
 				MessageDialog.openError(getShell(), TITLE_FIX_INCLUDES, MSG_NOPROJECT);
 				return;
 			}
@@ -67,9 +69,9 @@ public class FixIncludesAction extends AVRProjectAction implements IWorkbenchWin
 		}
 		
 		try {
-			ICProjectDescription pDesc = CoreModel.getDefault().getProjectDescription(getProject(), false);
+			ICProjectDescription pDesc = CoreModel.getDefault().getProjectDescription(project, false);
 			ProjectConfigurator.fixIncludes(pDesc);
-			CoreModel.getDefault().setProjectDescription(getProject(), pDesc);
+			CoreModel.getDefault().setProjectDescription(project, pDesc);
 		} catch (CoreException ex) {
 			ErrorDialog.openError(getShell(), "AVR Project link sources", null, ex.getStatus());
 		}
