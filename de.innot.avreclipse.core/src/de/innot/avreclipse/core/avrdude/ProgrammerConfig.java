@@ -30,6 +30,8 @@ import org.osgi.service.prefs.Preferences;
  * 
  */
 public class ProgrammerConfig {
+	
+	private final boolean fDerived;
 
 	/** The unique identifier for this configuration */
 	private final String		fId;
@@ -124,6 +126,30 @@ public class ProgrammerConfig {
 	 *            Unique id of the configuration.
 	 */
 	public ProgrammerConfig(String id) {
+		this(false, id);
+	}
+
+	/**
+	 * Constructs a ProgrammerConfig with the given id and load its values from the given
+	 * <code>Preferences</code>.
+	 * 
+	 * @param id
+	 *            Unique id of the configuration.
+	 * @param prefs
+	 *            <code>Preferences</code> node from which to load.
+	 */
+	public ProgrammerConfig(String id, Preferences prefs) {
+		this(false, id, prefs);
+	}
+	
+	/**
+	 * Constructs a ProgrammerConfig with the given id and set the default values.
+	 * 
+	 * @param id
+	 *            Unique id of the configuration.
+	 */
+	public ProgrammerConfig(boolean derived, String id) {
+		fDerived = derived;
 		fId = id;
 		fDirty = false;
 		defaults();
@@ -138,7 +164,8 @@ public class ProgrammerConfig {
 	 * @param prefs
 	 *            <code>Preferences</code> node from which to load.
 	 */
-	public ProgrammerConfig(String id, Preferences prefs) {
+	public ProgrammerConfig(boolean derived, String id, Preferences prefs) {
+		fDerived = derived;
 		fId = id;
 		fDirty = false;
 		loadFromPrefs(prefs);
@@ -155,6 +182,7 @@ public class ProgrammerConfig {
 	 * @param config
 	 */
 	public ProgrammerConfig(ProgrammerConfig config) {
+		fDerived = config.fDerived;
 		fId = config.fId;
 		loadFromConfig(config);
 	}
@@ -227,6 +255,10 @@ public class ProgrammerConfig {
 			}
 		}
 		return args;
+	}
+
+	public boolean isDerived() {
+		return fDerived;
 	}
 
 	/**

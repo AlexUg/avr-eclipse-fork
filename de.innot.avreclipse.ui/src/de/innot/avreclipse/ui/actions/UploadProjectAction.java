@@ -181,15 +181,14 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 		boolean perconfig = ProjectPropertyManager.getPropertyManager(getProject()).isPerConfig();
 		String source = perconfig ? SOURCE_BUILDCONFIG : SOURCE_PROJECT;
 
+		ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
 		// Check that a Programmer has been selected
-		if (props.getAVRDudeProperties().getProgrammer() == null) {
+		if (config == null) {
 			String message = MessageFormat.format(MSG_NOPROGRAMMER, source);
 			MessageDialog.openError(getShell(), TITLE_UPLOAD, message);
 			return false;
 		}
-		if ((props.getBoardId() != null)
-				&& !props.getBoardId().isEmpty()) {
-			ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
+		if (config.isDerived()) {
 			String port = config.getPort();
 			if ((port != null)
 					&& !port.isEmpty()) {
@@ -432,9 +431,9 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.IWorkbenchWindow)
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
-		// TODO Auto-generated method stub
-
+		System.err.println("Upload init");
 	}
 
 }

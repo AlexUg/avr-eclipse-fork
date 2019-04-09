@@ -21,6 +21,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
@@ -91,6 +92,9 @@ public class LinkSourceFolderAction extends AVRProjectAction implements IWorkben
 	private Shell getShell() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
-
+	
+	@Override
+	public void init(IWorkbenchWindow window) {
+	}
 
 }

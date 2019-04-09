@@ -72,7 +72,4 @@ public abstract class AVRProjectAction extends ActionDelegate {
 		fProject = project;
 	}
 
-	public void init(IWorkbenchWindow window) {
-	}
-
 }

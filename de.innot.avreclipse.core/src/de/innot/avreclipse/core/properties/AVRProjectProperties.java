@@ -13,8 +13,6 @@ package de.innot.avreclipse.core.properties;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.osgi.service.prefs.BackingStoreException;
 
-import de.innot.avreclipse.core.arduino.ProjectConfigurator;
-
 /**
  * Container for all AVR Plugin specific properties of a project.
  * <p>
@@ -146,10 +144,6 @@ public class AVRProjectProperties {
 				|| !fBoardId.equals(boardId)) {
 			fBoardId = boardId;
 			fDirty = true;
-		}
-		if ((fBoardId != null)
-				&& !boardId.isEmpty()) {
-			fAVRDudeProperties.initProgrammerForArduino(ProjectConfigurator.createArduinoProgrammer(fBoardId));
 		}
 	}
 
