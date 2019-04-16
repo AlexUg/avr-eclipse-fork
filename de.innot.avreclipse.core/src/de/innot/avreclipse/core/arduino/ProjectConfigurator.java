@@ -3,8 +3,6 @@ package de.innot.avreclipse.core.arduino;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,7 +21,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 
 import de.innot.avreclipse.AVRPlugin;
@@ -48,6 +45,8 @@ public class ProjectConfigurator {
 	private static final String DEFAULT_SCETCH_NAME		= "scetch.cpp";
 	private static final String DEFAULT_SCETCH_PATH		= "/resources/" + DEFAULT_SCETCH_NAME;
 	
+	
+	public static final String CORE_PREFFIX			= "core_";
 	
 	public static final String CORE_CHECK_FILE			= "Arduino.h";
 	public static final String VARIANT_CHECK_FILE		= "pins_arduino.h";
@@ -83,28 +82,57 @@ public class ProjectConfigurator {
 				folderNameStr = folderPath.lastSegment();
 			}
 			
-			IFolder folder = pDesc.getProject().getFolder(new Path(folderNameStr));
+			IFolder folder = createArduinoSourceFolder(pDesc.getProject(), folderPath, folderNameStr);
 			
-			try {
-				folder.createLink(folderPath, 0, null);
-
-				for (ICConfigurationDescription confDesc : pDesc.getConfigurations()) {
-					IConfiguration cfg = ManagedBuildManager.getConfigurationForDescription(confDesc);
-					for (ITool t : cfg.getToolChain().getTools()) {
-						ITool condidate = t;
-						do {
-							if (AVR_C_COMPILER_TOOL.equals(t.getId())
-									|| AVR_CPP_COMPILER_TOOL.equals(t.getId())) {
-								configureTool(cfg, condidate, folder);
-								break;
+			for (ICConfigurationDescription confDesc : pDesc.getConfigurations()) {
+				IConfiguration cfg = ManagedBuildManager.getConfigurationForDescription(confDesc);
+				for (ITool t : cfg.getToolChain().getTools()) {
+					ITool condidate = t;
+					do {
+						if (AVR_C_COMPILER_TOOL.equals(t.getId())
+								|| AVR_CPP_COMPILER_TOOL.equals(t.getId())) {
+							configureTool(cfg, condidate, folder);
+							break;
+						}
+					} while ((t = t.getSuperClass()) != null);
+				}
+			}
+		}
+	}
+	
+	public static IFolder createArduinoSourceFolder(IProject project, IPath folderPath, String folderNameStr) throws CoreException {
+		try {
+			IFolder folder = project.getFolder(new Path(folderNameStr));
+			if (folder.isAccessible()) {
+				if (folder.isLinked()) {
+					folder.delete(true, null);
+				} else if (!folder.isPhantom()) {
+					if (folderNameStr.startsWith(CORE_PREFFIX)) {
+						int idx = folderNameStr.lastIndexOf('_');
+						if (idx > 0) {
+							try {
+								return createArduinoSourceFolder(project,
+																	folderPath,
+																	folderNameStr.substring(0, idx)
+																		+ '_'
+																		+ String.valueOf(Integer.valueOf(folderNameStr.substring(idx + 1)) + 1));
+							} catch (Exception ex) {
+								idx = 1;
 							}
-						} while ((t = t.getSuperClass()) != null);
+						} else {
+							idx = 1;
+						}
+						return createArduinoSourceFolder(project, folderPath, folderNameStr + '_' + String.valueOf(idx));
+					} else {
+						return createArduinoSourceFolder(project, folderPath, CORE_PREFFIX + folderNameStr);
 					}
 				}
-			} catch (CoreException ex) {
-				AVRPlugin.getDefault().getLog().log(ex.getStatus());
-				throw ex;
 			}
+			folder.createLink(folderPath, 0, null);
+			return folder;
+		} catch (CoreException ex) {
+			AVRPlugin.getDefault().getLog().log(ex.getStatus());
+			throw ex;
 		}
 	}
 	
@@ -156,15 +184,12 @@ public class ProjectConfigurator {
 				IPath variantPath = ardPath.append("variants");
 				variantPath = variantPath.append(boardPreferences.getVariant(boardId));
 				if (variantPath.toFile().isDirectory()) {
-					IFolder variantFolder = getvariantFolder(project);
+					IFolder variantFolder = getVariantFolder(project, variantPath.lastSegment());
 					if ((variantFolder == null)
-							|| !variantPath.lastSegment().equals(variantFolder.getName())) {
-						if (variantFolder != null) {
-							variantFolder.delete(true, null);
-						}
+							|| !checkVariantFolder(variantFolder)) {
 						ProjectConfigurator.linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
-						fixIncludes(pDesc);
 					}
+					fixIncludes(pDesc);
 				} else {
 					throw new CoreException(new Status(IStatus.ERROR,
 														AVRPlugin.PLUGIN_ID,
@@ -221,16 +246,21 @@ public class ProjectConfigurator {
 		}
 	}
 	
-	private static IFolder getvariantFolder(IProject project) throws CoreException {
+	private static IFolder getVariantFolder(IProject project, String expectedVariant) throws CoreException {
+		IFolder result = null;
 		for (IResource rsrc : project.members()) {
 			if (rsrc instanceof IFolder) {
 				IFolder condidate = (IFolder) rsrc;
 				if (condidate.getFile(VARIANT_CHECK_FILE).isAccessible()) {
-					return condidate;
+					if (condidate.getName().equals(expectedVariant)) {
+						result = condidate;
+					} else {
+						condidate.delete(true, null);
+					}
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 	
 	private static boolean configureTool(IConfiguration config, ITool tool, IFolder linkedFolder) {
