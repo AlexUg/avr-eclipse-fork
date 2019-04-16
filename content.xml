@@ -2,157 +2,53 @@
 <?metadataRepository version='1.2.0'?>
 <repository name='AVR Eclipse Generate p2 Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1554810546558'/>
+    <property name='p2.timestamp' value='1555399205901'/>
     <property name='p2.compressed' value='true'/>
   </properties>
   <units size='13'>
-    <unit id='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta' generation='2'>
-      <update id='de.innot.avreclipse.core' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
-      <properties size='8'>
-        <property name='df_LT.pluginName' value='AVR Eclipse Plugin Core'/>
-        <property name='df_LT.providerName' value='avr-eclipse'/>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-      </properties>
-      <provides size='24'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='java.package' name='de.innot.avreclipse' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.avrdude' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.natures' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.paths.win32' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.preferences' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.properties' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.targets' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.targets.tools' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo.fuses' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo.partdescriptionfiles' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.util' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.devicedescription' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.devicedescription.avrio' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.util' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
-      </provides>
-      <requires size='12'>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='4.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.filesystem' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.jface' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.console' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.expressions' range='0.0.0'/>
-        <required namespace='java.package' name='de.innot.avreclipse.core.paths' range='0.0.0'/>
-        <required namespace='java.package' name='org.eclipse.ui.preferences' range='0.0.0'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
-      </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta' generation='2'>
-      <update id='de.innot.avreclipse.core.managedbuildsystem' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta' generation='2'>
+      <update id='de.innot.avreclipse.core.linux' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
         <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
         <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core.managedbuildsystem'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='7'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.mbs.converter' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.mbs.scannerconfig' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta'>
           <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
+            <property name='type' value='osgi.fragment'/>
           </properties>
         </provided>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='osgi.fragment' name='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'/>
       </provides>
-      <requires size='6'>
-        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
+      <requires size='2'>
+        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='[2.5.2,2.5.3)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'/>
       </requires>
+      <filter>
+        (&amp;(osgi.arch=x86_64)(osgi.os=linux))
+      </filter>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190409-1148-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core.managedbuildsystem;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
+            Bundle-SymbolicName: de.innot.avreclipse.core.linux;singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta&#xA;Fragment-Host: de.innot.avreclipse.core;bundle-version=&quot;[2.5.2,2.5.3)&quot;
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'>
-      <update id='de.innot.avreclipse.doc' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
-      <properties size='8'>
-        <property name='df_LT.pluginName' value='AVR Eclipse Plugin User Docs'/>
-        <property name='df_LT.providerName' value='avr-eclipse'/>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.doc'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-      </properties>
-      <provides size='5'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190409-1148-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.doc; singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta' generation='2'>
-      <update id='de.innot.avreclipse.ui' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta' generation='2'>
+      <update id='de.innot.avreclipse.ui' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
         <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
@@ -161,8 +57,8 @@
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='14'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta'/>
         <provided namespace='java.package' name='de.innot.avreclipse.ui.actions' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.ui.controls' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.ui.dialogs' version='0.0.0'/>
@@ -173,7 +69,7 @@
         <provided namespace='java.package' name='de.innot.avreclipse.ui.views.avrdevice' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.ui.views.supportedmcu' version='0.0.0'/>
         <provided namespace='java.package' name='de.innot.avreclipse.ui.wizards' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta'>
           <properties size='1'>
             <property name='type' value='osgi.bundle'/>
           </properties>
@@ -200,59 +96,18 @@
         <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.6))'/>
       </requires>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190409-1148-beta'/>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.ui;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
+            Bundle-SymbolicName: de.innot.avreclipse.ui;singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta' generation='2'>
-      <update id='de.innot.avreclipse.core.linux' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
-      <properties size='5'>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-      </properties>
-      <provides size='7'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
-        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.fragment'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='osgi.fragment' name='de.innot.avreclipse.core' version='2.5.2.20190409-1148-beta'/>
-      </provides>
-      <requires size='2'>
-        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='[2.5.2,2.5.3)'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'/>
-      </requires>
-      <filter>
-        (&amp;(osgi.arch=x86_64)(osgi.os=linux))
-      </filter>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190409-1148-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.core.linux;singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta&#xA;Fragment-Host: de.innot.avreclipse.core;bundle-version=&quot;[2.5.2,2.5.3)&quot;
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='de.innot.avreclipse.feature.jar' version='2.5.2.20190409-1148-beta'>
+    <unit id='de.innot.avreclipse.feature.jar' version='2.5.2.20190416-0719-beta'>
       <properties size='12'>
         <property name='org.eclipse.equinox.p2.name' value='%featureName'/>
         <property name='org.eclipse.equinox.p2.description' value='%description'/>
@@ -268,15 +123,15 @@
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' version='2.5.2.20190416-0719-beta'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-        <provided namespace='org.eclipse.update.feature' name='de.innot.avreclipse' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='org.eclipse.update.feature' name='de.innot.avreclipse' version='2.5.2.20190416-0719-beta'/>
       </provides>
       <filter>
         (org.eclipse.update.install.features=true)
       </filter>
       <artifacts size='1'>
-        <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190409-1148-beta'/>
+        <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190416-0719-beta'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
@@ -295,22 +150,153 @@
         %copyright
       </copyright>
     </unit>
-    <unit id='20190409-1148-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A3K155AI2EKoB'>
-      <properties size='3'>
-        <property name='org.eclipse.equinox.p2.name' value='AVR Eclipse Plugin'/>
-        <property name='org.eclipse.equinox.p2.description' value='Plugins for developing C/C++ programs for the Atmel AVR series of embedded microprocessors.'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+    <unit id='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta' generation='2'>
+      <update id='de.innot.avreclipse.core' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
+      <properties size='8'>
+        <property name='df_LT.pluginName' value='AVR Eclipse Plugin Core'/>
+        <property name='df_LT.providerName' value='avr-eclipse'/>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
       </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='20190409-1148-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A3K155AI2EKoB'/>
+      <provides size='24'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='java.package' name='de.innot.avreclipse' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.arduino' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.avrdude' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.natures' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.paths' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.paths.win32' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.preferences' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.properties' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.targets' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.targets.tools' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo.fuses' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.toolinfo.partdescriptionfiles' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.core.util' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.devicedescription' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.devicedescription.avrio' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.util' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
       </provides>
-      <requires size='1'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
+      <requires size='12'>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='4.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.filesystem' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.console' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.expressions' range='0.0.0'/>
+        <required namespace='java.package' name='de.innot.avreclipse.core.paths' range='0.0.0'/>
+        <required namespace='java.package' name='org.eclipse.ui.preferences' range='0.0.0'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
       </requires>
-      <touchpoint id='null' version='0.0.0'/>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.core;singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta
+          </instruction>
+        </instructions>
+      </touchpointData>
     </unit>
-    <unit id='de.innot.avreclipse.feature.group' version='2.5.2.20190409-1148-beta' singleton='false'>
-      <update id='de.innot.avreclipse.feature.group' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
+    <unit id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta' generation='2'>
+      <update id='de.innot.avreclipse.core.managedbuildsystem' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core.managedbuildsystem'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+      </properties>
+      <provides size='7'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.mbs' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.mbs.converter' version='0.0.0'/>
+        <provided namespace='java.package' name='de.innot.avreclipse.mbs.scannerconfig' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='6'>
+        <required namespace='osgi.bundle' name='de.innot.avreclipse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.managedbuilder.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.cdt.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(|(version=1.6)(version=1.7)))'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.core.managedbuildsystem;singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'>
+      <update id='de.innot.avreclipse.doc' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
+      <properties size='8'>
+        <property name='df_LT.pluginName' value='AVR Eclipse Plugin User Docs'/>
+        <property name='df_LT.providerName' value='avr-eclipse'/>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.doc'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.doc; singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='de.innot.avreclipse.feature.group' version='2.5.2.20190416-0719-beta' singleton='false'>
+      <update id='de.innot.avreclipse.feature.group' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
       <properties size='12'>
         <property name='org.eclipse.equinox.p2.name' value='%featureName'/>
         <property name='org.eclipse.equinox.p2.description' value='%description'/>
@@ -326,7 +312,7 @@
         <property name='df_LT.providerName' value='avr-eclipse.sourceforge.net'/>
       </properties>
       <provides size='2'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' version='2.5.2.20190409-1148-beta'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' version='2.5.2.20190416-0719-beta'/>
         <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
       </provides>
       <requires size='16'>
@@ -339,17 +325,17 @@
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.ide' range='0.0.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.filesystem' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.managedbuildsystem' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.ui' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.doc' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.core.linux' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'>
           <filter>
             (&amp;(osgi.arch=x86_64)(osgi.os=linux)(osgi.ws=gtk))
           </filter>
         </required>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' range='[2.5.2.20190409-1148-beta,2.5.2.20190409-1148-beta]'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.jar' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'>
           <filter>
             (org.eclipse.update.install.features=true)
           </filter>
@@ -832,41 +818,6 @@
       </provides>
       <touchpoint id='org.eclipse.equinox.p2.native' version='1.0.0'/>
     </unit>
-    <unit id='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'>
-      <update id='de.innot.avreclipse.root' range='[0.0.0,2.5.2.20190409-1148-beta)' severity='0'/>
-      <properties size='8'>
-        <property name='df_LT.pluginName' value='AVR Eclipse Plugin'/>
-        <property name='df_LT.providerName' value='avr-eclipse'/>
-        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
-        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
-        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-      </properties>
-      <provides size='5'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.bundle' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
-        <provided namespace='osgi.identity' name='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190409-1148-beta'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.innot.avreclipse.root; singleton:=true&#xA;Bundle-Version: 2.5.2.20190409-1148-beta
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
     <unit id='config.a.jre.javase' version='10.0.0' singleton='false'>
       <hostRequirements size='1'>
         <required namespace='org.eclipse.equinox.p2.iu' name='a.jre.javase' range='10.0.0'/>
@@ -910,6 +861,55 @@
           </instruction>
         </instructions>
       </touchpointData>
+    </unit>
+    <unit id='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'>
+      <update id='de.innot.avreclipse.root' range='[0.0.0,2.5.2.20190416-0719-beta)' severity='0'/>
+      <properties size='8'>
+        <property name='df_LT.pluginName' value='AVR Eclipse Plugin'/>
+        <property name='df_LT.providerName' value='avr-eclipse'/>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.bundle' name='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'/>
+        <provided namespace='osgi.identity' name='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.innot.avreclipse.root; singleton:=true&#xA;Bundle-Version: 2.5.2.20190416-0719-beta
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='20190416-0719-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A5E13G5K2EKoB'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='AVR Eclipse Plugin'/>
+        <property name='org.eclipse.equinox.p2.description' value='Plugins for developing C/C++ programs for the Atmel AVR series of embedded microprocessors.'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='20190416-0719-beta.de.innot.avreclipse' version='1.0.0.4793cCzSvE7735K3A5E13G5K2EKoB'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.innot.avreclipse.feature.group' range='[2.5.2.20190416-0719-beta,2.5.2.20190416-0719-beta]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
     </unit>
   </units>
 </repository>
