@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -121,8 +122,9 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 	public void run(IAction action) {
 
 		// Check that we have a AVR Project
+		IProject project = getProject();
 		try {
-			if (getProject() == null || !getProject().hasNature("de.innot.avreclipse.core.avrnature")) {
+			if (project == null || !project.hasNature("de.innot.avreclipse.core.avrnature")) {
 				MessageDialog.openError(getShell(), TITLE_UPLOAD, MSG_NOPROJECT);
 				return;
 			}
@@ -134,7 +136,7 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 		}
 
 		// Get the active build configuration
-		IManagedBuildInfo bi = ManagedBuildManager.getBuildInfo(getProject());
+		IManagedBuildInfo bi = ManagedBuildManager.getBuildInfo(project);
 		IConfiguration activecfg = bi.getDefaultConfiguration();
 		
 		// Check if project needs to be rebuild (e.g. MCU type changed)
@@ -144,12 +146,12 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 		}
 
 		// Get the avr properties for the active configuration
-		AVRProjectProperties targetprops = ProjectPropertyManager.getPropertyManager(getProject())
+		AVRProjectProperties targetprops = ProjectPropertyManager.getPropertyManager(project)
 				.getActiveProperties();
 
 		// Check if the avrdude properties are valid.
 		// if not the checkProperties() method will display an error message box
-		if (!checkProperties(activecfg, targetprops)) {
+		if (!checkProperties(project, activecfg, targetprops)) {
 			return;
 		}
 
@@ -176,20 +178,19 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 	 *            The current Properties
 	 * @return <code>true</code> if everything is OK.
 	 */
-	private boolean checkProperties(IConfiguration buildcfg, AVRProjectProperties props) {
+	private boolean checkProperties(IProject project, IConfiguration buildcfg, AVRProjectProperties props) {
 
-		boolean perconfig = ProjectPropertyManager.getPropertyManager(getProject()).isPerConfig();
+		boolean perconfig = ProjectPropertyManager.getPropertyManager(project).isPerConfig();
 		String source = perconfig ? SOURCE_BUILDCONFIG : SOURCE_PROJECT;
 
+		ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
 		// Check that a Programmer has been selected
-		if (props.getAVRDudeProperties().getProgrammer() == null) {
+		if (config == null) {
 			String message = MessageFormat.format(MSG_NOPROGRAMMER, source);
 			MessageDialog.openError(getShell(), TITLE_UPLOAD, message);
 			return false;
 		}
-		if ((props.getBoardId() != null)
-				&& !props.getBoardId().isEmpty()) {
-			ProgrammerConfig config = props.getAVRDudeProperties().getProgrammer();
+		if (config.isDerived()) {
 			String port = config.getPort();
 			if ((port != null)
 					&& !port.isEmpty()) {
@@ -432,9 +433,9 @@ public class UploadProjectAction extends AVRProjectAction implements IWorkbenchW
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.IWorkbenchWindow)
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
-		// TODO Auto-generated method stub
-
+		System.err.println("Upload init");
 	}
 
 }

@@ -17,6 +17,7 @@ import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
+import de.innot.avreclipse.core.arduino.ProjectConfigurator;
 import de.innot.avreclipse.core.avrdude.AVRDudeAction;
 import de.innot.avreclipse.core.avrdude.AVRDudeActionFactory;
 import de.innot.avreclipse.core.avrdude.BaseBytesProperties;
@@ -46,9 +47,6 @@ public class AVRDudeProperties {
 
 	/** Reference to the parent properties */
 	private final AVRProjectProperties	fParent;
-
-	/** The currently selected <code>ProgrammerConfig</code> */
-	private ProgrammerConfig			fProgrammer;
 
 	/** ID of the currently selected <code>ProgrammerConfig</code> */
 	private String						fProgrammerId;
@@ -204,7 +202,6 @@ public class AVRDudeProperties {
 		fParent = parent;
 		fPrefs = prefs;
 
-		fProgrammer = source.fProgrammer;
 		fProgrammerId = source.fProgrammerId;
 		fBitclock = source.fBitclock;
 		fBitBangDelay = source.fBitBangDelay;
@@ -244,24 +241,21 @@ public class AVRDudeProperties {
 	}
 
 	public ProgrammerConfig getProgrammer() {
-		if (fProgrammer == null) {
+		if ((fProgrammerId != null)
+				&& !fProgrammerId.isEmpty()) {
 			return ProgrammerConfigManager.getDefault().getConfig(fProgrammerId);
+		} else if ((getParent() != null)
+					&& (getParent().getBoardId() != null)) {
+			return ProjectConfigurator.getArduinoProgrammer(getParent().getBoardId());
 		}
-		return fProgrammer;
+		return null;
 
 	}
 
 	public void setProgrammer(ProgrammerConfig progcfg) {
-		if (!progcfg.equals(fProgrammer)) {
-			fProgrammer = progcfg;
+		if (!progcfg.isDerived()) {
 			fProgrammerId = progcfg.getId();
 			fDirty = false;
-		}
-	}
-	
-	public void initProgrammerForArduino(ProgrammerConfig arduinoConfig) {
-		if (arduinoConfig != null) {
-			fProgrammer = arduinoConfig;
 		}
 	}
 
@@ -272,7 +266,6 @@ public class AVRDudeProperties {
 	public void setProgrammerId(String programmerid) {
 		if (!fProgrammerId.equals(programmerid)) {
 			fProgrammerId = programmerid;
-			fProgrammer = null;
 			fDirty = true;
 		}
 	}
@@ -723,10 +716,6 @@ public class AVRDudeProperties {
 				fPrefs.put(KEY_OTHEROPTIONS, fOtherOptions);
 
 				fPrefs.flush();
-
-				if (fProgrammer != null) {
-					ProgrammerConfigManager.getDefault().saveConfig(fProgrammer);
-				}
 			}
 			fFuseBytes.save();
 			fLockbits.save();

@@ -3,8 +3,10 @@ package de.innot.avreclipse.core.arduino;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
@@ -50,6 +52,8 @@ public class ProjectConfigurator {
 	
 	public static final String CORE_CHECK_FILE			= "Arduino.h";
 	public static final String VARIANT_CHECK_FILE		= "pins_arduino.h";
+	
+	private static final Map<String, ProgrammerConfig> progConfigMap = new HashMap<String, ProgrammerConfig>();
 	
 
 	public static boolean checkCoreFolder(IFolder folder) {
@@ -210,15 +214,29 @@ public class ProjectConfigurator {
 		}
 	}
 	
+	public static ProgrammerConfig getArduinoProgrammer(String boardId) {
+		ProgrammerConfig result = progConfigMap.get(boardId);
+		if (result == null) {
+			result = createArduinoProgrammer(boardId);
+			if (result != null) {
+				progConfigMap.put(boardId, result);
+			}
+		}
+		return result;
+	}
+	
 	public static ProgrammerConfig createArduinoProgrammer(String boardId) {
-		ArduinoBoards boardPreferences = ArduinoBoards.getInstance();
-		if (boardPreferences != null) {
-			ProgrammerConfig result = new ProgrammerConfig(boardId);
-			result.setProgrammer(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_PROTOCOL));
-			result.setBaudrate(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_SPEED));
-			result.setUse1200bpsTouch(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_USE_1200BPS_TOUCH));
-			result.setWaitForUploadPort(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_WAIT_FOR_UPLOAD_PORT));
-			return result;
+		if ((boardId != null)
+				&& !boardId.isEmpty()) {
+			ArduinoBoards boardPreferences = ArduinoBoards.getInstance();
+			if (boardPreferences != null) {
+				ProgrammerConfig result = new ProgrammerConfig(true, boardId);
+				result.setProgrammer(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_PROTOCOL));
+				result.setBaudrate(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_SPEED));
+				result.setUse1200bpsTouch(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_USE_1200BPS_TOUCH));
+				result.setWaitForUploadPort(boardPreferences.getBoardPreference(boardId, MCUBoardPreferences.PREF_UPLOAD_WAIT_FOR_UPLOAD_PORT));
+				return result;
+			}
 		}
 		return null;
 	}

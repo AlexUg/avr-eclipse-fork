@@ -12,6 +12,7 @@ package de.innot.avreclipse.ui.actions;
 
 import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -21,6 +22,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
@@ -55,8 +57,9 @@ public class LinkSourceFolderAction extends AVRProjectAction implements IWorkben
 	public void run(IAction action) {
 
 		// Check that we have a AVR Project
+		IProject project = getProject();
 		try {
-			if (getProject() == null || !getProject().hasNature("de.innot.avreclipse.core.avrnature")) {
+			if (project == null || !project.hasNature("de.innot.avreclipse.core.avrnature")) {
 				MessageDialog.openError(getShell(), TITLE_LINK_FOLDER, MSG_NOPROJECT);
 				return;
 			}
@@ -67,16 +70,16 @@ public class LinkSourceFolderAction extends AVRProjectAction implements IWorkben
 			AVRPlugin.getDefault().log(status);
 		}
 		
-		FolderSelectionDialog dialog = new FolderSelectionDialog(getShell(), getProject());
+		FolderSelectionDialog dialog = new FolderSelectionDialog(getShell(), project);
 		if (dialog.open() == Dialog.OK) {
 			
 			String folderPathStr = dialog.getFolderPath();
 			String folderNameStr = dialog.getFolderName();
 			
 			try {
-				ICProjectDescription pDesc = CoreModel.getDefault().getProjectDescription(getProject(), false);
+				ICProjectDescription pDesc = CoreModel.getDefault().getProjectDescription(project, false);
 				ProjectConfigurator.linkArduinoSourceFolder(pDesc, folderPathStr, folderNameStr);
-				CoreModel.getDefault().setProjectDescription(getProject(), pDesc);
+				CoreModel.getDefault().setProjectDescription(project, pDesc);
 			} catch (CoreException ex) {
 				ErrorDialog.openError(getShell(), "AVR Project link sources", null, ex.getStatus());
 			}
@@ -91,6 +94,9 @@ public class LinkSourceFolderAction extends AVRProjectAction implements IWorkben
 	private Shell getShell() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
-
+	
+	@Override
+	public void init(IWorkbenchWindow window) {
+	}
 
 }

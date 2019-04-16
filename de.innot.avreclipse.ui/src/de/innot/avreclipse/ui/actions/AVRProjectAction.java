@@ -9,7 +9,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionDelegate;
 
 public abstract class AVRProjectAction extends ActionDelegate {
@@ -21,6 +24,10 @@ public abstract class AVRProjectAction extends ActionDelegate {
 	}
 
 	public IProject getProject() {
+		IProject result = tryGetActiveProject();
+		if (result != null) {
+			return result;
+		}
 		return fProject;
 	}
 
@@ -71,8 +78,33 @@ public abstract class AVRProjectAction extends ActionDelegate {
 	
 		fProject = project;
 	}
-
-	public void init(IWorkbenchWindow window) {
+	
+	private IProject tryGetActiveProject() {
+		IProject result = null;
+		IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+		ISelection selection = part.getSite().getSelectionProvider().getSelection();
+		if (selection instanceof IStructuredSelection) {
+			Object selObj = ((IStructuredSelection) selection).getFirstElement();
+			if (selObj instanceof IAdaptable) {
+				IResource resource = (IResource) ((IAdaptable) selObj).getAdapter(IResource.class);
+				if (resource != null) {
+					result = resource.getProject();
+				}
+			}
+		}
+		if (result == null) {
+			part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+			if (part != null) {
+				IEditorInput editorInput = ((IEditorPart) part).getEditorInput();
+				if (editorInput != null) {
+					IResource resource = (IResource) editorInput.getAdapter(IResource.class);
+					if (resource != null) {
+						result = resource.getProject();
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 }
