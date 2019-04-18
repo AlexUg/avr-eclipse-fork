@@ -172,10 +172,12 @@ public class ProjectConfigurator {
 			IPath ardPath = boardPreferences.getArduinoPath();
 			if (ardPath != null) {
 				IPath corePath = ardPath.append("cores/arduino");
+				IFolder coreFolder = project.getFolder(corePath.lastSegment());
 				if (corePath.toFile().isDirectory()) {
-					if (!checkCoreFolder(project.getFolder(corePath.lastSegment()))) {
+					if ((coreFolder == null)
+							|| !checkCoreFolder(coreFolder)) {
 						// Link Arduino core sources
-						ProjectConfigurator.linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
+						linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
 					}
 				} else {
 					throw new CoreException(new Status(IStatus.ERROR,
@@ -187,13 +189,12 @@ public class ProjectConfigurator {
 				}
 				IPath variantPath = ardPath.append("variants");
 				variantPath = variantPath.append(boardPreferences.getVariant(boardId));
+				IFolder variantFolder = getVariantFolder(project, variantPath.lastSegment());
 				if (variantPath.toFile().isDirectory()) {
-					IFolder variantFolder = getVariantFolder(project, variantPath.lastSegment());
 					if ((variantFolder == null)
 							|| !checkVariantFolder(variantFolder)) {
-						ProjectConfigurator.linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
+						linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
 					}
-					fixIncludes(pDesc);
 				} else {
 					throw new CoreException(new Status(IStatus.ERROR,
 														AVRPlugin.PLUGIN_ID,
@@ -202,7 +203,8 @@ public class ProjectConfigurator {
 														)
 											);
 				}
-				ProjectConfigurator.addScetch(project);
+				fixIncludes(pDesc, coreFolder, variantFolder);
+				addScetch(project);
 				project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			} else {
 				throw new CoreException(new Status(IStatus.ERROR,
@@ -248,7 +250,7 @@ public class ProjectConfigurator {
 		return AVRPlugin.getDefault().getArduinoHelper().findArduinoPorts(ArduinoBoards.getInstance(), boardId);
 	}
 	
-	public static void fixIncludes(ICProjectDescription pDesc) {
+	public static void fixIncludes(ICProjectDescription pDesc, IFolder... linkedFolders) {
 		for (ICConfigurationDescription confDesc : pDesc.getConfigurations()) {
 			IConfiguration cfg = ManagedBuildManager.getConfigurationForDescription(confDesc);
 			for (ITool t : cfg.getToolChain().getTools()) {
@@ -256,6 +258,9 @@ public class ProjectConfigurator {
 				do {
 					if (AVR_C_COMPILER_TOOL.equals(t.getId())
 							|| AVR_CPP_COMPILER_TOOL.equals(t.getId())) {
+						if (linkedFolders != null) {
+							configureTool(cfg, condidate, linkedFolders);
+						}
 						configureTool(pDesc.getProject(), cfg, condidate);
 						break;
 					}
@@ -281,7 +286,7 @@ public class ProjectConfigurator {
 		return result;
 	}
 	
-	private static boolean configureTool(IConfiguration config, ITool tool, IFolder linkedFolder) {
+	private static boolean configureTool(IConfiguration config, ITool tool, IFolder... linkedFolders) {
 		for (IOption opt : tool.getOptions()) {
 			IOption condidate = opt;
 			do {
@@ -289,19 +294,19 @@ public class ProjectConfigurator {
 						|| AVR_CPP_INCLUDE_OPTION .equals(opt.getId())) {
 					Object value = condidate.getValue();
 					if (value instanceof List) {
-						String newValue = INC_PATH_PREFIX + linkedFolder.getProjectRelativePath().toPortableString() + "}\"";
-						
-						@SuppressWarnings("unchecked")
-						List<String> listValue = (List<String>) value;
-						for (Object v : listValue) {
-							if (newValue.equals(v)) {
-								return false;
+						for (IFolder linkedFolder : linkedFolders) {
+							String newValue = INC_PATH_PREFIX + linkedFolder.getProjectRelativePath().toPortableString() + "}\"";
+							
+							@SuppressWarnings("unchecked")
+							List<String> listValue = (List<String>) value;
+							if (listValue.contains(newValue)) {
+								continue;
 							}
-						}
-						listValue.add(newValue);
-						try {
-							condidate = config.setOption(tool, condidate, listValue.toArray(new String[listValue.size()]));
-						} catch (BuildException e) {
+							listValue.add(newValue);
+							try {
+								condidate = config.setOption(tool, condidate, listValue.toArray(new String[listValue.size()]));
+							} catch (BuildException e) {
+							}
 						}
 						return true;
 					} else {

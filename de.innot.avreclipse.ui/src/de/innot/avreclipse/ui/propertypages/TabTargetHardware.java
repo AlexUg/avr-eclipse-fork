@@ -11,6 +11,7 @@
 package de.innot.avreclipse.ui.propertypages;
 
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
+import org.eclipse.cdt.core.settings.model.ICResourceDescription;
 import org.eclipse.cdt.ui.newui.CDTPropertyManager;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -103,6 +104,14 @@ public class TabTargetHardware extends AbstractAVRPropertyTab {
 		fMCUControl.updateData(targetProp);
 	}
 
+	@Override
+	protected void performApply(ICResourceDescription src, ICResourceDescription dst) {
+		// TODO Auto-generated method stub
+		super.performApply(src, dst);
+		
+		performBoardConfiguration();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.cdt.ui.newui.AbstractCPropertyTab#performOK()
@@ -118,20 +127,24 @@ public class TabTargetHardware extends AbstractAVRPropertyTab {
 		}
 		super.performOK();
 		
+		performBoardConfiguration();
+	}
+	
+	protected void performBoardConfiguration() {
 		String boardId = fMCUControl.getTargetProperties().getBoardId();
 		if ((boardId != null)
 			&& !boardId.isEmpty()) {
-		try {
-			
-			ICProjectDescription pDesc = CDTPropertyManager.getProjectDescription(getCfg().getOwner().getProject());
-			ProjectConfigurator.configureForArduino(pDesc, boardId);
-			
-		} catch (CoreException ex) {
-
-			ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					"Linking Arduino sources failed", null, ex.getStatus());
+			try {
+				
+				ICProjectDescription pDesc = CDTPropertyManager.getProjectDescription(getCfg().getOwner().getProject());
+				ProjectConfigurator.configureForArduino(pDesc, boardId);
+				
+			} catch (CoreException ex) {
+	
+				ErrorDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						"Linking Arduino sources failed", null, ex.getStatus());
+			}
 		}
-	}
 	}
 
 	/*
