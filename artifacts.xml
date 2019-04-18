@@ -4,7 +4,7 @@
   <properties size='3'>
     <property name='publishPackFilesAsSiblings' value='true'/>
     <property name='p2.compressed' value='true'/>
-    <property name='p2.timestamp' value='1555399205957'/>
+    <property name='p2.timestamp' value='1555596913085'/>
   </properties>
   <mappings size='5'>
     <rule filter='(&amp; (classifier=osgi.bundle) (format=packed))' output='${repoUrl}/plugins/${id}_${version}.jar.pack.gz'/>
@@ -14,89 +14,89 @@
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
   <artifacts size='7'>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190416-0719-beta'>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190418-1414-beta'>
       <properties size='8'>
-        <property name='artifact.size' value='737992'/>
-        <property name='download.size' value='737992'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='8d0a21cdb77cf25a83a93e256aceeb9c'/>
-        <property name='download.checksum.md5' value='8d0a21cdb77cf25a83a93e256aceeb9c'/>
-        <property name='download.checksum.sha-256' value='2f652d9d698fcce60f75bddc6aab374c59cf164a03debb08be33f8c856ed6e5d'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190416-0719-beta'>
-      <properties size='8'>
-        <property name='artifact.size' value='521340'/>
-        <property name='download.size' value='521340'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.ui'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='b343f8c014e1cc09750e25ac60d6625d'/>
-        <property name='download.checksum.md5' value='b343f8c014e1cc09750e25ac60d6625d'/>
-        <property name='download.checksum.sha-256' value='b6dd435cfb877f5abf3a72d0e2ab43df464a2207710de5b264d1d942a4e86dcd'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190416-0719-beta'>
-      <properties size='8'>
-        <property name='artifact.size' value='5370'/>
-        <property name='download.size' value='5370'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='ddb983510d9972cf9be9ff18a6177bf0'/>
-        <property name='download.checksum.md5' value='ddb983510d9972cf9be9ff18a6177bf0'/>
-        <property name='download.checksum.sha-256' value='778c5fc5915fa49cf029508045072126bd71195572402a9eebf47f33b7bea6cf'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190416-0719-beta'>
-      <properties size='8'>
-        <property name='artifact.size' value='35624'/>
-        <property name='download.size' value='35624'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core.managedbuildsystem'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='fec0c6d1c749be70d8ef4da769b1d7a7'/>
-        <property name='download.checksum.md5' value='fec0c6d1c749be70d8ef4da769b1d7a7'/>
-        <property name='download.checksum.sha-256' value='0ff5a68218cd8220d95a56eac55a78ceaca15e4eb1a3297475482452f4eb24a3'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.doc' version='2.5.2.20190416-0719-beta'>
-      <properties size='8'>
-        <property name='artifact.size' value='1137068'/>
-        <property name='download.size' value='1137068'/>
+        <property name='artifact.size' value='1137070'/>
+        <property name='download.size' value='1137070'/>
         <property name='maven-groupId' value='avreclipse'/>
         <property name='maven-artifactId' value='de.innot.avreclipse.doc'/>
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='0c7639eabf2900284684a61e3069b36a'/>
-        <property name='download.checksum.md5' value='0c7639eabf2900284684a61e3069b36a'/>
-        <property name='download.checksum.sha-256' value='4eb44e7779090dcbcc297488c99e78b3b9b5cf68ba292a0938b5c0e71e60b12b'/>
+        <property name='download.md5' value='2e385d457853cf7ba14bb68ebe8d9118'/>
+        <property name='download.checksum.md5' value='2e385d457853cf7ba14bb68ebe8d9118'/>
+        <property name='download.checksum.sha-256' value='400ed92e8d54a4c66fcab62ed5aeb99f648ed44b3e31a721ddaa93067a071e61'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190416-0719-beta'>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190418-1414-beta'>
+      <properties size='8'>
+        <property name='artifact.size' value='631384'/>
+        <property name='download.size' value='631384'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='download.md5' value='d9b3c8f1568df3f0b10f44d08afbcce2'/>
+        <property name='download.checksum.md5' value='d9b3c8f1568df3f0b10f44d08afbcce2'/>
+        <property name='download.checksum.sha-256' value='2b9e3c3b8b891b453fff8fb84e3e704b9f34ecd1ba41a68485cb9a20e9d4d222'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.managedbuildsystem' version='2.5.2.20190418-1414-beta'>
+      <properties size='8'>
+        <property name='artifact.size' value='35627'/>
+        <property name='download.size' value='35627'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core.managedbuildsystem'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='download.md5' value='1c0997225f678972207ec3a007d4babd'/>
+        <property name='download.checksum.md5' value='1c0997225f678972207ec3a007d4babd'/>
+        <property name='download.checksum.sha-256' value='ac6d97d5a3bd8e72e0b9f3a4edf982c8894aedbe3768f21559a6fecd3508df68'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core' version='2.5.2.20190418-1414-beta'>
+      <properties size='8'>
+        <property name='artifact.size' value='738117'/>
+        <property name='download.size' value='738117'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.core'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='download.md5' value='17d8790bd2a68521ca711d00c9009148'/>
+        <property name='download.checksum.md5' value='17d8790bd2a68521ca711d00c9009148'/>
+        <property name='download.checksum.sha-256' value='91d55bd584135899452bb8347b7fdc4951f3269bf09df942032061fd79710ee8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.root' version='2.5.2.20190418-1414-beta'>
+      <properties size='8'>
+        <property name='artifact.size' value='5373'/>
+        <property name='download.size' value='5373'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.root'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='download.md5' value='5a96d92fa9f598deb3aab41b651d97b4'/>
+        <property name='download.checksum.md5' value='5a96d92fa9f598deb3aab41b651d97b4'/>
+        <property name='download.checksum.sha-256' value='83accfb29ae424988823e477889140e16747947d9654e895b339533aae207ea1'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.ui' version='2.5.2.20190418-1414-beta'>
+      <properties size='8'>
+        <property name='artifact.size' value='521490'/>
+        <property name='download.size' value='521490'/>
+        <property name='maven-groupId' value='avreclipse'/>
+        <property name='maven-artifactId' value='de.innot.avreclipse.ui'/>
+        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
+        <property name='download.md5' value='f1aa2f54a758ae03496d451087bef9ac'/>
+        <property name='download.checksum.md5' value='f1aa2f54a758ae03496d451087bef9ac'/>
+        <property name='download.checksum.sha-256' value='06d71f1106077de45cfde040392cd840486c6c5a5c65ffd174204a29b781081d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='de.innot.avreclipse' version='2.5.2.20190418-1414-beta'>
       <properties size='9'>
-        <property name='artifact.size' value='20383'/>
-        <property name='download.size' value='20383'/>
+        <property name='artifact.size' value='20381'/>
+        <property name='download.size' value='20381'/>
         <property name='maven-groupId' value='avreclipse'/>
         <property name='maven-artifactId' value='de.innot.avreclipse'/>
         <property name='maven-version' value='2.5.2-SNAPSHOT'/>
         <property name='download.contentType' value='application/zip'/>
-        <property name='download.md5' value='3a8cdff18545f5d2fb4402ffc0f952bf'/>
-        <property name='download.checksum.md5' value='3a8cdff18545f5d2fb4402ffc0f952bf'/>
-        <property name='download.checksum.sha-256' value='aa9cdedb27ee015d0df00a1025c08234cafcf13d850ed12d8df949d26ad9fa85'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='de.innot.avreclipse.core.linux' version='2.5.2.20190416-0719-beta'>
-      <properties size='8'>
-        <property name='artifact.size' value='631380'/>
-        <property name='download.size' value='631380'/>
-        <property name='maven-groupId' value='avreclipse'/>
-        <property name='maven-artifactId' value='de.innot.avreclipse.core.linux'/>
-        <property name='maven-version' value='2.5.2-SNAPSHOT'/>
-        <property name='download.md5' value='0c3cbf648bc135996e3691b4e2caf45e'/>
-        <property name='download.checksum.md5' value='0c3cbf648bc135996e3691b4e2caf45e'/>
-        <property name='download.checksum.sha-256' value='4d111f9dffd0a7108202d43c290b9ed62490da8e6e85e9b8a8e705c0bdacbb47'/>
+        <property name='download.md5' value='dd15a0f6a6386b77b13ed1c816bd2127'/>
+        <property name='download.checksum.md5' value='dd15a0f6a6386b77b13ed1c816bd2127'/>
+        <property name='download.checksum.sha-256' value='7afa82a4b9aa6b1045f518432239b512ebd1e2c41f83950f637a6d8be3e5142d'/>
       </properties>
     </artifact>
   </artifacts>
