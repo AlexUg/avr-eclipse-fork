@@ -78,7 +78,7 @@ public class ProjectConfigurator {
 		}
 	}
 	
-	public static void linkArduinoSourceFolder(ICProjectDescription pDesc, IPath folderPath, String folderNameStr) throws CoreException {
+	public static IFolder linkArduinoSourceFolder(ICProjectDescription pDesc, IPath folderPath, String folderNameStr) throws CoreException {
 		if (folderPath != null) {
 			
 			if ((folderNameStr == null)
@@ -101,7 +101,11 @@ public class ProjectConfigurator {
 					} while ((t = t.getSuperClass()) != null);
 				}
 			}
+			
+			return folder;
 		}
+		
+		return null;
 	}
 	
 	public static IFolder createArduinoSourceFolder(IProject project, IPath folderPath, String folderNameStr) throws CoreException {
@@ -177,7 +181,7 @@ public class ProjectConfigurator {
 					if ((coreFolder == null)
 							|| !checkCoreFolder(coreFolder)) {
 						// Link Arduino core sources
-						linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
+						coreFolder = linkArduinoSourceFolder(pDesc, corePath, corePath.lastSegment());
 					}
 				} else {
 					throw new CoreException(new Status(IStatus.ERROR,
@@ -193,7 +197,7 @@ public class ProjectConfigurator {
 				if (variantPath.toFile().isDirectory()) {
 					if ((variantFolder == null)
 							|| !checkVariantFolder(variantFolder)) {
-						linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
+						variantFolder = linkArduinoSourceFolder(pDesc, variantPath, variantPath.lastSegment());
 					}
 				} else {
 					throw new CoreException(new Status(IStatus.ERROR,
@@ -203,9 +207,23 @@ public class ProjectConfigurator {
 														)
 											);
 				}
-				fixIncludes(pDesc, coreFolder, variantFolder);
-				addScetch(project);
-				project.refreshLocal(IResource.DEPTH_INFINITE, null);
+				if (coreFolder == null) {
+					throw new CoreException(new Status(IStatus.ERROR,
+														AVRPlugin.PLUGIN_ID,
+														"Arduino core sources isn't linked to project. Check path 'Arduino' in AVR preferences"
+														)
+											);
+				} else if (variantFolder == null) {
+									throw new CoreException(new Status(IStatus.ERROR,
+																		AVRPlugin.PLUGIN_ID,
+																		"Arduino variant sources isn't linked to project. Check path 'Arduino' in AVR preferences"
+																		)
+															);
+				} else {
+					fixIncludes(pDesc, coreFolder, variantFolder);
+					addScetch(project);
+					project.refreshLocal(IResource.DEPTH_INFINITE, null);
+				}
 			} else {
 				throw new CoreException(new Status(IStatus.ERROR,
 													AVRPlugin.PLUGIN_ID,
@@ -295,6 +313,7 @@ public class ProjectConfigurator {
 					Object value = condidate.getValue();
 					if (value instanceof List) {
 						for (IFolder linkedFolder : linkedFolders) {
+
 							String newValue = INC_PATH_PREFIX + linkedFolder.getProjectRelativePath().toPortableString() + "}\"";
 							
 							@SuppressWarnings("unchecked")
