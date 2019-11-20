@@ -210,15 +210,15 @@ public class ProjectConfigurator {
 				if (coreFolder == null) {
 					throw new CoreException(new Status(IStatus.ERROR,
 														AVRPlugin.PLUGIN_ID,
-														"Arduino core sources isn't linked to project. Check path 'Arduino' in AVR preferences"
+														"Arduino core sources wasn't linked to project. Check path 'Arduino' in AVR preferences"
 														)
 											);
 				} else if (variantFolder == null) {
-									throw new CoreException(new Status(IStatus.ERROR,
-																		AVRPlugin.PLUGIN_ID,
-																		"Arduino variant sources isn't linked to project. Check path 'Arduino' in AVR preferences"
-																		)
-															);
+					throw new CoreException(new Status(IStatus.ERROR,
+														AVRPlugin.PLUGIN_ID,
+														"Arduino variant sources wasn't linked to project. Check path 'Arduino' in AVR preferences"
+														)
+											);
 				} else {
 					fixIncludes(pDesc, coreFolder, variantFolder);
 					addScetch(project);
