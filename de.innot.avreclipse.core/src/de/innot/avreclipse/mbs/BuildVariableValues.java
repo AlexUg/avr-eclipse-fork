@@ -12,7 +12,6 @@ package de.innot.avreclipse.mbs;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
@@ -85,7 +84,7 @@ public enum BuildVariableValues {
 					|| props.getBoardId().isEmpty()) {
 				return "";
 			}
-			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			MCUBoardPreferences prefs = ArduinoBoards.getMCUBoardPreferences(props.getBoardId());
 			if (prefs != null) {
 				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_VID);
 			}
@@ -102,7 +101,7 @@ public enum BuildVariableValues {
 					|| props.getBoardId().isEmpty()) {
 				return "";
 			}
-			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			MCUBoardPreferences prefs = ArduinoBoards.getMCUBoardPreferences(props.getBoardId());
 			if (prefs != null) {
 				return prefs.getPreference(MCUBoardPreferences.PREF_BUILD_PID);
 			}
@@ -119,7 +118,7 @@ public enum BuildVariableValues {
 					|| props.getBoardId().isEmpty()) {
 				return "";
 			}
-			MCUBoardPreferences prefs = ArduinoBoards.getInstance().getMCUMap().get(props.getBoardId());
+			MCUBoardPreferences prefs = ArduinoBoards.getMCUBoardPreferences(props.getBoardId());
 			if (prefs != null) {
 				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_VID);
 				if ((value != null)
@@ -140,24 +139,18 @@ public enum BuildVariableValues {
 					|| props.getBoardId().isEmpty()) {
 				return "";
 			}
-			ArduinoBoards boards = ArduinoBoards.getInstance();
-			if (boards != null) {
-				Map<String, MCUBoardPreferences> mcuMap = boards.getMCUMap();
-				if (mcuMap != null) {
-					MCUBoardPreferences prefs = mcuMap.get(props.getBoardId());
-					if (prefs != null) {
-						String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
-						if (value != null) {
-							if (value.charAt(0) == '"') {
-								value = value.substring(1);
-							}
-							if (value.charAt(value.length() - 1) == '"') {
-								value = value.substring(0, value.length() - 1);
-							}
-						}
-						return value;
+			MCUBoardPreferences prefs = ArduinoBoards.getMCUBoardPreferences(props.getBoardId());
+			if (prefs != null) {
+				String value = prefs.getPreference(MCUBoardPreferences.PREF_BUILD_USB_PRODUCT);
+				if (value != null) {
+					if (value.charAt(0) == '"') {
+						value = value.substring(1);
+					}
+					if (value.charAt(value.length() - 1) == '"') {
+						value = value.substring(0, value.length() - 1);
 					}
 				}
+				return value;
 			}
 			return "";
 		}

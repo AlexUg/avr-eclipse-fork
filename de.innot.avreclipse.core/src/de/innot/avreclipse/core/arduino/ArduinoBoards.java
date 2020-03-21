@@ -49,6 +49,17 @@ public class ArduinoBoards {
 		return INSTANCE;
 	}
 	
+	public static MCUBoardPreferences getMCUBoardPreferences(String boardId) {
+		ArduinoBoards boards = ArduinoBoards.getInstance();
+		if (boards != null) {
+			Map<String, MCUBoardPreferences> mcuMap = boards.getMCUMap();
+			if (mcuMap != null) {
+				return mcuMap.get(boardId);
+			}
+		}
+		return null;
+	}
+	
 	public static void reset() {
 		INSTANCE = null;
 	}
